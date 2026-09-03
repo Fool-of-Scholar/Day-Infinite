@@ -1,0 +1,15 @@
+# Godot-specific overrides
+.godot/
+
+# .NET / Visual Studio / VS Code build artifacts
+.vs/
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono / C# compilation artifacts
+*.csproj
+*.sln
