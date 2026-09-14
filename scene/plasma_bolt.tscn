@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bcthhe6knbnbp"]
+
+[ext_resource type="Script" uid="uid://f4grj4s1alxw" path="res://scripts/PlasmaBolt.cs" id="1_6eoln"]
+[ext_resource type="Texture2D" uid="uid://c63rpxql7pvu8" path="res://assets/Thunder5.png" id="2_6eoln"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4qq1"]
+
+[node name="PlasmaBolt" type="Area2D" unique_id=2001901820]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_6eoln")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1746213291]
+texture = ExtResource("2_6eoln")
+hframes = 5
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1981281332]
+shape = SubResource("CircleShape2D_w4qq1")
