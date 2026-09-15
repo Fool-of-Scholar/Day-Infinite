@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bflvxmbljn5tf" path="res://scripts/Movement.cs" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://lkljjv6b3kkb" path="res://Player/Walk.png" id="1_xo3ru"]
 [ext_resource type="Texture2D" uid="uid://bow7emcgb8n4j" path="res://Player/Idle.png" id="3_fvtld"]
+[ext_resource type="Script" uid="uid://co7a2435vsrh0" path="res://scripts/Plasma.cs" id="4_hp4bs"]
+[ext_resource type="PackedScene" uid="uid://bcthhe6knbnbp" path="res://scene/plasma_bolt.tscn" id="5_g2vtq"]
 [ext_resource type="PackedScene" uid="uid://mq1mu6p4tymw" path="res://scene/magnet_area.tscn" id="8_ml7e8"]
 [ext_resource type="PackedScene" uid="uid://barojeaioqx8r" path="res://scene/collection_area.tscn" id="9_ihjo1"]
 
@@ -196,6 +198,9 @@ _data = {
 &"walk_up": SubResource("Animation_s4jxa")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
+radius = 12.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1999530487]
 motion_mode = 1
 script = ExtResource("1_hjaqi")
@@ -220,9 +225,23 @@ vframes = 3
 [node name="Weapon" type="Node2D" parent="." unique_id=1118613141]
 
 [node name="Plasma" type="Node2D" parent="Weapon" unique_id=1942639394]
+script = ExtResource("4_hp4bs")
+BulletScene = ExtResource("5_g2vtq")
 
 [node name="Timer" type="Timer" parent="Weapon/Plasma" unique_id=216475571]
+wait_time = 0.8
+autostart = true
 
 [node name="MagnetArea" parent="." unique_id=152590452 instance=ExtResource("8_ml7e8")]
 
 [node name="CollectionArea" parent="." unique_id=1119169624 instance=ExtResource("9_ihjo1")]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1710041148]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1553988309]
+shape = SubResource("CircleShape2D_bx8n8")
+
+[node name="InvulnerabilityTimer" type="Timer" parent="Hurtbox" unique_id=1358844456]
+wait_time = 0.5
+one_shot = true

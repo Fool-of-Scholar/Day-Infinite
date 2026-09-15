@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://bxpp67ts8kvmi" path="res://assets/new_tile_set.tres" id="2_txmk2"]
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
+[ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
 
 [node name="world" type="Node2D" unique_id=750255057]
 script = ExtResource("1_txmk2")
@@ -40,3 +41,5 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
+
+[node name="Hud" parent="." unique_id=238226186 instance=ExtResource("5_emkrx")]
