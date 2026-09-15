@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cmny6l8fu5beu"]
 
-[ext_resource type="Texture2D" uid="uid://2naxhs7tbdon" path="res://assets/main_menu/main_menu_character-Sheet.png" id="1_06t4h"]
-[ext_resource type="Script" uid="uid://8bfstamgpdtm" path="res://scripts/main_menu/Play.cs" id="2_7vrkn"]
-[ext_resource type="Script" uid="uid://dcv5ldob4l2pv" path="res://scripts/main_menu/Exit.cs" id="3_fu7sn"]
-[ext_resource type="Script" uid="uid://bt4od5jegmk8m" path="res://scripts/main_menu/Options.cs" id="3_jix8l"]
+[ext_resource type="Texture2D" uid="uid://2naxhs7tbdon" path="res://assets/main_menu/main_menu_character-Sheet.png" id="1_isrph"]
+[ext_resource type="Script" uid="uid://8bfstamgpdtm" path="res://scripts/main_menu/Play.cs" id="2_e8klu"]
+[ext_resource type="Script" uid="uid://bt4od5jegmk8m" path="res://scripts/main_menu/Options.cs" id="3_ywaph"]
+[ext_resource type="Script" uid="uid://dcv5ldob4l2pv" path="res://scripts/main_menu/Exit.cs" id="4_spnib"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btyyc"]
 
@@ -54,7 +54,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_jix8l"]
 resource_name = "options_in"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -70,7 +70,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_glbon"]
 resource_name = "options_out"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -133,7 +133,7 @@ color = Color(0.10583339, 0.24069518, 0.22776672, 1)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=515897967]
 position = Vector2(643.5, 363.5)
 scale = Vector2(2.0046875, 1.9527779)
-texture = ExtResource("1_06t4h")
+texture = ExtResource("1_isrph")
 hframes = 8
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=138456306]
@@ -166,7 +166,7 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 54
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
 text = "Play"
-script = ExtResource("2_7vrkn")
+script = ExtResource("2_e8klu")
 
 [node name="Encyclopedia" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1059653401]
 layout_mode = 2
@@ -181,7 +181,7 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
 text = "Options"
-script = ExtResource("3_jix8l")
+script = ExtResource("3_ywaph")
 
 [node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=354156445]
 layout_mode = 2
@@ -189,7 +189,7 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
 text = "Exit"
-script = ExtResource("3_fu7sn")
+script = ExtResource("4_spnib")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1047898849]
 libraries/ = SubResource("AnimationLibrary_jix8l")

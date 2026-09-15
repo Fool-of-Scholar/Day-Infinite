@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://dhb60yq2nryv1"]
+
+[ext_resource type="Script" uid="uid://qpqu71ea560o" path="res://scripts/main_menu/OpeningScreen.cs" id="1_jhtpm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font_size = 42
+
+[sub_resource type="Animation" id="Animation_qccle"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(40, 310)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box/ColorRect2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1140, 310)]
+}
+
+[sub_resource type="Animation" id="Animation_jhtpm"]
+resource_name = "loading"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Box/ColorRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 310), Vector2(40, 580), Vector2(1140, 580), Vector2(1140, 310)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Box/ColorRect2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1140, 310), Vector2(1140, 40), Vector2(40, 40), Vector2(40, 310)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qfpae"]
+_data = {
+&"RESET": SubResource("Animation_qccle"),
+&"loading": SubResource("Animation_jhtpm")
+}
+
+[node name="OpeningScreen" type="Control" unique_id=586544339]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jhtpm")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1111827802]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.34499222, 0.1145295, 0.045449972, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1539823784]
+z_index = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -483.0
+offset_top = -225.0
+offset_right = 483.0
+offset_bottom = -108.16504
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=126330191]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer" unique_id=1287979082]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Please wait while Jireh is loading the filess..."
+label_settings = SubResource("LabelSettings_1vivr")
+
+[node name="Box" type="Node" parent="." unique_id=1281629505]
+
+[node name="ColorRect" type="ColorRect" parent="Box" unique_id=711529090]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -50.0
+offset_right = 139.99756
+offset_bottom = 49.999786
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Box" unique_id=638636874]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -50.0
+offset_right = -40.000732
+offset_bottom = 50.000153
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=350338014]
+libraries/ = SubResource("AnimationLibrary_qfpae")
+autoplay = &"loading"
+
+[node name="Timer" type="Timer" parent="." unique_id=912448727]
+wait_time = 6.9
