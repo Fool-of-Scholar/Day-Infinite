@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://urxicx2ccyak"]
+
+[ext_resource type="Script" uid="uid://dv7cxkynkfr1k" path="res://scripts/ExperienceGem.cs" id="1_p2hcs"]
+[ext_resource type="Texture2D" uid="uid://dw0i86rmc160k" path="res://assets/Yellow Coin.png" id="2_v004y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
+
+[node name="ExperienceGem" type="Area2D" unique_id=342359533]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_p2hcs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2005548923]
+texture = ExtResource("2_v004y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1501421463]
+position = Vector2(58, 1)
+shape = SubResource("CircleShape2D_bx8n8")
