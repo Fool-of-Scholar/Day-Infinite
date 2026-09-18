@@ -28,10 +28,18 @@ public partial class World : Node2D
 			player.HealthChanged += hud.UpdateHealth;
 			player.XpChanged += hud.UpdateXp;
 
+
+			player.LeveledUp += hud.OpenUpgradeMenu;
+
+
 			hud.UpdateHealth(player.CurrentHealth, player.MaxHealth);
 			hud.UpdateXp(player.CurrentXp, player.XpToNextLevel, player.CurrentLevel);
 		}
+
 		
+
+
+
 		GD.Print("Hello World! Map systems initialized.");
 
 		

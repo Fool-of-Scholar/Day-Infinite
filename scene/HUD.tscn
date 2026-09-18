@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://dbnirx5fq0sdy"]
 
+<<<<<<< HEAD
+=======
+[ext_resource type="Script" uid="uid://bdqew6sn3aieb" path="res://scripts/HUD.cs" id="1_mmka4"]
+
+>>>>>>> main
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvcfn"]
 bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
 
@@ -10,6 +15,10 @@ bg_color = Color(0.17254902, 0.24313726, 0.3137255, 1)
 bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
 
 [node name="Hud" type="CanvasLayer" unique_id=238226186]
+<<<<<<< HEAD
+=======
+script = ExtResource("1_mmka4")
+>>>>>>> main
 
 [node name="Control" type="Control" parent="." unique_id=363095727]
 layout_mode = 3
@@ -47,3 +56,41 @@ theme_override_styles/background = SubResource("StyleBoxFlat_b7koy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8u16h")
 value = 100.0
 show_percentage = false
+<<<<<<< HEAD
+=======
+
+[node name="UpgradeMenu" type="Panel" parent="." unique_id=1082641275]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(400, 300)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeMenu" unique_id=393583172]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BtnSpeed" type="Button" parent="UpgradeMenu/VBoxContainer" unique_id=939278544]
+layout_mode = 2
+text = "+30 Speed"
+
+[node name="BtnHealth" type="Button" parent="UpgradeMenu/VBoxContainer" unique_id=1471280055]
+layout_mode = 2
+text = "+25 Health
+"
+
+[node name="BtnDamage" type="Button" parent="UpgradeMenu/VBoxContainer" unique_id=1779232747]
+layout_mode = 2
+text = "+15 Damage  "
+>>>>>>> main
