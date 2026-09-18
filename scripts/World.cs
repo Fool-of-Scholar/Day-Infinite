@@ -20,7 +20,22 @@ public partial class World : Node2D
 		_environmentLayer = GetNode<TileMapLayer>("environment");
 		_cliffsLayer = GetNode<TileMapLayer>("cliffs");
 
+		Movement player = GetNodeOrNull<Movement>("Player");
+		HUD hud = GetNodeOrNull<HUD>("Hud");
+
+		if (player != null && hud != null)
+		{
+			player.HealthChanged += hud.UpdateHealth;
+			player.XpChanged += hud.UpdateXp;
+			player.LeveledUp += hud.OpenUpgradeMenu;
+
+			hud.UpdateHealth(player.CurrentHealth, player.MaxHealth);
+			hud.UpdateXp(player.CurrentXp, player.XpToNextLevel, player.CurrentLevel);
+		}
+
 		GD.Print("Hello World! Map systems initialized.");
+
+		
 	}
 
 	public override void _Input(InputEvent @event)
