@@ -8,10 +8,7 @@ public partial class Movement : CharacterBody2D
 
     [Signal] public delegate void HealthChangedEventHandler (int currentHealth, int maxHealth);
     [Signal] public delegate void XpChangedEventHandler (int currentXp, int xpToNextLevel, int currentLevel);
-<<<<<<< HEAD
-=======
     [Signal] public delegate void LeveledUpEventHandler ();
->>>>>>> main
     // Character Health
     [Export] public int MaxHealth {get; set; } = 100;
     public int CurrentHealth {get; private set;}
@@ -208,11 +205,7 @@ public partial class Movement : CharacterBody2D
         XpToNextLevel = (int)(XpToNextLevel * 1.5f); // Increase XP threshold by 50% per level
         
         EmitSignal(SignalName.XpChanged, CurrentXp, XpToNextLevel, CurrentLevel);
-<<<<<<< HEAD
-
-=======
         EmitSignal(SignalName.LeveledUp);
->>>>>>> main
 
         GD.Print($"LEVELED UP! Reached Level {CurrentLevel}. Next threshold: {XpToNextLevel} XP");
     }

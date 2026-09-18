@@ -1,9 +1,6 @@
 using Godot;
 using System;
-<<<<<<< HEAD
-=======
 using System.Runtime.CompilerServices;
->>>>>>> main
 
 public partial class HUD : CanvasLayer
 {
@@ -11,8 +8,6 @@ public partial class HUD : CanvasLayer
 	private ProgressBar _healthBar;
 	private Label _levelLabel;
 
-<<<<<<< HEAD
-=======
 	private Control _upgradeMenu;
 	private Button _btnSpeed;
 	private Button _btnHealth;
@@ -20,15 +15,12 @@ public partial class HUD : CanvasLayer
 
 	private Movement _player;
 
->>>>>>> main
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_xpBar = GetNode<ProgressBar>("Control/XpBar");
 		_healthBar = GetNode<ProgressBar>("Control/HealthBar");
 		_levelLabel = GetNode<Label>("Control/LevelLabel");
-<<<<<<< HEAD
-=======
 
 		// Upgrade Var
 		_upgradeMenu = GetNode<Control>("UpgradeMenu");
@@ -75,7 +67,6 @@ public partial class HUD : CanvasLayer
 	public void OnDamageSelected()
 	{
 		CloseUpgradeMenu();
->>>>>>> main
 	}
 
 	public void UpdateHealth (int currentHealth, int maxHealth)
