@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bdrti6cg4nr21"]
+
+[ext_resource type="Script" uid="uid://hmxpu6d1wdvb" path="res://scripts/Blackhole.cs" id="1_coick"]
+[ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="1_owhvf"]
+[ext_resource type="PackedScene" uid="uid://dfw0yg2mmg5er" path="res://scene/weapons/blackhole_explosion.tscn" id="2_bjs2y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
+radius = 284.25342
+
+[node name="Bomb" type="Area2D" unique_id=95957929]
+script = ExtResource("1_coick")
+ExplosionScene = ExtResource("2_bjs2y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2006930603]
+texture = ExtResource("1_owhvf")
+region_enabled = true
+region_rect = Rect2(1083.5066, 9.486774, 171.07446, 174.38025)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1454219430]
+polygon = PackedVector2Array(-8.537231, -86.190125, -25.537231, -70.190125, -25.537231, -69.190125, -40.53723, -71.190125, -41.53723, -71.190125, -54.53723, -67.190125, -56.53723, -67.190125, -66.53723, -54.190125, -67.53723, -54.190125, -67.53723, -34.190125, -67.53723, -27.190125, -73.53723, -22.190125, -75.53723, -22.190125, -84.53723, -10.1901245, -85.53723, -10.1901245, -85.53723, 10.8098755, -68.53723, 27.809875, -67.53723, 27.809875, -69.53723, 43.809875, -69.53723, 44.809875, -64.53723, 58.809875, -64.53723, 60.809875, -50.53723, 69.809875, -50.53723, 70.809875, -30.537231, 69.809875, -25.537231, 69.809875, -10.537231, 86.809875, 15.462769, 86.809875, 30.462769, 70.809875, 30.462769, 69.809875, 39.46277, 71.809875, 51.46277, 71.809875, 59.46277, 67.809875, 61.46277, 67.809875, 71.46277, 53.809875, 72.46277, 53.809875, 71.46277, 32.809875, 71.46277, 28.809875, 84.46277, 17.809875, 85.46277, 17.809875, 85.46277, -16.190125, 72.46277, -27.190125, 71.46277, -27.190125, 73.46277, -37.190125, 73.46277, -48.190125, 68.46277, -58.190125, 68.46277, -60.190125, 62.46277, -65.190125, 62.46277, -66.190125, 53.46277, -69.190125, 53.46277, -70.190125, 37.46277, -69.190125, 29.462769, -69.190125, 26.462769, -73.190125, 26.462769, -75.190125, 12.462769, -86.190125, 12.462769, -87.190125, -8.537231, -87.190125)
+
+[node name="BlastZone" type="Area2D" parent="." unique_id=866116777]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastZone" unique_id=325567561]
+shape = SubResource("CircleShape2D_ap8p0")

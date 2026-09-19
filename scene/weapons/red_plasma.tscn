@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://quh8oi1g6nrm"]
+
+[ext_resource type="Script" uid="uid://f4grj4s1alxw" path="res://scripts/PlasmaBolt.cs" id="1_2wq70"]
+[ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="2_xgkf0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ap8p0"]
+radius = 21.009918
+height = 45.979893
+
+[node name="RedPlasma" type="Area2D" unique_id=374701107]
+script = ExtResource("1_2wq70")
+Speed = 1000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=929900039]
+position = Vector2(-3.5527137e-15, 3.5527137e-15)
+scale = Vector2(0.17142856, 0.31914896)
+texture = ExtResource("2_xgkf0")
+region_enabled = true
+region_rect = Rect2(891.625, 10.997398, 175.55151, 94.26719)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=506371273]
+rotation = 1.5683006
+shape = SubResource("CapsuleShape2D_ap8p0")

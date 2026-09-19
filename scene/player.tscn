@@ -1,0 +1,256 @@
+[gd_scene format=3 uid="uid://dacuxowwvrn48"]
+
+[ext_resource type="Script" uid="uid://cvhmrj1kkwts6" path="res://scripts/Movement.cs" id="1_hjaqi"]
+[ext_resource type="Texture2D" uid="uid://lkljjv6b3kkb" path="res://Player/Walk.png" id="1_xo3ru"]
+[ext_resource type="Texture2D" uid="uid://bow7emcgb8n4j" path="res://Player/Idle.png" id="3_fvtld"]
+[ext_resource type="Script" uid="uid://co7a2435vsrh0" path="res://scripts/Plasma.cs" id="4_hp4bs"]
+[ext_resource type="PackedScene" uid="uid://bcthhe6knbnbp" path="res://scene/plasma_bolt.tscn" id="5_g2vtq"]
+[ext_resource type="PackedScene" uid="uid://quh8oi1g6nrm" path="res://scene/weapons/red_plasma.tscn" id="6_g2vtq"]
+[ext_resource type="AudioStream" uid="uid://ca2mq5jqmsavh" path="res://sound/bulletimpact.mp3" id="7_2fvbb"]
+[ext_resource type="PackedScene" uid="uid://bdrti6cg4nr21" path="res://scene/weapons/bomb.tscn" id="7_ml7e8"]
+[ext_resource type="PackedScene" uid="uid://mq1mu6p4tymw" path="res://scene/magnet_area.tscn" id="8_ml7e8"]
+[ext_resource type="PackedScene" uid="uid://barojeaioqx8r" path="res://scene/collection_area.tscn" id="9_ihjo1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5h11f"]
+
+[sub_resource type="Animation" id="Animation_hjaqi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Walk:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Idle:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Idle:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_oh5ij"]
+resource_name = "idle_down"
+length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_hp4bs"]
+resource_name = "idle_side"
+length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_g2vtq"]
+resource_name = "idle_up"
+length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_fvtld"]
+resource_name = "walk_down"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ct4mp"]
+resource_name = "walk_side"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_s4jxa"]
+resource_name = "walk_up"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Walk:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Idle:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16533531),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oh5ij"]
+_data = {
+&"RESET": SubResource("Animation_hjaqi"),
+&"idle_down": SubResource("Animation_oh5ij"),
+&"idle_side": SubResource("Animation_hp4bs"),
+&"idle_up": SubResource("Animation_g2vtq"),
+&"walk_down": SubResource("Animation_fvtld"),
+&"walk_side": SubResource("Animation_ct4mp"),
+&"walk_up": SubResource("Animation_s4jxa")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
+radius = 12.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1999530487]
+motion_mode = 1
+script = ExtResource("1_hjaqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474345015]
+shape = SubResource("CircleShape2D_5h11f")
+
+[node name="Walk" type="Sprite2D" parent="." unique_id=1657822324]
+visible = false
+texture = ExtResource("1_xo3ru")
+hframes = 6
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=896037910]
+libraries/ = SubResource("AnimationLibrary_oh5ij")
+
+[node name="Idle" type="Sprite2D" parent="." unique_id=638242184]
+texture = ExtResource("3_fvtld")
+hframes = 4
+vframes = 3
+
+[node name="Weapon" type="Node2D" parent="." unique_id=1118613141]
+
+[node name="Plasma" type="Node2D" parent="Weapon" unique_id=1942639394 node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("4_hp4bs")
+BulletScene = ExtResource("5_g2vtq")
+UpgradeBulletScene = ExtResource("6_g2vtq")
+ExplosiveBulletScene = ExtResource("7_ml7e8")
+PlayerRef = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="Weapon/Plasma" unique_id=216475571]
+wait_time = 0.8
+autostart = true
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="Weapon/Plasma" unique_id=40355994]
+stream = ExtResource("7_2fvbb")
+
+[node name="MagnetArea" parent="." unique_id=152590452 instance=ExtResource("8_ml7e8")]
+
+[node name="CollectionArea" parent="." unique_id=1119169624 instance=ExtResource("9_ihjo1")]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1710041148]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1553988309]
+shape = SubResource("CircleShape2D_bx8n8")
+
+[node name="InvulnerabilityTimer" type="Timer" parent="Hurtbox" unique_id=1358844456]
+wait_time = 0.5
+one_shot = true
