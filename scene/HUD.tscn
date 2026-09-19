@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://dbnirx5fq0sdy"]
+
+[ext_resource type="Script" uid="uid://bdqew6sn3aieb" path="res://scripts/HUD.cs" id="1_mmka4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvcfn"]
+bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0.24236253, 0.24236241, 0.24236226, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_mmka4"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8u16h"]
+bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.7108186, 0, 0.14756465, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5gy4"]
+bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbdty"]
+bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auskg"]
+bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Hud" type="CanvasLayer" unique_id=238226186]
+script = ExtResource("1_mmka4")
+
+[node name="Control" type="Control" parent="." unique_id=363095727]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="XpBar" type="ProgressBar" parent="Control" unique_id=1499654896]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 94.0
+offset_top = 13.0
+offset_right = -94.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_yvcfn")
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="Control" unique_id=1999675951]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = 15.0
+offset_right = 27.0
+offset_bottom = 64.0
+grow_horizontal = 2
+text = "Level 1
+"
+label_settings = SubResource("LabelSettings_mmka4")
+
+[node name="HealthBar" type="ProgressBar" parent="Control" unique_id=1034748155]
+layout_mode = 1
+offset_left = 98.0
+offset_top = 65.0
+offset_right = 348.0
+offset_bottom = 83.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_8u16h")
+value = 100.0
+show_percentage = false
+
+[node name="UpgradeMenu" type="Panel" parent="." unique_id=1082641275]
+process_mode = 3
+custom_minimum_size = Vector2(400, 300)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UpgradeMenu" unique_id=2024749028]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeMenu/PanelContainer" unique_id=633091846]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeMenu/PanelContainer/MarginContainer" unique_id=1841072462]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BtnHealth" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1471280055]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_v5gy4")
+text = "+25 Health
+"
+
+[node name="VSeparator" type="VSeparator" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1601192911]
+layout_mode = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8vrlf")
+
+[node name="BtnSpeed" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=939278544]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_qbdty")
+text = "+30 Speed"
+
+[node name="VSeparator2" type="VSeparator" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=185797527]
+layout_mode = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="BtnDamage" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1779232747]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_auskg")
+text = "+15 Damage  "

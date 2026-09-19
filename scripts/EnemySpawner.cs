@@ -4,7 +4,7 @@ using System;
 public partial class EnemySpawner : Node2D
 {
     [Export] public PackedScene BasicEnemyScene { get; set; }
-    [Export] public float SpawnInterval { get; set; } = 1.0f;
+    [Export] public float SpawnInterval { get; set; } = 0.1f;
 
     private PathFollow2D _spawnPath;
     private Timer _spawnTimer;

@@ -19,11 +19,21 @@ public partial class Movement : CharacterBody2D
     private AnimationPlayer _animationPlayer;
     private Sprite2D _idleSprite;
     private Sprite2D _walkSprite;
+    private AnimationPlayer _worldAnimPlayer;
+    private bool _hasDied = false;
+    private Control OnDiedInterface;
 
     private Vector2 _lastFacingDirection = Vector2.Down;
 
     public override void _Ready()
     {
+<<<<<<< Updated upstream
+=======
+        CurrentHealth = MaxHealth;
+
+        OnDiedInterface = GetNode<Control>("../Hud/DiedInterface");
+        
+>>>>>>> Stashed changes
         // Cache node references from the scene tree
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _idleSprite = GetNode<Sprite2D>("Idle");
@@ -36,8 +46,69 @@ public partial class Movement : CharacterBody2D
         // Subscribe to area overlap signals
         _magnetArea.AreaEntered += OnMagnetEntered;
         _collectionArea.AreaEntered += OnCollectionEntered;
+<<<<<<< Updated upstream
     }
 
+=======
+        _hurtbox.AreaEntered += OnHurtboxEntered;
+        _invulnerabilityTimer.Timeout += OnInvulnerabilityEnded;
+
+        //BroadCast the Initial State
+        EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+        EmitSignal(SignalName.XpChanged, CurrentXp, XpToNextLevel, CurrentLevel); //Ill be back
+
+        _worldAnimPlayer = GetNode<AnimationPlayer>("../AnimationPlayer");
+    }
+
+    private void OnHurtboxEntered (Area2D area)
+    {
+        if (area.Name == "Hitbox" && !_isInvulnerable)
+        {
+            TakeDamage(10);
+        }
+    }
+
+    public void TakeDamage (int damage)
+    {
+        if (_isInvulnerable) return;
+
+        CurrentHealth -= damage;
+
+        EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+
+        _isInvulnerable = true;
+        _invulnerabilityTimer.Start();
+
+        Modulate = new Color (1.0f, 0.2f, 0.2f, 1.0f); // Red Flash
+
+        GD.Print($"PLAYER HIT! Health: {CurrentHealth}/{MaxHealth}");
+
+        if (CurrentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void OnInvulnerabilityEnded ()
+    {
+        _isInvulnerable = false;
+        Modulate = new Color (1, 1, 1, 1); // Reset to normal color
+    }
+
+    private void Die ()
+    {
+        GD.Print("PLAYER OVER: You have Perished");
+        GetTree().Paused = true;
+
+        _worldAnimPlayer.Play("died");
+        _hasDied = true;
+
+        if (_hasDied == true)
+        {
+            OnDiedInterface.Visible = true;
+        }
+    }
+>>>>>>> Stashed changes
     public override void _PhysicsProcess(double delta)
     {
         Vector2 inputVector = Input.GetVector("left", "right", "upward", "downward");
@@ -127,4 +198,43 @@ public partial class Movement : CharacterBody2D
 
         GD.Print($"LEVELED UP! Reached Level {CurrentLevel}. Next threshold: {XpToNextLevel} XP");
     }
+<<<<<<< Updated upstream
+=======
+
+    public void UpgradeSpeed (int bonus)
+    {
+        Speed += bonus;
+        GD.Print($"Upgraded Speed! -- {Speed} -- ");
+
+    }
+
+    public void UpgradeHealth (int bonus)
+    {
+        MaxHealth += bonus;
+
+        CurrentHealth = Mathf.Min(CurrentHealth + bonus, MaxHealth);
+        EmitSignal (SignalName.HealthChanged, CurrentHealth, MaxHealth);
+
+        GD.Print($"Upgrade Health -- {MaxHealth} --");
+
+    }
+
+    //debugging function to reduce health
+    public void ForceDebugDamage(int damage)
+{
+    CurrentHealth -= damage;
+    if (CurrentHealth < 0) CurrentHealth = 0;
+
+    // Instantly send the update to the health bar
+    EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+    
+    GD.Print($"DEBUG HIT! Forced Health down to: {CurrentHealth}/{MaxHealth}");
+
+    if (CurrentHealth <= 0)
+    {
+        Die();
+    }
+}
+
+>>>>>>> Stashed changes
 }

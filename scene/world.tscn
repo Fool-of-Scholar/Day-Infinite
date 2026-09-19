@@ -4,6 +4,48 @@
 [ext_resource type="TileSet" uid="uid://bxpp67ts8kvmi" path="res://assets/new_tile_set.tres" id="2_txmk2"]
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
+[ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/died_interface.tscn" id="6_0tg4p"]
+
+[sub_resource type="Animation" id="Animation_0tg4p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hcb8y"]
+resource_name = "died"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -500), Vector2(0, 100), Vector2(0, 30), Vector2(0, 30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y3jn2"]
+_data = {
+&"RESET": SubResource("Animation_0tg4p"),
+&"died": SubResource("Animation_hcb8y")
+}
+>>>>>>> Stashed changes
 
 [node name="world" type="Node2D" unique_id=750255057]
 script = ExtResource("1_txmk2")
@@ -40,3 +82,16 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
+<<<<<<< Updated upstream
+=======
+
+[node name="Hud" parent="." unique_id=238226186 instance=ExtResource("5_emkrx")]
+
+[node name="DiedInterface" parent="Hud" unique_id=1953952388 instance=ExtResource("6_0tg4p")]
+visible = false
+z_index = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=791647036]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_y3jn2")
+>>>>>>> Stashed changes

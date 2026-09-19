@@ -139,4 +139,8 @@ libraries/ = SubResource("AnimationLibrary_qfpae")
 autoplay = &"loading"
 
 [node name="Timer" type="Timer" parent="." unique_id=912448727]
+<<<<<<< Updated upstream
 wait_time = 6.9
+=======
+wait_time = 4.0
+>>>>>>> Stashed changes

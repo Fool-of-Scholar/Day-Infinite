@@ -6,7 +6,11 @@ public partial class OpeningScreen : Control
 
 	Timer timer;
 	Label label;
+<<<<<<< Updated upstream
 	[Export] public string nextPath = "res://scene/main_menu/main_menu.tscn";
+=======
+	[Export] public string nextPath = "res://scene/main_menu/another_main_menu.tscn";
+>>>>>>> Stashed changes
 	private bool _canClick = false;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -34,6 +38,16 @@ public partial class OpeningScreen : Control
 				TransitionToNextScene();
 			}
 		}
+<<<<<<< Updated upstream
+=======
+		if (@event is InputEventKey keyEvent)
+		{
+			if (keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+			{
+				TransitionToNextScene();
+			}
+		}
+>>>>>>> Stashed changes
   }
 
 	private void OnTimerTimeout()

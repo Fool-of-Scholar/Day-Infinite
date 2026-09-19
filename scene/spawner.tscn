@@ -21,4 +21,5 @@ position = Vector2(-957, -541)
 rotation = -0.017301375
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1235711956]
+wait_time = 0.1
 autostart = true
