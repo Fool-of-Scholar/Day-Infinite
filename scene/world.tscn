@@ -5,6 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
+[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="6_0tg4p"]
+[ext_resource type="PackedScene" uid="uid://dbqrljrlx5klt" path="res://scene/Enemies Mode1/fast_enemy.tscn" id="6_jsnws"]
+[ext_resource type="PackedScene" uid="uid://csug2r5a6rex2" path="res://scene/Enemies Mode1/swarm_enemy.tscn" id="6_yur6x"]
+[ext_resource type="PackedScene" uid="uid://k2auow0ra0gy" path="res://scene/Enemies Mode1/tank_enemy.tscn" id="7_7ghph"]
+[ext_resource type="PackedScene" uid="uid://cfrmg04ys4e43" path="res://scene/Enemies Mode1/Boss1Enemy.tscn" id="9_a0bac"]
+[ext_resource type="Script" uid="uid://d3y0r7i7h8abk" path="res://scripts/WorldGemSpawner.cs" id="11_jsnws"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="12_f345f"]
 
 [node name="world" type="Node2D" unique_id=750255057]
 script = ExtResource("1_txmk2")
@@ -33,7 +40,8 @@ visible = false
 use_parent_material = true
 tile_set = ExtResource("2_txmk2")
 
-[node name="Player" parent="." unique_id=1999530487 instance=ExtResource("3_w4qq1")]
+[node name="Player" parent="." unique_id=1999530487 groups=["player"] instance=ExtResource("3_w4qq1")]
+Speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=592598760]
 scale = Vector2(1, 0.99999994)
@@ -41,5 +49,18 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
+FastEnemyScene = ExtResource("6_jsnws")
+SwarmEnemyScene = ExtResource("6_yur6x")
+TankEnemyScene = ExtResource("7_7ghph")
+BossScene = ExtResource("9_a0bac")
 
 [node name="Hud" parent="." unique_id=238226186 instance=ExtResource("5_emkrx")]
+
+[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("6_0tg4p")]
+volume_db = -10.0
+
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
+
+[node name="WorldGemSpawner" type="Node" parent="." unique_id=566826345]
+script = ExtResource("11_jsnws")
+GemScene = ExtResource("12_f345f")

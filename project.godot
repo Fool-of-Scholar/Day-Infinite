@@ -15,13 +15,17 @@ run/main_scene="uid://bml0owejnxgyp"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioStreamPlayerGlobal="*uid://c5j6nvp2mjsj"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1920
 window/size/window_height_override=1080
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [dotnet]
 

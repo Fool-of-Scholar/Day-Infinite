@@ -51,6 +51,25 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_8u16h")
 value = 100.0
 show_percentage = false
 
+[node name="TimerLabel" type="Label" parent="Control" unique_id=1329950318]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -49.0
+offset_right = 32.0
+grow_vertical = 0
+text = "0:00
+"
+
+[node name="ScrapCollected" type="Label" parent="Control" unique_id=338702777]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 78.0
+offset_right = 44.0
+offset_bottom = 101.0
+text = "0"
+
 [node name="UpgradeMenu" type="Panel" parent="." unique_id=1082641275]
 process_mode = 3
 visible = false

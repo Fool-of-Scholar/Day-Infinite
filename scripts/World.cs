@@ -23,14 +23,21 @@ public partial class World : Node2D
 		Movement player = GetNodeOrNull<Movement>("Player");
 		HUD hud = GetNodeOrNull<HUD>("Hud");
 
+		EnemySpawner spawner = GetNode<EnemySpawner>("Spawner");
+
+    // Connect the 10-minute timer signal to the HUD display
+    	spawner.TimeUpdated += hud.UpdateTimer;
+
 		if (player != null && hud != null)
 		{
 			player.HealthChanged += hud.UpdateHealth;
 			player.XpChanged += hud.UpdateXp;
 			player.LeveledUp += hud.OpenUpgradeMenu;
+			hud.Initialize(player);
 
 			hud.UpdateHealth(player.CurrentHealth, player.MaxHealth);
 			hud.UpdateXp(player.CurrentXp, player.XpToNextLevel, player.CurrentLevel);
+			
 		}
 
 		GD.Print("Hello World! Map systems initialized.");

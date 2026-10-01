@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://csug2r5a6rex2"]
+
+[ext_resource type="Script" uid="uid://bxbr0ee430ul5" path="res://scripts/Enemy.cs" id="1_60x1c"]
+[ext_resource type="Texture2D" uid="uid://bhjw5rrrggbcn" path="res://assets/roach.png" id="3_60x1c"]
+[ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="3_qarmj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f87vc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qarmj"]
+atlas = ExtResource("3_60x1c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f3k1"]
+atlas = ExtResource("3_60x1c")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jn5xm"]
+atlas = ExtResource("3_60x1c")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fxdp"]
+atlas = ExtResource("3_60x1c")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qarmj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3f3k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jn5xm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fxdp")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u16h"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1511542519 groups=["enemies"]]
+scale = Vector2(0.7, 0.7)
+motion_mode = 1
+script = ExtResource("1_60x1c")
+BloodScene = ExtResource("3_qarmj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
+shape = SubResource("CircleShape2D_f87vc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1409207851]
+scale = Vector2(0.99999994, 0.99999994)
+sprite_frames = SubResource("SpriteFrames_5h11f")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=336066589]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=917060502 groups=["enemies"]]
+shape = SubResource("CircleShape2D_8u16h")

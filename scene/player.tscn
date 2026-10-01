@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bow7emcgb8n4j" path="res://Player/Idle.png" id="3_fvtld"]
 [ext_resource type="Script" uid="uid://co7a2435vsrh0" path="res://scripts/Plasma.cs" id="4_hp4bs"]
 [ext_resource type="PackedScene" uid="uid://bcthhe6knbnbp" path="res://scene/plasma_bolt.tscn" id="5_g2vtq"]
+[ext_resource type="AudioStream" uid="uid://dehaprhldkywo" path="res://assets/audio/TailWhip.wav" id="8_g2vtq"]
 [ext_resource type="PackedScene" uid="uid://mq1mu6p4tymw" path="res://scene/magnet_area.tscn" id="8_ml7e8"]
 [ext_resource type="PackedScene" uid="uid://barojeaioqx8r" path="res://scene/collection_area.tscn" id="9_ihjo1"]
 
@@ -12,6 +13,7 @@
 
 [sub_resource type="Animation" id="Animation_hjaqi"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,34 +29,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Walk:visible")
+tracks/1/path = NodePath("Idle:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Idle:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Idle:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -115,7 +93,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_fvtld"]
 resource_name = "walk_down"
 length = 0.5
-loop_mode = 2
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -123,16 +101,16 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 5]
 }
 
 [sub_resource type="Animation" id="Animation_ct4mp"]
 resource_name = "walk_side"
 length = 0.5
-loop_mode = 2
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -140,16 +118,16 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [12, 17]
 }
 
 [sub_resource type="Animation" id="Animation_s4jxa"]
 resource_name = "walk_up"
 length = 0.5
-loop_mode = 2
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -157,34 +135,10 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [6, 7, 8, 9, 10, 11]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Walk:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.16666667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Idle:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.16533531),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"update": 0,
+"values": [6, 11]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oh5ij"]
@@ -201,7 +155,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
 radius = 12.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1999530487]
+[node name="Player" type="CharacterBody2D" unique_id=1999530487 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_hjaqi")
 
@@ -209,7 +163,6 @@ script = ExtResource("1_hjaqi")
 shape = SubResource("CircleShape2D_5h11f")
 
 [node name="Walk" type="Sprite2D" parent="." unique_id=1657822324]
-visible = false
 texture = ExtResource("1_xo3ru")
 hframes = 6
 vframes = 3
@@ -228,7 +181,7 @@ vframes = 3
 script = ExtResource("4_hp4bs")
 BulletScene = ExtResource("5_g2vtq")
 
-[node name="Timer" type="Timer" parent="Weapon/Plasma" unique_id=216475571]
+[node name="Timer" type="Timer" parent="Weapon/Plasma" unique_id=216475571 groups=["player"]]
 wait_time = 0.8
 autostart = true
 
@@ -245,3 +198,7 @@ shape = SubResource("CircleShape2D_bx8n8")
 [node name="InvulnerabilityTimer" type="Timer" parent="Hurtbox" unique_id=1358844456]
 wait_time = 0.5
 one_shot = true
+
+[node name="sfxwalk" type="AudioStreamPlayer" parent="." unique_id=867764778]
+stream = ExtResource("8_g2vtq")
+volume_db = 2.0

@@ -8,19 +8,33 @@ public partial class ExperienceGem : Area2D
 
     public Node2D Target { get; set; }
 
+    public override void _Ready()
+    {
+        // 1. Register to the "gems" group so the Boss Cleanse can find all gems
+        AddToGroup("gems");
+    }
+
     public override void _PhysicsProcess(double delta)
     {
-        if (Target == null) return;
+        // Safety check: ensure Target exists and hasn't been freed
+        if (Target == null || !IsInstanceValid(Target)) return;
 
-        // 1. Move toward the player
+        // 2. Move toward the player and accelerate
         GlobalPosition = GlobalPosition.MoveToward(Target.GlobalPosition, Speed * (float)delta);
         Speed += 600f * (float)delta;
 
-        // 2. Distance fallback: If the gem reaches the player's body, collect it immediately
-        if (GlobalPosition.DistanceTo(Target.GlobalPosition) < 20f)
+        // 3. Distance fallback: Collect when reaching the player
+        if (GlobalPosition.DistanceTo(Target.GlobalPosition) < 25f)
         {
             Collect();
         }
+    }
+
+    // Called by the Boss on death (or a Magnet power-up)
+    public void TriggerVacuum(Node2D player)
+    {
+        Target = player;
+        Speed = Mathf.Max(Speed, 600f); // High starting speed to cross the entire screen
     }
 
     public void Collect()
