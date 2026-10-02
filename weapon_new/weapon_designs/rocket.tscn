@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwy5q6tb7jucw"]
+
+[ext_resource type="Texture2D" uid="uid://b3in7k1mxon0p" path="res://assets/PIXWEP/body/body_projectile_03.png" id="1_gcecf"]
+[ext_resource type="Texture2D" uid="uid://dbsn2lurtg4tu" path="res://assets/PIXWEP/barrel/barrel_heavy.png" id="2_r2l2t"]
+[ext_resource type="Texture2D" uid="uid://jg3r54i4765f" path="res://assets/PIXWEP/stock/stock_03.png" id="3_r7g7l"]
+
+[node name="Rocket" type="Node2D" unique_id=1418069260]
+scale = Vector2(0.5, 0.5)
+
+[node name="BodyProjectile03" type="Sprite2D" parent="." unique_id=2035046503]
+position = Vector2(7, 3)
+texture = ExtResource("1_gcecf")
+
+[node name="BarrelHeavy" type="Sprite2D" parent="." unique_id=708823141]
+position = Vector2(7, 3)
+texture = ExtResource("2_r2l2t")
+
+[node name="Stock03" type="Sprite2D" parent="." unique_id=668605752]
+position = Vector2(7, 3)
+texture = ExtResource("3_r7g7l")

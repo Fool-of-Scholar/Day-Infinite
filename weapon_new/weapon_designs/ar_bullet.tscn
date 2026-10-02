@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bcgtpxvr6avhu"]
+
+[ext_resource type="Script" uid="uid://ccx5tqmxs23w3" path="res://weapon_new/weapon_script/ARBullet.cs" id="1_ewmdq"]
+[ext_resource type="Texture2D" uid="uid://dileee8plcs01" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew3.png" id="2_bhd2c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
+radius = 243.31053
+
+[node name="ARBullet" type="Area2D" unique_id=623896477 groups=["Weapon"]]
+scale = Vector2(0.05, 0.05)
+script = ExtResource("1_ewmdq")
+
+[node name="BulletNew3" type="Sprite2D" parent="." unique_id=1535359252]
+position = Vector2(4.7683716e-07, -4.7683716e-07)
+texture = ExtResource("2_bhd2c")
+region_enabled = true
+region_rect = Rect2(1220.6548, 8.816055, 195.59033, 193.72858)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=381945532]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("CircleShape2D_ap8p0")
