@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://bgt05xn8h7gqm"]
+
+[ext_resource type="Texture2D" uid="uid://dg1j1ao0tpnxy" path="res://assets/main_menu/Pause.png" id="1_5yyj4"]
+[ext_resource type="Script" uid="uid://lu2ciaugl8y6" path="res://scripts/main_menu/PauseMenu.cs" id="1_l44li"]
+[ext_resource type="Texture2D" uid="uid://yij8y8rfihum" path="res://assets/main_menu/miku-vocaloid.png" id="3_666tf"]
+
+[sub_resource type="Animation" id="Animation_666tf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mbutm"]
+resource_name = "pause_animation"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e1hd5"]
+_data = {
+&"RESET": SubResource("Animation_666tf"),
+&"pause_animation": SubResource("Animation_mbutm")
+}
+
+[node name="PauseMenu" type="Control" unique_id=2057780145]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l44li")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1166588016]
+modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03529412, 0.06666667, 0.11764706, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=711700524]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 193.0
+offset_top = 128.0
+offset_right = -193.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5yyj4")
+
+[node name="Resume" type="Button" parent="." unique_id=1153632080]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = 10.0
+offset_right = 89.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Exit" type="Button" parent="." unique_id=1003833543]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 111.0
+offset_top = 5.0
+offset_right = 297.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Restart" type="Button" parent="." unique_id=1001581398]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = 5.0
+offset_right = -109.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125565130]
+position = Vector2(127, 588)
+scale = Vector2(0.31, 0.31)
+texture = ExtResource("3_666tf")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1286192833]
+libraries/ = SubResource("AnimationLibrary_e1hd5")
+autoplay = &"pause_animation"

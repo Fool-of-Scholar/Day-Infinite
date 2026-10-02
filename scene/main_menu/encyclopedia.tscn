@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://17aroydenp6q"]
+
+[ext_resource type="Texture2D" uid="uid://5iuj52s2b0r6" path="res://assets/Encylopedia/weapons.png" id="2_0giq3"]
+[ext_resource type="Texture2D" uid="uid://b3sd7qiambl77" path="res://assets/Encylopedia/buttons.png" id="3_5wk78"]
+[ext_resource type="Script" uid="uid://buamlshe773gj" path="res://scripts/main_menu/EnclopediaThings/BackButton.cs" id="3_jirmc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6n06g"]
+bg_color = Color(0.59448063, 0.5944807, 0.59448045, 1)
+
+[node name="Encyclopedia" type="Control" unique_id=100114723]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1888709441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=45631882]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ListItems" type="PanelContainer" parent="PanelContainer/MarginContainer" unique_id=442656717]
+layout_mode = 2
+offset_transform_scale = Vector2(0.9, 0.9)
+theme_override_styles/panel = SubResource("StyleBoxFlat_6n06g")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/ListItems" unique_id=1030863867]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer" unique_id=1100038476]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="FirstSet" type="HBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer" unique_id=1726774121]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=487033820]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton2" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=1414386395]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton3" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=2072977540]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton4" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=599480233]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton5" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=883386163]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton6" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=1254554142]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="FirstSet2" type="HBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer" unique_id=1390994838]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=576450383]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton2" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=1968649880]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton3" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=172112203]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton4" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=53397583]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton5" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=1656357793]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="TextureButton6" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=966961258]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 130)
+offset_transform_scale = Vector2(2.3, 2.3)
+texture_normal = ExtResource("2_0giq3")
+
+[node name="ButtonManager" type="PanelContainer" parent="PanelContainer" unique_id=2087672810]
+custom_minimum_size = Vector2(200, 140)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ButtonManager" unique_id=1627099410]
+layout_mode = 2
+theme_override_constants/margin_left = 94
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/ButtonManager/MarginContainer" unique_id=495003191]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BackButton" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=358996266]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")
+script = ExtResource("3_jirmc")
+
+[node name="TextureButton2" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=2070145967]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")
+
+[node name="TextureButton3" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=158169150]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")
+
+[node name="TextureButton4" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=736208961]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")
+
+[node name="TextureButton5" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=1289472658]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")
+
+[node name="TextureButton6" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=1123003189]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(110, 80)
+offset_transform_scale = Vector2(2.24, 2.24)
+texture_normal = ExtResource("3_5wk78")

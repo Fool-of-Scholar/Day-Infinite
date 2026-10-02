@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c5j6nvp2mjsj"]
+
+[ext_resource type="AudioStream" uid="uid://4kxv15xjb04r" path="res://assets/audio/07. Spirits Forest (full).wav" id="1_jlyyb"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=1713162277]
+stream = ExtResource("1_jlyyb")
+autoplay = true

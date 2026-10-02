@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bj88vdjligmw"
+path="res://.godot/imported/Dread Pitt - Pyro [NCS Release].mp3-a46bacf4305a39fc36f185678c543472.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Dread Pitt - Pyro [NCS Release].mp3"
+dest_files=["res://.godot/imported/Dread Pitt - Pyro [NCS Release].mp3-a46bacf4305a39fc36f185678c543472.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

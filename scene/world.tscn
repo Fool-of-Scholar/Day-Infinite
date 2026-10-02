@@ -4,6 +4,231 @@
 [ext_resource type="TileSet" uid="uid://bxpp67ts8kvmi" path="res://assets/new_tile_set.tres" id="2_txmk2"]
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
+[ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
+[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="6_0tg4p"]
+[ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="6_7ghph"]
+[ext_resource type="PackedScene" uid="uid://bgt05xn8h7gqm" path="res://scene/main_menu/pause_menu.tscn" id="7_na5tu"]
+[ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/main_menu/died_interface.tscn" id="8_na5tu"]
+[ext_resource type="Script" uid="uid://d3y0r7i7h8abk" path="res://scripts/WorldGemSpawner.cs" id="11_jsnws"]
+[ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="12_bqa5m"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="12_f345f"]
+[ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="13_a0bac"]
+
+[sub_resource type="Animation" id="Animation_mmka4"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/UpgradeMenu:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(848, 422)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/UpgradeMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(216, 149)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/UpgradeMenu:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hud/UpgradeMenu:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yur6x"]
+_data = {
+&"RESET": SubResource("Animation_mmka4"),
+&"upgrade_in": ExtResource("12_bqa5m"),
+&"upgrade_out": ExtResource("13_a0bac")
+}
+
+[sub_resource type="Animation" id="Animation_0tg4p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 800)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hud/PauseMenu:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_hcb8y"]
+resource_name = "died"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, 100), Vector2(0, 30), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y3jn2"]
+resource_name = "pause_in"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/PauseMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, 100), Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1280, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_yur6x"]
+resource_name = "pause_out"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/PauseMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 30), Vector2(0, 100), Vector2(0, -800)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.23333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1280, 720), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y3jn2"]
+_data = {
+&"RESET": SubResource("Animation_0tg4p"),
+&"died": SubResource("Animation_hcb8y"),
+&"pause_in": SubResource("Animation_y3jn2"),
+&"pause_out": SubResource("Animation_yur6x"),
+&"upgrade_in": ExtResource("12_bqa5m"),
+&"upgrade_out": ExtResource("13_a0bac")
+}
 
 [node name="world" type="Node2D" unique_id=750255057]
 script = ExtResource("1_txmk2")
@@ -33,6 +258,7 @@ use_parent_material = true
 tile_set = ExtResource("2_txmk2")
 
 [node name="Player" parent="." unique_id=1999530487 instance=ExtResource("3_w4qq1")]
+Speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=592598760]
 scale = Vector2(1, 0.99999994)
@@ -40,3 +266,41 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
+
+[node name="Hud" parent="." unique_id=238226186 instance=ExtResource("5_emkrx")]
+
+[node name="UpgradeMenu" parent="Hud" unique_id=643145189 instance=ExtResource("6_7ghph")]
+visible = false
+
+[node name="PauseMenu" parent="Hud" unique_id=2057780145 instance=ExtResource("7_na5tu")]
+offset_top = 800.0
+offset_bottom = 800.0
+
+[node name="DiedInterface" parent="Hud" unique_id=1953952388 instance=ExtResource("8_na5tu")]
+visible = false
+
+[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("6_0tg4p")]
+volume_db = -10.0
+
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
+
+[node name="WorldGemSpawner" type="Node" parent="." unique_id=566826345]
+script = ExtResource("11_jsnws")
+GemScene = ExtResource("12_f345f")
+
+[node name="Timer" type="Timer" parent="." unique_id=1592666343]
+wait_time = 600.0
+one_shot = true
+autostart = true
+
+[node name="UpgradePopUp" type="AnimationPlayer" parent="." unique_id=59324645]
+unique_name_in_owner = true
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_yur6x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=708618664]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_y3jn2")
+
+[editable path="Hud/UpgradeMenu"]
+[editable path="Hud/PauseMenu"]
