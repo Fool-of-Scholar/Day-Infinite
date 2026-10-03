@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dgli1sewwbpo4"]
 
 [ext_resource type="Script" uid="uid://bpfgy16vhmbu8" path="res://scripts/EnemySpawner.cs" id="1_keuh2"]
-[ext_resource type="PackedScene" uid="uid://ss3bx15qje3m" path="res://scene/Enemies Mode1/enemy.tscn" id="2_2kgiw"]
+[ext_resource type="PackedScene" uid="uid://ss3bx15qje3m" path="res://scene/oldenemy.tscn" id="2_2kgiw"]
 
 [sub_resource type="Curve2D" id="Curve2D_s4jxa"]
 _data = {
@@ -11,7 +11,6 @@ point_count = 5
 
 [node name="Spawner" type="Node2D" unique_id=1486537965]
 script = ExtResource("1_keuh2")
-StartTimeOffset = 0.0
 BasicEnemyScene = ExtResource("2_2kgiw")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1235711956]

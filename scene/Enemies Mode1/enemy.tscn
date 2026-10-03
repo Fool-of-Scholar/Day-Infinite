@@ -112,6 +112,8 @@ MoveSpeed = 90.0
 sprite_frames = SubResource("SpriteFrames_5h11f")
 animation = &"walk"
 autoplay = "walk"
+frame = 10
+frame_progress = 0.51217383
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
 shape = SubResource("CircleShape2D_f87vc")
