@@ -22,6 +22,7 @@ public partial class HUD : CanvasLayer
     private UpgradeType _leftUpgrade;
     private UpgradeType _midUpgrade;  
     private UpgradeType _rightUpgrade;
+    private int MinimumLevel = 5;
     private readonly Random _random = new Random();
 
     private Movement _player;
@@ -112,7 +113,9 @@ public partial class HUD : CanvasLayer
         Damage,
         FireRate, 
         Projectile,
-        Weapon
+        Weapon1, // e.g. Rocket
+        Weapon2, // e.g. Bomb
+        Weapon3  // e.g. Plasma
     }
 
     private string FormatUpgradeName(UpgradeType type)
@@ -124,7 +127,9 @@ public partial class HUD : CanvasLayer
             UpgradeType.Projectile => "Extra Projectile +1",
             UpgradeType.Health     => "Max Health +25",
             UpgradeType.Speed      => "Speed +35",
-            UpgradeType.Weapon     => "Upgrade Weapon",
+            UpgradeType.Weapon1    => "Evolve: Rocket",
+            UpgradeType.Weapon2    => "Evolve: Bomb",
+            UpgradeType.Weapon3    => "Evolve: Plasma",
             _                      => "Unknown Upgrade"
         };
     }
@@ -136,7 +141,19 @@ public partial class HUD : CanvasLayer
             _openAnimation.Play("upgrade_in");
         }
         
-        List<UpgradeType> upgrades = GetRandomUpgrades(3);
+        List<UpgradeType> upgrades;
+
+        // Check if it's a milestone level for a Major Upgrade (Weapons)
+        if (_player != null && _player.CurrentLevel == MinimumLevel)
+        {
+            // Give exactly the 3 weapon options
+            upgrades = new List<UpgradeType> { UpgradeType.Weapon1, UpgradeType.Weapon2, UpgradeType.Weapon3 };
+        }
+        else
+        {
+            // Give random minor stats
+            upgrades = GetRandomMinorUpgrades(3);
+        }
         
         if (upgrades.Count >= 3)
         {
@@ -155,9 +172,18 @@ public partial class HUD : CanvasLayer
         GetTree().Paused = true; 
     }
 
-    private List<UpgradeType> GetRandomUpgrades(int count)
+    private List<UpgradeType> GetRandomMinorUpgrades(int count)
     {
-        List<UpgradeType> pool = new List<UpgradeType>((UpgradeType[])Enum.GetValues(typeof(UpgradeType)));
+        // Only include non-weapon stats in this pool
+        List<UpgradeType> pool = new List<UpgradeType> 
+        { 
+            UpgradeType.Speed, 
+            UpgradeType.Health, 
+            UpgradeType.Damage, 
+            UpgradeType.FireRate, 
+            UpgradeType.Projectile 
+        };
+        
         List<UpgradeType> selected = new List<UpgradeType>();
 
         for (int i = 0; i < count; i++)
@@ -176,29 +202,48 @@ public partial class HUD : CanvasLayer
     {
         if (_player == null) return;
 
-        // Try to find the WeaponManager attached to the player (assuming it's a child node)
         WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
 
-        switch (upgrade)
+        // Major upgrades
+        if (_player.CurrentLevel == MinimumLevel)
         {
-            case UpgradeType.Health:
-                _player.UpgradeHealth(25);
-                break;
-            case UpgradeType.Speed:
-                _player.UpgradeSpeed(35);
-                break;
-            case UpgradeType.Damage:
-                if (weapon != null) weapon.UpgradeDamage();
-                break;
-            case UpgradeType.FireRate:
-                if (weapon != null) weapon.UpgradeFireRate();
-                break;
-            case UpgradeType.Projectile:
-                if (weapon != null) weapon.UpgradeProjectile();
-                break;
-						case UpgradeType.Weapon:
-                _player.EvolveWeapon(); 
-                break;
+            MinimumLevel += 5; // Prepare for the next milestone (10, 15, 20...)
+            switch (upgrade)
+            {
+                case UpgradeType.Weapon1:
+                    _player.EvolveWeapon(); // Your existing method
+                    break;
+                case UpgradeType.Weapon2:
+                    // Create EvolveWeapon2() in Movement.cs for the bomb
+                    GD.Print("Weapon 2 selected!"); 
+                    break;
+                case UpgradeType.Weapon3:
+                    // Create EvolveWeapon3() in Movement.cs for the plasma
+                    GD.Print("Weapon 3 selected!");
+                    break;
+            }
+        }
+        // Minor upgrades
+        else
+        {
+            switch (upgrade)
+            {
+                case UpgradeType.Health:
+                    _player.UpgradeHealth(25);
+                    break;
+                case UpgradeType.Speed:
+                    _player.UpgradeSpeed(35);
+                    break;
+                case UpgradeType.Damage:
+                    if (weapon != null) weapon.UpgradeDamage();
+                    break;
+                case UpgradeType.FireRate:
+                    if (weapon != null) weapon.UpgradeFireRate();
+                    break;
+                case UpgradeType.Projectile:
+                    if (weapon != null) weapon.UpgradeProjectile();
+                    break;
+            }
         }
     }
 

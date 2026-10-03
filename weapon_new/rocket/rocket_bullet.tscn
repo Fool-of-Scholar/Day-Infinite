@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2esywige5ajl"]
 
-[ext_resource type="Script" uid="uid://ceoiyv54x0jr5" path="res://weapon_new/weapon_script/RocketBullet.cs" id="1_7ydg5"]
-[ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="2_1wrf7"]
+[ext_resource type="Script" uid="uid://ceoiyv54x0jr5" path="res://weapon_new/rocket/RocketBullet.cs" id="1_mft44"]
+[ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="2_sxuv5"]
 
 [sub_resource type="Animation" id="Animation_odvht"]
 length = 0.001
@@ -78,11 +78,11 @@ radius = 220.05681
 
 [node name="RocketBullet" type="Node2D" unique_id=1238031287]
 scale = Vector2(0.5, 0.5)
-script = ExtResource("1_7ydg5")
+script = ExtResource("1_mft44")
 
 [node name="BulletNew1" type="Sprite2D" parent="." unique_id=1579882343]
 position = Vector2(-1, 1)
-texture = ExtResource("2_1wrf7")
+texture = ExtResource("2_sxuv5")
 region_enabled = true
 region_rect = Rect2(1085.4066, 9.237968, 170.88062, 175.21066)
 

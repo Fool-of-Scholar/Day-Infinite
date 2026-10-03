@@ -273,6 +273,9 @@ public partial class Movement : CharacterBody2D
 
     private void LevelUp()
     {
+        if (CurrentLevel < 10)
+        {
+            
         CurrentLevel++;
         CurrentXp -= XpToNextLevel;
         XpToNextLevel = (int)(XpToNextLevel * 1.5f); // Increase XP threshold by 50% per level
@@ -281,6 +284,8 @@ public partial class Movement : CharacterBody2D
         EmitSignal(SignalName.LeveledUp);
 
         GD.Print($"LEVELED UP! Reached Level {CurrentLevel}. Next threshold: {XpToNextLevel} XP");
+        } 
+
     }
 
     public void UpgradeSpeed(int bonus)
@@ -314,11 +319,7 @@ public partial class Movement : CharacterBody2D
         if (weapon != null)
         {
             // Load your new gun and bullet scenes (adjust paths as needed)
-            PackedScene rocketGun = GD.Load<PackedScene>("res://weapon_new/weapon_designs/rocket.tscn");
-            PackedScene rocketBullet = GD.Load<PackedScene>("res://weapon_new/weapon_designs/rocket_bullet.tscn");
-            
-            // Pass the scenes and the new fire rate (e.g., 1.0f for slower rockets)
-            weapon.ChangeWeapon(rocketGun, rocketBullet, 1.0f);
+            PackedScene rocketBullet = GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn");
             
             GD.Print("Player Weapon Evolved to Rocket!");
         }

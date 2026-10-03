@@ -131,26 +131,11 @@ public partial class WeaponManager : Node2D
     }
     
     // Add this inside WeaponManager.cs
-    public void ChangeWeapon(PackedScene newGunScene, PackedScene newBulletScene, float newAttackInterval)
+    public void ChangeWeapon(PackedScene newBulletScene, float newAttackInterval)
     {
-        GunVisualScene = newGunScene;
         BulletScene = newBulletScene;
-        
         AttackInterval = newAttackInterval;
         _timer.WaitTime = AttackInterval;
-
-        // 1. Remove the old gun visual
-        foreach (Node child in _gunContainer.GetChildren())
-        {
-            child.QueueFree();
-        }
-
-        // 2. Instantiate and add the new gun visual
-        if (GunVisualScene != null)
-        {
-            Node2D visual = GunVisualScene.Instantiate<Node2D>();
-            _gunContainer.AddChild(visual);
-        }
 
         GD.Print("Weapon swapped successfully!");
     }

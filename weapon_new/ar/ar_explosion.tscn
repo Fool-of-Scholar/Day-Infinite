@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cvabevmk5j3qq"]
 
-[ext_resource type="Texture2D" uid="uid://bthquav8b1wew" path="res://assets/Free Smoke Fx Pixel 2/Free Smoke Fx  Pixel 05.png" id="1_60a1m"]
-[ext_resource type="Script" uid="uid://mfocpit80ws6" path="res://weapon_new/weapon_script/ArExplosion.cs" id="2_60a1m"]
+[ext_resource type="Texture2D" uid="uid://bthquav8b1wew" path="res://assets/Free Smoke Fx Pixel 2/Free Smoke Fx  Pixel 05.png" id="1_ftjed"]
+[ext_resource type="Script" uid="uid://mfocpit80ws6" path="res://weapon_new/ar/ArExplosion.cs" id="2_f2a2h"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ap8p0"]
 particles_animation = true
@@ -20,9 +20,9 @@ anim_speed_max = 1.0
 [node name="ARExplosion" type="GPUParticles2D" unique_id=1516465735]
 material = SubResource("CanvasItemMaterial_ap8p0")
 emitting = false
-texture = ExtResource("1_60a1m")
+texture = ExtResource("1_ftjed")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_wy8fi")
-script = ExtResource("2_60a1m")
+script = ExtResource("2_f2a2h")

@@ -27,9 +27,7 @@ public partial class World : Node2D
 
 		if (player != null && hud != null)
 		{
-			player.HealthChanged += hud.UpdateHealth;
-			player.XpChanged += hud.UpdateXp;
-			player.LeveledUp += hud.OpenUpgradeMenu;
+			hud.Initialize(player);
 
 			hud.UpdateHealth(player.CurrentHealth, player.MaxHealth);
 			hud.UpdateXp(player.CurrentXp, player.XpToNextLevel, player.CurrentLevel);
