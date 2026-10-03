@@ -4,10 +4,6 @@
 [ext_resource type="TileSet" uid="uid://bxpp67ts8kvmi" path="res://assets/new_tile_set.tres" id="2_txmk2"]
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" uid="uid://ss3bx15qje3m" path="res://scene/Enemies Mode1/enemy.tscn" id="5_bqa5m"]
-=======
->>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
 [ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="6_0tg4p"]
 [ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="6_7ghph"]
@@ -274,11 +270,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
-<<<<<<< Updated upstream
-StartTimeOffset = 595.0
-BasicEnemyScene = ExtResource("5_bqa5m")
-=======
->>>>>>> Stashed changes
 FastEnemyScene = ExtResource("6_e4vd1")
 SwarmEnemyScene = ExtResource("7_1402k")
 TankEnemyScene = ExtResource("8_ol7uo")

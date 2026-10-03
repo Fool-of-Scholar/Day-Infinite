@@ -306,8 +306,6 @@ public partial class Movement : CharacterBody2D
         sfxwalk.PitchScale = (float)GD.RandRange(0.9f, 1.1f);
         sfxwalk.Play();
     }
-<<<<<<< Updated upstream
-=======
 
     // Add this inside Movement.cs
     public void EvolveWeapon()
@@ -329,5 +327,4 @@ public partial class Movement : CharacterBody2D
             GD.PrintErr("Could not find WeaponManager on Player!");
         }
     }
->>>>>>> Stashed changes
 }

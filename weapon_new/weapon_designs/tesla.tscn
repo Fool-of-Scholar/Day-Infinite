@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dy20t50dqkewd"]
+
+[ext_resource type="Texture2D" uid="uid://biv1pl6cu67q7" path="res://assets/PIXWEP/barrel/barrel_rail.png" id="1_wvwcn"]
+[ext_resource type="Texture2D" uid="uid://cg264a7p1vqq" path="res://assets/PIXWEP/body/body_plasma_02.png" id="2_bx51o"]
+[ext_resource type="Texture2D" uid="uid://c5dr0xc4dws0" path="res://assets/PIXWEP/stock/stock_07.png" id="3_7qsxe"]
+
+[node name="Tesla" type="Node2D" unique_id=2071393814]
+
+[node name="BarrelRail" type="Sprite2D" parent="." unique_id=1319218206]
+position = Vector2(4, 2)
+texture = ExtResource("1_wvwcn")
+
+[node name="BodyPlasma02" type="Sprite2D" parent="." unique_id=1523472648]
+position = Vector2(4, 2)
+texture = ExtResource("2_bx51o")
+
+[node name="Stock07" type="Sprite2D" parent="." unique_id=1027179391]
+position = Vector2(5, 2)
+texture = ExtResource("3_7qsxe")
