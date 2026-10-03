@@ -306,4 +306,28 @@ public partial class Movement : CharacterBody2D
         sfxwalk.PitchScale = (float)GD.RandRange(0.9f, 1.1f);
         sfxwalk.Play();
     }
+<<<<<<< Updated upstream
+=======
+
+    // Add this inside Movement.cs
+    public void EvolveWeapon()
+    {
+        WeaponManager weapon = GetNodeOrNull<WeaponManager>("WeaponManager");
+        if (weapon != null)
+        {
+            // Load your new gun and bullet scenes (adjust paths as needed)
+            PackedScene rocketGun = GD.Load<PackedScene>("res://weapon_new/weapon_designs/rocket.tscn");
+            PackedScene rocketBullet = GD.Load<PackedScene>("res://weapon_new/weapon_designs/rocket_bullet.tscn");
+            
+            // Pass the scenes and the new fire rate (e.g., 1.0f for slower rockets)
+            weapon.ChangeWeapon(rocketGun, rocketBullet, 1.0f);
+            
+            GD.Print("Player Weapon Evolved to Rocket!");
+        }
+        else
+        {
+            GD.PrintErr("Could not find WeaponManager on Player!");
+        }
+    }
+>>>>>>> Stashed changes
 }
