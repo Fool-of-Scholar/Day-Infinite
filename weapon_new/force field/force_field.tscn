@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cj50a8urhs32v"]
+
+[ext_resource type="Script" uid="uid://c4syih2uuwlct" path="res://weapon_new/force field/ForceField.cs" id="1_m6rh5"]
+[ext_resource type="Texture2D" uid="uid://bdwx40flgocmw" path="res://assets/forcefieldblue/forcefield.png" id="2_m6rh5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hp4bs"]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
+radius = 116.275536
+
+[node name="ForceField" type="Area2D" unique_id=517817935]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_m6rh5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=414993730]
+modulate = Color(1, 1, 1, 0.47058824)
+material = SubResource("CanvasItemMaterial_hp4bs")
+texture = ExtResource("2_m6rh5")
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2101487193]
+show_behind_parent = true
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_ap8p0")
+
+[node name="Timer" type="Timer" parent="." unique_id=1621608541]

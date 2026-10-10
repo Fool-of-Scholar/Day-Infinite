@@ -273,9 +273,6 @@ public partial class Movement : CharacterBody2D
 
     private void LevelUp()
     {
-        if (CurrentLevel < 10)
-        {
-            
         CurrentLevel++;
         CurrentXp -= XpToNextLevel;
         XpToNextLevel = (int)(XpToNextLevel * 1.5f); // Increase XP threshold by 50% per level
@@ -284,7 +281,6 @@ public partial class Movement : CharacterBody2D
         EmitSignal(SignalName.LeveledUp);
 
         GD.Print($"LEVELED UP! Reached Level {CurrentLevel}. Next threshold: {XpToNextLevel} XP");
-        } 
 
     }
 

@@ -74,6 +74,13 @@ public partial class Enemy : CharacterBody2D
     }
 
     
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        // Instantly shoves the enemy backward
+        // Multiply by 0.1f so the force number in the inspector is easier to read (e.g. 300 instead of 3.0)
+        GlobalPosition += direction * (force * 0.1f);
+    }
+
     public virtual void TakeDamage(int damageAmount)
     {
         CurrentHealth -= damageAmount;

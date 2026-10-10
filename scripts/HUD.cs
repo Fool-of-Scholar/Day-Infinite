@@ -113,9 +113,17 @@ public partial class HUD : CanvasLayer
         Damage,
         FireRate, 
         Projectile,
-        Weapon1, // e.g. Rocket
-        Weapon2, // e.g. Bomb
-        Weapon3  // e.g. Plasma
+        
+        // Menu Navigation
+        MenuAddNewWeapon,
+        MenuUpgradeWeapon,
+
+        // Weapons
+        WeaponAR,
+        WeaponMine,
+        WeaponRocket,
+        WeaponForceField,
+        WeaponTesla
     }
 
     private string FormatUpgradeName(UpgradeType type)
@@ -127,10 +135,14 @@ public partial class HUD : CanvasLayer
             UpgradeType.Projectile => "Extra Projectile +1",
             UpgradeType.Health     => "Max Health +25",
             UpgradeType.Speed      => "Speed +35",
-            UpgradeType.Weapon1    => "Evolve: Rocket",
-            UpgradeType.Weapon2    => "Evolve: Bomb",
-            UpgradeType.Weapon3    => "Evolve: Plasma",
-            _                      => "Unknown Upgrade"
+            UpgradeType.MenuAddNewWeapon  => "Add New Weapon",
+            UpgradeType.MenuUpgradeWeapon => "Upgrade Weapon",
+            UpgradeType.WeaponAR         => "Assault Rifle",
+            UpgradeType.WeaponMine       => "Landmine",
+            UpgradeType.WeaponRocket     => "Rocket Launcher",
+            UpgradeType.WeaponForceField => "Force Field",
+            UpgradeType.WeaponTesla => "Tesla",
+            _                      => "Unknown"
         };
     }
 
@@ -141,47 +153,141 @@ public partial class HUD : CanvasLayer
             _openAnimation.Play("upgrade_in");
         }
         
-        List<UpgradeType> upgrades;
+        // Make sure buttons are visible in case they were hidden by the sub-menu previously
+        if (_leftButton != null) _leftButton.Visible = true;
+        if (_midButton != null) _midButton.Visible = true;
+        if (_rightButton != null) _rightButton.Visible = true;
 
-        // Check if it's a milestone level for a Major Upgrade (Weapons)
         if (_player != null && _player.CurrentLevel == MinimumLevel)
         {
-            // Give exactly the 3 weapon options
-            upgrades = new List<UpgradeType> { UpgradeType.Weapon1, UpgradeType.Weapon2, UpgradeType.Weapon3 };
+            WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
+            bool canAdd = weapon != null && weapon.EquippedWeapons.Count < WeaponManager.MaxWeapons;
+            bool canUpgrade = weapon != null && weapon.TotalUpgradePointsUsed < WeaponManager.MaxUpgradePoints;
+
+            if (canAdd && canUpgrade)
+            {
+                // Show the 2-choice menu
+                _leftUpgrade = UpgradeType.MenuAddNewWeapon;
+                _midUpgrade = UpgradeType.MenuUpgradeWeapon;
+                
+                _leftButton.Text = FormatUpgradeName(_leftUpgrade);
+                _midButton.Text = FormatUpgradeName(_midUpgrade);
+                _rightButton.Visible = false; // Hide 3rd button for this step
+            }
+            else if (canAdd)
+            {
+                OpenSubMenuAddWeapon();
+            }
+            else if (canUpgrade)
+            {
+                OpenSubMenuUpgradeWeapon();
+            }
+            else
+            {
+                // Fully maxed out on weapons/upgrades! Give minor stats instead
+                SetButtonsToMinorStats();
+            }
         }
         else
         {
-            // Give random minor stats
-            upgrades = GetRandomMinorUpgrades(3);
-        }
-        
-        if (upgrades.Count >= 3)
-        {
-            _leftUpgrade = upgrades[0];
-            _midUpgrade = upgrades[1];
-            _rightUpgrade = upgrades[2];
-
-            if (_leftButton != null && _midButton != null && _rightButton != null)
-            {
-                _leftButton.Text = FormatUpgradeName(_leftUpgrade);
-                _midButton.Text = FormatUpgradeName(_midUpgrade);
-                _rightButton.Text = FormatUpgradeName(_rightUpgrade);
-            }
+            SetButtonsToMinorStats();
         }
 
         GetTree().Paused = true; 
     }
 
+    private void SetButtonsToMinorStats()
+    {
+        List<UpgradeType> upgrades = GetRandomMinorUpgrades(3);
+        SetButtonUpgrades(upgrades);
+    }
+
+    private void OpenSubMenuAddWeapon()
+    {
+        if (_rightButton != null) _rightButton.Visible = true;
+
+        WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
+        List<UpgradeType> possible = new List<UpgradeType> { UpgradeType.WeaponAR, 
+        UpgradeType.WeaponMine, UpgradeType.WeaponRocket, UpgradeType.WeaponForceField, 
+        UpgradeType.WeaponTesla};
+        
+        // Remove weapons we already have equipped
+        if (weapon != null)
+        {
+            foreach (var w in weapon.EquippedWeapons)
+            {
+                if (w.WeaponId == "AR") possible.Remove(UpgradeType.WeaponAR);
+                if (w.WeaponId == "Mine") possible.Remove(UpgradeType.WeaponMine);
+                if (w.WeaponId == "Rocket") possible.Remove(UpgradeType.WeaponRocket);
+                if (w.WeaponId == "Tesla") possible.Remove(UpgradeType.WeaponTesla);
+                if (w.WeaponId == "ForceField") possible.Remove(UpgradeType.WeaponForceField);
+            }
+        }
+
+        // Pick up to 3 random unequipped weapons
+        List<UpgradeType> choices = new List<UpgradeType>();
+        for (int i = 0; i < 3; i++)
+        {
+            if (possible.Count == 0) break;
+            int r = _random.Next(possible.Count);
+            choices.Add(possible[r]);
+            possible.RemoveAt(r);
+        }
+
+        SetButtonUpgrades(choices);
+    }
+
+    private void OpenSubMenuUpgradeWeapon()
+    {
+        if (_rightButton != null) _rightButton.Visible = true;
+
+        WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
+        List<UpgradeType> choices = new List<UpgradeType>();
+
+        // Only show options for weapons we currently have equipped
+        if (weapon != null)
+        {
+            foreach (var w in weapon.EquippedWeapons)
+            {
+                if (w.WeaponId == "AR") choices.Add(UpgradeType.WeaponAR);
+                if (w.WeaponId == "Mine") choices.Add(UpgradeType.WeaponMine);
+                if (w.WeaponId == "Rocket") choices.Add(UpgradeType.WeaponRocket);
+                if (w.WeaponId == "Tesla") choices.Add(UpgradeType.WeaponTesla);
+                if (w.WeaponId == "ForceField") choices.Add(UpgradeType.WeaponForceField);
+            }
+        }
+
+        SetButtonUpgrades(choices);
+    }
+
+    private void SetButtonUpgrades(List<UpgradeType> upgrades)
+    {
+        if (_leftButton != null) _leftButton.Visible = false;
+        if (_midButton != null) _midButton.Visible = false;
+        if (_rightButton != null) _rightButton.Visible = false;
+
+        if (upgrades.Count > 0)
+        {
+            _leftUpgrade = upgrades[0];
+            if (_leftButton != null) { _leftButton.Text = FormatUpgradeName(_leftUpgrade); _leftButton.Visible = true; }
+        }
+        if (upgrades.Count > 1)
+        {
+            _midUpgrade = upgrades[1];
+            if (_midButton != null) { _midButton.Text = FormatUpgradeName(_midUpgrade); _midButton.Visible = true; }
+        }
+        if (upgrades.Count > 2)
+        {
+            _rightUpgrade = upgrades[2];
+            if (_rightButton != null) { _rightButton.Text = FormatUpgradeName(_rightUpgrade); _rightButton.Visible = true; }
+        }
+    }
+
     private List<UpgradeType> GetRandomMinorUpgrades(int count)
     {
-        // Only include non-weapon stats in this pool
         List<UpgradeType> pool = new List<UpgradeType> 
         { 
-            UpgradeType.Speed, 
-            UpgradeType.Health, 
-            UpgradeType.Damage, 
-            UpgradeType.FireRate, 
-            UpgradeType.Projectile 
+            UpgradeType.Speed, UpgradeType.Health, UpgradeType.Damage, UpgradeType.FireRate, UpgradeType.Projectile 
         };
         
         List<UpgradeType> selected = new List<UpgradeType>();
@@ -198,53 +304,80 @@ public partial class HUD : CanvasLayer
         return selected;
     }
 
-    private void ApplyUpgrade(UpgradeType upgrade)
+    // Returns true if the menu should close, false if we are just navigating a sub-menu
+    private bool ApplyUpgrade(UpgradeType upgrade)
     {
-        if (_player == null) return;
+        if (_player == null) return true;
 
         WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
 
-        // Major upgrades
-        if (_player.CurrentLevel == MinimumLevel)
+        // Sub-menu navigation checks
+        if (upgrade == UpgradeType.MenuAddNewWeapon)
         {
-            MinimumLevel += 5; // Prepare for the next milestone (10, 15, 20...)
-            switch (upgrade)
-            {
-                case UpgradeType.Weapon1:
-                    _player.EvolveWeapon(); // Your existing method
-                    break;
-                case UpgradeType.Weapon2:
-                    // Create EvolveWeapon2() in Movement.cs for the bomb
-                    GD.Print("Weapon 2 selected!"); 
-                    break;
-                case UpgradeType.Weapon3:
-                    // Create EvolveWeapon3() in Movement.cs for the plasma
-                    GD.Print("Weapon 3 selected!");
-                    break;
-            }
+            OpenSubMenuAddWeapon();
+            return false; // Keep menu open
         }
+        if (upgrade == UpgradeType.MenuUpgradeWeapon)
+        {
+            OpenSubMenuUpgradeWeapon();
+            return false; // Keep menu open
+        }
+
+        // Weapon Selection Logic (either Adding or Upgrading)
+        if (upgrade == UpgradeType.WeaponAR || upgrade == UpgradeType.WeaponMine || 
+            upgrade == UpgradeType.WeaponRocket || upgrade == UpgradeType.WeaponForceField || upgrade == UpgradeType.WeaponTesla)
+        {
+            if (weapon != null)
+            {
+                string id = "";
+                if (upgrade == UpgradeType.WeaponAR) id = "AR";
+                if (upgrade == UpgradeType.WeaponMine) id = "Mine";
+                if (upgrade == UpgradeType.WeaponRocket) id = "Rocket";
+                if (upgrade == UpgradeType.WeaponTesla) id = "Tesla";
+                if (upgrade == UpgradeType.WeaponForceField) id = "ForceField";
+
+                // Check if they already have it
+                bool hasWeapon = false;
+                foreach(var w in weapon.EquippedWeapons)
+                {
+                    if (w.WeaponId == id) hasWeapon = true;
+                }
+
+                if (hasWeapon)
+                {
+                    weapon.UpgradeWeaponStage(id);
+                }
+                else
+                {
+                    weapon.EquipNewWeapon(id);
+                }
+            }
+            
+            MinimumLevel += 5; // Advance milestone for next time
+            return true; 
+        }
+
         // Minor upgrades
-        else
+        switch (upgrade)
         {
-            switch (upgrade)
-            {
-                case UpgradeType.Health:
-                    _player.UpgradeHealth(25);
-                    break;
-                case UpgradeType.Speed:
-                    _player.UpgradeSpeed(35);
-                    break;
-                case UpgradeType.Damage:
-                    if (weapon != null) weapon.UpgradeDamage();
-                    break;
-                case UpgradeType.FireRate:
-                    if (weapon != null) weapon.UpgradeFireRate();
-                    break;
-                case UpgradeType.Projectile:
-                    if (weapon != null) weapon.UpgradeProjectile();
-                    break;
-            }
+            case UpgradeType.Health:
+                _player.UpgradeHealth(25);
+                break;
+            case UpgradeType.Speed:
+                _player.UpgradeSpeed(35);
+                break;
+            case UpgradeType.Damage:
+                if (weapon != null) weapon.UpgradeDamage();
+                break;
+            case UpgradeType.FireRate:
+                if (weapon != null) weapon.UpgradeFireRate();
+                break;
+            case UpgradeType.Projectile:
+                if (weapon != null) weapon.UpgradeProjectile();
+                break;
         }
+
+        return true; // Close menu after stat upgrade
     }
 
     public void CloseUpgradeMenu()
@@ -256,20 +389,17 @@ public partial class HUD : CanvasLayer
 
     public void OnLeftSelected()
     {
-        ApplyUpgrade(_leftUpgrade);
-        CloseUpgradeMenu();
+        if (ApplyUpgrade(_leftUpgrade)) CloseUpgradeMenu();
     }
 
     public void OnMiddleSelected()
     {
-        ApplyUpgrade(_midUpgrade);
-        CloseUpgradeMenu();
+        if (ApplyUpgrade(_midUpgrade)) CloseUpgradeMenu();
     }
 
     public void OnRightSelected()
     {
-        ApplyUpgrade(_rightUpgrade);
-        CloseUpgradeMenu();
+        if (ApplyUpgrade(_rightUpgrade)) CloseUpgradeMenu();
     }
 
     // --- UI Update Callbacks ---
