@@ -19,6 +19,7 @@ public partial class AudioManager : Node
 
     public void PlayMusic()
     {
+        _audioPlayer.SetProcess(true);
         // Only play if it isn't already playing
         if (!_audioPlayer.Playing)
         {

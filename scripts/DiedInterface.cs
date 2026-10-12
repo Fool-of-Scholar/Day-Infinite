@@ -8,8 +8,8 @@ public partial class DiedInterface : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_btnRestart = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/Retry");
-		_mainMenu = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/MainMenu");
+		_btnRestart = GetNode<Button>("TextureRect/Retry");
+		_mainMenu = GetNode<Button>("TextureRect/MainMenu");
 
 		_btnRestart.Pressed += OnRestartPressed;
 		_mainMenu.Pressed += OnMainMenuPressed;

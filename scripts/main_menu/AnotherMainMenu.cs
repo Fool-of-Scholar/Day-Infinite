@@ -35,7 +35,7 @@ public partial class AnotherMainMenu : Control
 
 		_timer.Start();
 		_timer.Timeout += () => {
-			GetTree().Root.AddChild(GD.Load<PackedScene>(_nextScenePath).Instantiate());
+			GetTree().ChangeSceneToFile(_nextScenePath);
 			QueueFree(); // Remove the current scene from the tree
 		};
 	}

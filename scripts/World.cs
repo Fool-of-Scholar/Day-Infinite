@@ -20,11 +20,10 @@ public partial class World : Node2D
 		_environmentLayer = GetNode<TileMapLayer>("environment");
 		_cliffsLayer = GetNode<TileMapLayer>("cliffs");
 
-<<<<<<< Updated upstream
-		GD.Print("Hello World! Map systems initialized.");
-=======
 		Movement player = GetNodeOrNull<Movement>("Player");
 		HUD hud = GetNodeOrNull<HUD>("Hud");
+
+		EnemySpawner spawner = GetNode<EnemySpawner>("Spawner");
 
 		if (player != null && hud != null)
 		{
@@ -34,16 +33,12 @@ public partial class World : Node2D
 
 			hud.UpdateHealth(player.CurrentHealth, player.MaxHealth);
 			hud.UpdateXp(player.CurrentXp, player.XpToNextLevel, player.CurrentLevel);
-
 		}
 
 		GD.Print("Hello World! Map systems initialized.");
 
-
->>>>>>> Stashed changes
+		
 	}
-
-
 
 	public override void _Input(InputEvent @event)
 	{
@@ -85,41 +80,4 @@ public partial class World : Node2D
 			}
 		}	
 	}
-
-		public void PlayerDied()
-	{
-		PackedScene gameOverScene = GD.Load<PackedScene>("res://scene/died_interface.tscn");
-
-
-		if (gameOverScene != null)
-		{
-			Control gameOverInterface = gameOverScene.Instantiate<Control>();
-			GetTree().Root.AddChild(gameOverInterface);
-			GetTree().Paused = true; // Pause the game when the player dies
-		}
-		else
-		{
-			GD.PrintErr("Failed to load the game over scene.");
-		}
-	}
-	
-	public void OnPlayerDied()
-    {
-        PackedScene gameOverScene = GD.Load<PackedScene>("res://scene/died_interface.tscn");
-
-        if (gameOverScene != null)
-        {
-            Control gameOverInterface = gameOverScene.Instantiate<Control>();
-            
-            // Add it directly to the world scene
-            AddChild(gameOverInterface);
-            
-            // Pause the rest of the game
-            GetTree().Paused = true; 
-        }
-        else
-        {
-            GD.PrintErr("Failed to load the game over scene.");
-        }
-    }
 }

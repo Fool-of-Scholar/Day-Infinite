@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bgt05xn8h7gqm"]
+
+[ext_resource type="Script" uid="uid://lu2ciaugl8y6" path="res://scripts/main_menu/PauseMenu.cs" id="1_l44li"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_l44li"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jirmc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5wk78"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taakq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0giq3"]
+
+[node name="PauseMenu" type="Control" unique_id=2057780145]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l44li")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=889247620]
+layout_mode = 0
+anchor_bottom = 1.0
+offset_right = 720.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=417901829]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer" unique_id=598388768]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_l44li")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Resume              "
+
+[node name="Stats" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1640908320]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_l44li")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Stats        "
+
+[node name="Options" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1191263061]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_l44li")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Options"
+
+[node name="Retry" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1705188300]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_l44li")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "      Retry"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1933536340]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_l44li")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "            Quit"

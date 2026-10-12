@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://vrtyrt348uii"]
+
+[ext_resource type="Script" uid="uid://cenfeeo2w4ejn" path="res://scripts/FleeingEnemy.cs" id="1_c87xm"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="2_axdqd"]
+[ext_resource type="Texture2D" uid="uid://ddw82gy3j2ux6" path="res://assets/BloodSplatter-Purple.png" id="3_axdqd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnm4a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e4vd1"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1511542519]
+motion_mode = 1
+script = ExtResource("1_c87xm")
+FleeSpeed = 250.0
+MaxHealth = 100
+GemScene = ExtResource("2_axdqd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2016849724]
+position = Vector2(258, -4)
+texture = ExtResource("3_axdqd")
+offset = Vector2(-258, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
+shape = SubResource("CircleShape2D_hnm4a")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=336066589]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=917060502]
+shape = SubResource("CircleShape2D_e4vd1")

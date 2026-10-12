@@ -10,11 +10,7 @@ public partial class Options : Button
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-<<<<<<< Updated upstream
-		animPlayer = GetNode<AnimationPlayer>("../../../../AnimationPlayer");
-=======
 		animPlayer = GetNode<AnimationPlayer>("../../../../Options/AnimationPlayer2");
->>>>>>> Stashed changes
 		languageOptions = GetNode<OptionButton>("../../../../Options/PanelContainer/MarginContainer/VBoxContainer/Language/OptionButton");
 		this.Pressed += openOptions;
 		
@@ -30,11 +26,7 @@ public partial class Options : Button
 
 	private void openOptions()
 	{
-<<<<<<< Updated upstream
-		if (verify == 0)
-=======
 		if (verify == 0 && !animPlayer.IsPlaying())
->>>>>>> Stashed changes
 		{
 			animPlayer.Play("options_in");
 			verify = 1;

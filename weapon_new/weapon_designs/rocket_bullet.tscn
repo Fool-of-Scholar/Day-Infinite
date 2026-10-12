@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://2esywige5ajl"]
+
+[ext_resource type="Script" uid="uid://ceoiyv54x0jr5" path="res://weapon_new/weapon_script/RocketBullet.cs" id="1_7ydg5"]
+[ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="2_1wrf7"]
+
+[sub_resource type="Animation" id="Animation_odvht"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m0l6l"]
+resource_name = "explode"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_3vwy7"]
+resource_name = "shot"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hi3an"]
+_data = {
+&"RESET": SubResource("Animation_odvht"),
+&"explode": SubResource("Animation_m0l6l"),
+&"shot": SubResource("Animation_3vwy7")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
+radius = 84.29116
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31oe1"]
+radius = 220.05681
+
+[node name="RocketBullet" type="Node2D" unique_id=1238031287]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_7ydg5")
+
+[node name="BulletNew1" type="Sprite2D" parent="." unique_id=1579882343]
+position = Vector2(-1, 1)
+texture = ExtResource("2_1wrf7")
+region_enabled = true
+region_rect = Rect2(1085.4066, 9.237968, 170.88062, 175.21066)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1685665901]
+root_node = NodePath("../BulletNew1")
+libraries/ = SubResource("AnimationLibrary_hi3an")
+
+[node name="Shot" type="Area2D" parent="." unique_id=343772220]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shot" unique_id=2109174971]
+shape = SubResource("CircleShape2D_ap8p0")
+
+[node name="Explode" type="Area2D" parent="." unique_id=223536463]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Explode" unique_id=1231733355]
+shape = SubResource("CircleShape2D_31oe1")

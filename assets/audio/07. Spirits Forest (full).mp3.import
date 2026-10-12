@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bx3aa13jq3at5"
+path="res://.godot/imported/07. Spirits Forest (full).mp3-2f108698e4d63bd3d1f8e5588e0087aa.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/07. Spirits Forest (full).mp3"
+dest_files=["res://.godot/imported/07. Spirits Forest (full).mp3-2f108698e4d63bd3d1f8e5588e0087aa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

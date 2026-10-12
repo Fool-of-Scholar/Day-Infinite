@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bjjiv001exai4"]
+
+[ext_resource type="Texture2D" uid="uid://d2nkpsa2r8mmc" path="res://assets/lightning_line_effect/lightning_line_effect/lightning_line_medium/lightning_line1a7.png" id="1_omaae"]
+[ext_resource type="Texture2D" uid="uid://cijy8tuqkylyv" path="res://assets/lightning_line_effect/lightning_line_effect/lightning_line_medium/lightning_line1a10.png" id="2_0gl7s"]
+[ext_resource type="Texture2D" uid="uid://boogcgeegoofj" path="res://assets/lightning_line_effect/lightning_line_effect/lightning_line_medium/lightning_line1a11.png" id="3_e2ruq"]
+[ext_resource type="Texture2D" uid="uid://bdpdxuidsdl7w" path="res://assets/lightning_line_effect/lightning_line_effect/lightning_line_medium/lightning_line1a12.png" id="4_wgv4l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhixv"]
+atlas = ExtResource("1_omaae")
+region = Rect2(0, 0, 108, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u6l3"]
+atlas = ExtResource("2_0gl7s")
+region = Rect2(0, 0, 104, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ule8e"]
+atlas = ExtResource("3_e2ruq")
+region = Rect2(0, 0, 106, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd2nq"]
+atlas = ExtResource("4_wgv4l")
+region = Rect2(0, 0, 108, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ap8p0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhixv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u6l3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ule8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd2nq")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="TeslaBullet" type="Area2D" unique_id=89299660]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=363972481]
+position = Vector2(134, 0)
+scale = Vector2(3.528302, 1)
+sprite_frames = SubResource("SpriteFrames_ap8p0")
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1866489784]

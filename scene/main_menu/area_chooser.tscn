@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://duly2g0pe44tb"]
+
+[ext_resource type="Script" uid="uid://cobysj3nkja8c" path="res://scripts/main_menu/AreaChooser.cs" id="1_e5oa5"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="1_s223w"]
+[ext_resource type="Texture2D" uid="uid://b3sd7qiambl77" path="res://assets/Encylopedia/buttons.png" id="2_e5oa5"]
+[ext_resource type="Texture2D" uid="uid://5iuj52s2b0r6" path="res://assets/Encylopedia/weapons.png" id="3_h3ism"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbdty"]
+bg_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+
+[node name="AreaChooser" type="Control" unique_id=959658300]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e5oa5")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=85706214]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=317683801]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=6048967]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=459463538]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=297061730]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1227954178]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s223w")
+theme_override_font_sizes/font_size = 42
+text = "<pad>"
+
+[node name="Prev" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1643047185]
+layout_mode = 2
+texture = ExtResource("2_e5oa5")
+stretch_mode = 3
+
+[node name="Main" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1072739321]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_e5oa5")
+
+[node name="Next" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=290576183]
+layout_mode = 2
+texture = ExtResource("2_e5oa5")
+stretch_mode = 3
+
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1793536941]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s223w")
+theme_override_font_sizes/font_size = 42
+text = "<pad>"
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1221661071]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = ExtResource("3_h3ism")
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1246431870]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s223w")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1vivr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8vrlf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qbdty")
+text = "<proceed>"

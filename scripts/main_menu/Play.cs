@@ -17,7 +17,7 @@ public partial class Play : Button
 
 	private void openWorld()
 	{
-		string scene = "res://scene/world.tscn";
+		string scene = "res://scene/main_menu/weapon_chooser.tscn";
 
 		GetTree().ChangeSceneToFile(scene);
 	}

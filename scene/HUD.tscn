@@ -23,6 +23,12 @@ outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 3
 
+[sub_resource type="LabelSettings" id="LabelSettings_5nt5s"]
+font_size = 38
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8u16h"]
 bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
 border_width_left = 5
@@ -39,44 +45,8 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5gy4"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbdty"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auskg"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [node name="Hud" type="CanvasLayer" unique_id=238226186]
+process_mode = 3
 script = ExtResource("1_mmka4")
 
 [node name="Control" type="Control" parent="." unique_id=363095727]
@@ -114,6 +84,19 @@ text = "Level 1
 "
 label_settings = SubResource("LabelSettings_mmka4")
 
+[node name="Time" type="Label" parent="Control" unique_id=1524108298]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 450.0
+offset_top = 43.0
+offset_right = 577.0
+offset_bottom = 152.0
+grow_horizontal = 2
+text = "00:00"
+label_settings = SubResource("LabelSettings_5nt5s")
+
 [node name="HealthBar" type="ProgressBar" parent="Control" unique_id=1034748155]
 layout_mode = 1
 offset_left = 98.0
@@ -123,66 +106,3 @@ offset_bottom = 83.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_8u16h")
 value = 100.0
 show_percentage = false
-
-[node name="UpgradeMenu" type="Panel" parent="." unique_id=1082641275]
-process_mode = 3
-custom_minimum_size = Vector2(400, 300)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="UpgradeMenu" unique_id=2024749028]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeMenu/PanelContainer" unique_id=633091846]
-layout_mode = 2
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 18
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeMenu/PanelContainer/MarginContainer" unique_id=1841072462]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BtnHealth" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1471280055]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_v5gy4")
-text = "+25 Health
-"
-
-[node name="VSeparator" type="VSeparator" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1601192911]
-layout_mode = 2
-theme_override_constants/separation = 12
-theme_override_styles/separator = SubResource("StyleBoxEmpty_8vrlf")
-
-[node name="BtnSpeed" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=939278544]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_qbdty")
-text = "+30 Speed"
-
-[node name="VSeparator2" type="VSeparator" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=185797527]
-layout_mode = 2
-theme_override_constants/separation = 12
-theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
-
-[node name="BtnDamage" type="Button" parent="UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer" unique_id=1779232747]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_auskg")
-text = "+15 Damage  "

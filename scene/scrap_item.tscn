@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://buuf51insnvsj"]
+
+[ext_resource type="Texture2D" uid="uid://3ykwq4tn3yub" path="res://icon.svg" id="1_6j12y"]
+[ext_resource type="Script" uid="uid://crt0r0ol5bd8h" path="res://scripts/ScrapItem.cs" id="1_7g3k5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhpnm"]
+
+[node name="ScrapItem" type="Area2D" unique_id=1946657424]
+collision_layer = 8
+script = ExtResource("1_7g3k5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1364653702]
+texture = ExtResource("1_6j12y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=714416370]
+shape = SubResource("CircleShape2D_bhpnm")

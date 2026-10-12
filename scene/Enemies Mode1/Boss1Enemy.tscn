@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://cfrmg04ys4e43"]
+
+[ext_resource type="Script" uid="uid://seeixkhveqw" path="res://scripts/Boss1Enemy.cs" id="1_uhmq8"]
+[ext_resource type="Texture2D" uid="uid://bvcqftoscuxci" path="res://assets/Slime_Medium_Green.png" id="2_uhmq8"]
+[ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_uueh3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f87vc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uueh3"]
+atlas = ExtResource("2_uhmq8")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ickdi"]
+atlas = ExtResource("2_uhmq8")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asgfk"]
+atlas = ExtResource("2_uhmq8")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hr2n5"]
+atlas = ExtResource("2_uhmq8")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uueh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ickdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asgfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hr2n5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u16h"]
+radius = 3.9560077
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1511542519 groups=["enemies"]]
+scale = Vector2(2.5, 2.5)
+motion_mode = 1
+script = ExtResource("1_uhmq8")
+BloodScene = ExtResource("2_uueh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
+shape = SubResource("CircleShape2D_f87vc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=290062266]
+scale = Vector2(0.99999994, 0.99999994)
+sprite_frames = SubResource("SpriteFrames_5h11f")
+autoplay = "default"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=336066589]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=917060502 groups=["enemies"]]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_8u16h")
