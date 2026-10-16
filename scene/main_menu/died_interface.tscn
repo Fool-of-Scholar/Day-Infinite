@@ -38,6 +38,18 @@ offset_bottom = 61.0
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_1vivr")
 
+[node name="GiveUp" type="Button" parent="TextureRect" unique_id=742204763]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 504.0
+offset_top = 122.0
+offset_right = 766.0
+offset_bottom = 244.0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_1vivr")
+
 [node name="Retry" type="Button" parent="TextureRect" unique_id=352298021]
 layout_mode = 1
 anchors_preset = 6

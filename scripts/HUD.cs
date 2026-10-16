@@ -16,13 +16,14 @@ public partial class HUD : CanvasLayer
     private AnimationPlayer _openAnimation;
 
     private Control _upgradeMenu;
+    private Control _diedInterface;
     private Button _leftButton;
     private Button _midButton;
     private Button _rightButton;
     private UpgradeType _leftUpgrade;
     private UpgradeType _midUpgrade;  
     private UpgradeType _rightUpgrade;
-    private int MinimumLevel = 5;
+    private int MinimumLevel = 3;  // Balanced: first weapon choice at level 3 (was 5 — too long to wait)
     private readonly Random _random = new Random();
 
     private Movement _player;
@@ -42,6 +43,7 @@ public partial class HUD : CanvasLayer
         _Timer = GetNodeOrNull<Timer>("../Timer");
         _openAnimation = GetNodeOrNull<AnimationPlayer>("../AnimationPlayer");
         _upgradeMenu = GetNodeOrNull<Control>("UpgradeMenu");
+        _diedInterface = GetNodeOrNull<Control>("DiedInterface");
 
         // 3. Buttons (Checking multiple fallback methods automatically)
         _leftButton = GetNodeOrNull<Button>("%BtnLeft") ?? 
@@ -59,6 +61,19 @@ public partial class HUD : CanvasLayer
         if (_rightButton != null) _rightButton.Pressed += OnRightSelected;
 
         if (_upgradeMenu != null) _upgradeMenu.Visible = false;
+
+        // Use lowercase "player" or look for sibling "../Player"
+    _player = (GetTree().GetFirstNodeInGroup("player") as Movement) 
+            ?? GetNodeOrNull<Movement>("../Player");
+
+    if (_player != null)
+    {
+        Initialize(_player);
+        UpdateHealth(_player.CurrentHealth, _player.MaxHealth);
+        UpdateXp(_player.CurrentXp, _player.XpToNextLevel, _player.CurrentLevel);
+        UpdateScrap(_player.CurrentScraps);
+    }
+
         
         GD.Print("--- HUD INITIALIZATION COMPLETE ---");
     }
@@ -84,6 +99,22 @@ public partial class HUD : CanvasLayer
         _player.XpChanged += UpdateXp;
         _player.ScrapChanged += UpdateScrap;
         _player.LeveledUp += OpenUpgradeMenu; // Automatically open menu when player levels up!
+        _player.PlayerDied += OnPlayerDied;   // Show death screen when player dies
+    }
+
+    private void OnPlayerDied()
+    {
+        // Play the drop-in animation for the death screen
+        if (_openAnimation != null)
+        {
+            _openAnimation.Play("died");
+        }
+
+        // Make DiedInterface visible so it catches input when the animation finishes
+        if (_diedInterface != null)
+        {
+            _diedInterface.Visible = true;
+        }
     }
 
     public override void _Input(InputEvent @event)
@@ -130,16 +161,16 @@ public partial class HUD : CanvasLayer
     {
         return type switch
         {
-            UpgradeType.Damage     => "Damage +20",
-            UpgradeType.FireRate   => "Fire Rate +30%",
+            UpgradeType.Damage     => "Damage +15",
+            UpgradeType.FireRate   => "Fire Rate +20%",
             UpgradeType.Projectile => "Extra Projectile +1",
-            UpgradeType.Health     => "Max Health +25",
-            UpgradeType.Speed      => "Speed +35",
-            UpgradeType.MenuAddNewWeapon  => "Add New Weapon",
-            UpgradeType.MenuUpgradeWeapon => "Upgrade Weapon",
-            UpgradeType.WeaponAR         => "Assault Rifle",
-            UpgradeType.WeaponMine       => "Landmine",
-            UpgradeType.WeaponRocket     => "Rocket Launcher",
+            UpgradeType.Health     => "Max Health +30",
+            UpgradeType.Speed      => "Speed +25",
+            UpgradeType.MenuAddNewWeapon  => "Add Weapon [+]",
+            UpgradeType.MenuUpgradeWeapon => "Upgrade Weapon [^]",
+            UpgradeType.WeaponAR         => "Assault Rifle [Rapid]",
+            UpgradeType.WeaponMine       => "Landmine [Trap]",
+            UpgradeType.WeaponRocket     => "Rocket [AoE]",
             UpgradeType.WeaponForceField => "Force Field",
             UpgradeType.WeaponTesla => "Tesla",
             _                      => "Unknown"
@@ -353,7 +384,7 @@ public partial class HUD : CanvasLayer
                 }
             }
             
-            MinimumLevel += 5; // Advance milestone for next time
+            MinimumLevel += 4; // Balanced: was +5 — more frequent weapon/upgrade decisions during 10 min
             return true; 
         }
 
@@ -361,10 +392,10 @@ public partial class HUD : CanvasLayer
         switch (upgrade)
         {
             case UpgradeType.Health:
-                _player.UpgradeHealth(25);
+                _player.UpgradeHealth(30);  // Balanced: was +25
                 break;
             case UpgradeType.Speed:
-                _player.UpgradeSpeed(35);
+                _player.UpgradeSpeed(25);   // Balanced: was +35 (too large per step)
                 break;
             case UpgradeType.Damage:
                 if (weapon != null) weapon.UpgradeDamage();

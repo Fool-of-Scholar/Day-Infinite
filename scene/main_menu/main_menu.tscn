@@ -267,6 +267,10 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
 text = "Exit"
 script = ExtResource("4_spnib")
 
+[node name="TotalScrapsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=639800405]
+layout_mode = 2
+text = "Total Scraps: 0"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1047898849]
 libraries/ = SubResource("AnimationLibrary_jix8l")
 autoplay = &"idle"

@@ -1,44 +1,132 @@
 [gd_scene format=3 uid="uid://cfrmg04ys4e43"]
 
 [ext_resource type="Script" uid="uid://seeixkhveqw" path="res://scripts/Boss1Enemy.cs" id="1_uhmq8"]
-[ext_resource type="Texture2D" uid="uid://bvcqftoscuxci" path="res://assets/Slime_Medium_Green.png" id="2_uhmq8"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_uueh3"]
+[ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_ickdi"]
+[ext_resource type="Texture2D" uid="uid://dc1004lqhlib5" path="res://assets/Enemies/Final Boss Mice sprite sheet .png" id="4_walk"]
+[ext_resource type="Texture2D" uid="uid://bytfsucmb8m26" path="res://assets/Enemies/dash sprite.png" id="5_dash"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f87vc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uueh3"]
-atlas = ExtResource("2_uhmq8")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_1"]
+atlas = ExtResource("5_dash")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ickdi"]
-atlas = ExtResource("2_uhmq8")
-region = Rect2(32, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_2"]
+atlas = ExtResource("5_dash")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_asgfk"]
-atlas = ExtResource("2_uhmq8")
-region = Rect2(64, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_3"]
+atlas = ExtResource("5_dash")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hr2n5"]
-atlas = ExtResource("2_uhmq8")
-region = Rect2(96, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_4"]
+atlas = ExtResource("5_dash")
+region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_0"]
+atlas = ExtResource("4_walk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_1"]
+atlas = ExtResource("4_walk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_2"]
+atlas = ExtResource("4_walk")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_3"]
+atlas = ExtResource("4_walk")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_4"]
+atlas = ExtResource("4_walk")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_0"]
+atlas = ExtResource("5_dash")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btyyc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uueh3")
+"texture": SubResource("AtlasTexture_dash_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ickdi")
+"texture": SubResource("AtlasTexture_dash_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_asgfk")
+"texture": SubResource("AtlasTexture_dash_3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hr2n5")
+"texture": SubResource("AtlasTexture_dash_4")
+}],
+"loop": 1,
+"name": &"dash",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_4")
 }],
 "loop": 1,
 "name": &"default",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_2")
+}],
+"loop": 1,
+"name": &"rest",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_4")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dash_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dash_1")
+}],
+"loop": 1,
+"name": &"windup",
 "speed": 5.0
 }]
 
@@ -50,13 +138,14 @@ scale = Vector2(2.5, 2.5)
 motion_mode = 1
 script = ExtResource("1_uhmq8")
 BloodScene = ExtResource("2_uueh3")
+DamageNumberScene = ExtResource("3_ickdi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
 shape = SubResource("CircleShape2D_f87vc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=290062266]
 scale = Vector2(0.99999994, 0.99999994)
-sprite_frames = SubResource("SpriteFrames_5h11f")
+sprite_frames = SubResource("SpriteFrames_btyyc")
 autoplay = "default"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=336066589]

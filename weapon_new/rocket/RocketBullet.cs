@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public partial class RocketBullet : Node2D
 {
-    [Export] public float Speed { get; set; } = 400.0f;
-    [Export] public int Damage { get; set; } = 50; 
-    [Export] public float FireRate { get; set; } = 1.0f;
-    [Export] public float MaxRange { get; set; } = 1000.0f; // Adjust this in Inspector!
+    [Export] public float Speed { get; set; } = 380.0f;
+    [Export] public int Damage { get; set; } = 90;   // Balanced: was 50 — high burst justifies slow fire rate
+    [Export] public float FireRate { get; set; } = 2.0f;   // Balanced: was 1.0 — slow & impactful role
+    [Export] public float MaxRange { get; set; } = 900.0f; // Balanced: was 1000
     private float _distanceTraveled = 0f;
 
     // --- STAGE PROPERTIES (set by WeaponManager) ---

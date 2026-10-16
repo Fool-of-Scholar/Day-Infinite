@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public partial class ForceField : Area2D
 {
-    [Export] public int BaseDamage { get; set; } = 15;
-    [Export] public float KnockbackForce { get; set; } = 300f;
-    [Export] public float CooldownTime { get; set; } = 3.0f;
+    [Export] public int BaseDamage { get; set; } = 25;       // Balanced: was 15 — more meaningful contact damage
+    [Export] public float KnockbackForce { get; set; } = 400f; // Balanced: was 300 — more satisfying pushback
+    [Export] public float CooldownTime { get; set; } = 2.0f;  // Balanced: was 3.0 — Stage 1 feels more responsive
 
     public bool UsePerEnemyCooldown { get; set; } = false;
-    public float PerEnemyCooldownTime { get; set; } = 2.0f;
+    public float PerEnemyCooldownTime { get; set; } = 1.5f;  // Balanced: was 2.0 — Stage 2 feels more satisfying
     public float RadiusMultiplier { get; set; } = 1.0f;
 
     public bool HasOuterSlowRing { get; set; } = false;

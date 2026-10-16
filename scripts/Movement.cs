@@ -1,4 +1,4 @@
-using Godot;
+ using Godot;
 using System;
 
 public partial class Movement : CharacterBody2D
@@ -8,14 +8,20 @@ public partial class Movement : CharacterBody2D
     [Signal] public delegate void XpChangedEventHandler(int currentXp, int xpToNextLevel, int currentLevel);
     [Signal] public delegate void LeveledUpEventHandler();
     [Signal] public delegate void ScrapChangedEventHandler(int currentScraps);
+    [Signal] public delegate void PlayerDiedEventHandler();
 
     // --- Character Health ---
-    [Export] public int MaxHealth { get; set; } = 100;
+    [Export] public int MaxHealth { get; set; } = 150;   // Balanced: more buffer for early mistakes
     public int CurrentHealth { get; private set; }
+
+    // --- Death VFX ---
+    [ExportGroup("Death")]
+    [Export] public PackedScene DeathVfxScene { get; set; }
 
     private Area2D _hurtbox;
     private Timer _invulnerabilityTimer;
     private bool _isInvulnerable = false;
+    private bool _isDead = false;
 
     // --- Audio Settings (Footsteps) ---
     [ExportGroup("Audio Settings")]
@@ -32,12 +38,12 @@ public partial class Movement : CharacterBody2D
     private bool _isKeyHolding = false;
 
     // --- Movement Settings ---
-    [Export] public int Speed { get; set; } = 60;
+    [Export] public int Speed { get; set; } = 120;   // Balanced: was 60, survivor genre needs responsive movement
 
     // --- Progression & Leveling Fields ---
     public int CurrentLevel { get; private set; } = 1;
     public int CurrentXp { get; private set; } = 0;
-    public int XpToNextLevel { get; private set; } = 100;
+    public int XpToNextLevel { get; private set; } = 50;   // Balanced: early levels feel fast and rewarding
     public int CurrentScraps { get; private set; } = 0;
 
     // --- Detection Areas for Pickups ---
@@ -90,7 +96,7 @@ public partial class Movement : CharacterBody2D
 
     public void TakeDamage(int damage)
     {
-        if (_isInvulnerable) return;
+        if (_isInvulnerable || _isDead) return;
 
         CurrentHealth -= damage;
         EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
@@ -113,9 +119,39 @@ public partial class Movement : CharacterBody2D
         Modulate = new Color(1, 1, 1, 1); // Reset to normal color
     }
 
-    private void Die()
+    private async void Die()
     {
+        if (_isDead) return;
+        _isDead = true;
+
         GD.Print("PLAYER OVER: You have Perished");
+
+        // Save scraps to the global wallet before dying
+        if (CurrentScraps > 0 && GameManager.Instance != null)
+        {
+            GameManager.Instance.AddScraps(CurrentScraps);
+        }
+
+        // --- 1. Disable further input & physics ---
+        SetPhysicsProcess(false);
+        SetProcess(false);
+        _hurtbox.SetDeferred("monitoring", false);
+
+        // --- 2. Hide the player sprite, spawn death VFX in place ---
+        _idleSprite.Visible = false;
+        _walkSprite.Visible = false;
+        if (DeathVfxScene != null)
+        {
+            Node2D vfx = DeathVfxScene.Instantiate<Node2D>();
+            vfx.GlobalPosition = GlobalPosition;
+            GetTree().CurrentScene.AddChild(vfx);
+        }
+
+        // --- 3. Signal HUD to show the death screen ---
+        EmitSignal(SignalName.PlayerDied);
+
+        // --- 4. Wait for death animation then pause ---
+        await ToSignal(GetTree().CreateTimer(0.8f), SceneTreeTimer.SignalName.Timeout);
         GetTree().Paused = true;
     }
 
@@ -240,6 +276,13 @@ public partial class Movement : CharacterBody2D
         {
             scrap.Target = this;
         }
+
+        HealthBattery battery = area as HealthBattery ?? area.GetParent() as HealthBattery;
+
+        if (battery != null)
+        {
+            battery.Target = this;
+        }
     }
 
     private void OnCollectionEntered(Area2D area)
@@ -250,6 +293,35 @@ public partial class Movement : CharacterBody2D
             AddExperience(gem.ExperienceValue);
             gem.QueueFree();
         }   
+
+        HealthBattery battery = area as HealthBattery ?? area.GetParent() as HealthBattery;
+        if (battery != null)
+        {
+            battery.Target = this;
+            battery.Collect();
+        }
+
+        ScrapItem scrap = area as ScrapItem ?? area.GetParent() as ScrapItem;
+        if (scrap != null)
+        {
+            AddScrap(scrap.ScrapValue);
+            scrap.QueueFree();
+        }
+    }
+
+    public void AddScrap(int amount)
+    {
+        CurrentScraps += amount;
+        GameManager.Instance?.AddScraps(amount); // Adds to global wallet
+        EmitSignal(SignalName.ScrapChanged, CurrentScraps);
+        GD.Print($"[Scrap Collected] Run Scraps: {CurrentScraps}");
+    }
+
+    public void Heal(int amount)
+    {
+        CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
+        EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
+        GD.Print($"[Player Healed] Health: {CurrentHealth}/{MaxHealth}");
     }
 
     public void AddExperience(int amount)
@@ -264,18 +336,13 @@ public partial class Movement : CharacterBody2D
         }
     }
 
-    public void AddScrap(int amount)
-    {
-        CurrentScraps += amount;
-        EmitSignal(SignalName.ScrapChanged, CurrentScraps);
-        GD.Print($"[Scrap Collected] Run Scraps: {CurrentScraps}");
-    }
+   
 
     private void LevelUp()
     {
         CurrentLevel++;
         CurrentXp -= XpToNextLevel;
-        XpToNextLevel = (int)(XpToNextLevel * 1.5f); // Increase XP threshold by 50% per level
+        XpToNextLevel = (int)(XpToNextLevel * 1.3f); // Balanced: 30% increase (was 50%) — more gradual mid-game gating
         
         EmitSignal(SignalName.XpChanged, CurrentXp, XpToNextLevel, CurrentLevel);
         EmitSignal(SignalName.LeveledUp);
@@ -298,6 +365,26 @@ public partial class Movement : CharacterBody2D
 
         GD.Print($"Upgrade Health -- {MaxHealth} --");
     }
+
+    public void PlayDeathVfxOnly()
+    {
+    // 1. Stop movement and input
+    SetPhysicsProcess(false);
+    SetProcess(false);
+
+    // 2. Hide player sprites
+    if (_idleSprite != null) _idleSprite.Visible = false;
+    if (_walkSprite != null) _walkSprite.Visible = false;
+
+    // 3. Spawn the Death VFX at player's location
+    if (DeathVfxScene != null)
+        {
+            Node2D vfx = DeathVfxScene.Instantiate<Node2D>();
+            vfx.GlobalPosition = GlobalPosition;
+            GetTree().CurrentScene.AddChild(vfx);
+        }
+    }
+
 
     private void PlayFootstep()
     {

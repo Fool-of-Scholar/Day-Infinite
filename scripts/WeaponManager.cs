@@ -11,7 +11,7 @@ public partial class WeaponManager : Node2D
 
     // --- UPGRADE LIMITS ---
     public int TotalUpgradePointsUsed = 0;
-    public const int MaxUpgradePoints = 5;
+    public const int MaxUpgradePoints = 8;   // Balanced: was 5 — allows richer build depth over 10 min
     public const int MaxWeapons = 3;
     
     public class WeaponSlot 
@@ -179,7 +179,7 @@ public partial class WeaponManager : Node2D
 
         if (tempBullet is ARBullet ar) interval = ar.FireRate;
         else if (tempBullet is RocketBullet rocket) interval = rocket.FireRate;
-        // else if (tempBullet is TeslaBurst tesla) interval = tesla.FireRate; 
+        else if (tempBullet is TeslaBurst tesla) interval = tesla.FireRate; // Fixed: was commented out!
         else if (tempBullet is Mine mine) interval = mine.FireRate; 
         
         // If it's a ForceField, you might not use a script property yet, default to 1s pulses.
@@ -336,7 +336,7 @@ public partial class WeaponManager : Node2D
     // --- GLOBAL HUD UPGRADES ---
     public void UpgradeFireRate()
     {
-        FireRateMultiplier *= 0.70f; // Reduces interval by 30% for ALL weapons!
+        FireRateMultiplier *= 0.80f; // Balanced: reduces interval by 20% (was 30%) — less explosive per upgrade
         GD.Print($"Global Fire Rate Upgraded! Multiplier: {FireRateMultiplier}");
     }
 
@@ -348,7 +348,7 @@ public partial class WeaponManager : Node2D
 
     public void UpgradeDamage()
     {
-        BonusDamage += 20;
+        BonusDamage += 15; // Balanced: was +20 — more gradual damage scaling
         GD.Print($"Global Damage Upgraded! Bonus is now +{BonusDamage}");
     }
 }

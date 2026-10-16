@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public partial class Mine : Area2D
 {
-    [Export] public float FireRate { get; set; } = 2.0f; 
-    [Export] public int Damage { get; set; } = 100;
+    [Export] public float FireRate { get; set; } = 3.5f;   // Balanced: was 2.0 — a deliberate tactical placement
+    [Export] public int Damage { get; set; } = 120;          // Balanced: was 100 — highest burst to reward patience
     [Export] public PackedScene ExplosionScene { get; set; } 
 
     // --- STAGE PROPERTIES (set by WeaponManager) ---
@@ -14,7 +14,7 @@ public partial class Mine : Area2D
     public float DuplicateScatterRadius { get; set; } = 80f;
     // Stage 3: suck enemies in before detonating
     public bool SuckBeforeExplode { get; set; } = false;
-    public float SuckDuration { get; set; } = 1.0f;
+    public float SuckDuration { get; set; } = 1.5f;   // Balanced: was 1.0 — more dramatic
     public float SuckForce { get; set; } = 180.0f;
 
     // Flag so duplicated mines don't duplicate themselves again
@@ -36,7 +36,7 @@ public partial class Mine : Area2D
         AreaEntered += OnAreaEntered;
 
         // NEW: 10-Second Despawn Timer
-        await ToSignal(GetTree().CreateTimer(10.0f), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(12.0f), SceneTreeTimer.SignalName.Timeout);  // Balanced: was 10s
         
         // Only delete it if it's still alive and hasn't started exploding/sucking
         if (!_hasExploded && IsInstanceValid(this))

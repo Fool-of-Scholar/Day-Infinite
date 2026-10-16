@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public partial class TeslaBurst : Area2D
 {
-    [Export] public float FireRate { get; set; } = 1.0f; 
-    [Export] public int Damage { get; set; } = 40;
+    [Export] public float FireRate { get; set; } = 1.2f;   // Balanced: was 1.0 — slightly slower than rocket
+    [Export] public int Damage { get; set; } = 50;           // Balanced: was 40 — chain value justifies cost
 
     [Export] public Texture2D[] LightningSprites { get; set; }
     [Export] public PackedScene ExplosionScene { get; set; }

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public partial class ARBullet : Area2D
 {
-    [Export] public float Speed { get; set; } = 1000.0f;
+    [Export] public float Speed { get; set; } = 900.0f;
     [Export] public int Damage { get; set; } = 15;
-    [Export] public float FireRate { get; set; } = .3f;
+    [Export] public float FireRate { get; set; } = 0.5f;   // Balanced: was 0.3 (too spammy)
     [Export] private PackedScene _explosionScene = GD.Load<PackedScene>("res://weapon_new/ar/ar_explosion.tscn");
-    [Export] public float MaxRange { get; set; } = 1000.0f; // Adjust this in Inspector!
+    [Export] public float MaxRange { get; set; } = 800.0f; // Balanced: was 1000 — more focused range
     private float _distanceTraveled = 0f;
 
     // --- STAGE PROPERTIES (set by WeaponManager) ---
@@ -31,24 +31,19 @@ public partial class ARBullet : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
-        GlobalPosition += Direction * Speed * (float)delta;
-        // 1. Calculate how far we move this exact frame
-        float moveStep = Speed * (float)delta; 
-        
-        // 2. Move the bullet forward
+        // Move the bullet forward (single movement calculation — was double-moving before)
+        float moveStep = Speed * (float)delta;
         GlobalPosition += Direction * moveStep;
-        
-        // 3. Add that step to our total distance tracker
         _distanceTraveled += moveStep;
 
-        // 4. Despawn if it flies past the MaxRange limit
+        // Despawn if it flies past the MaxRange limit
         if (_distanceTraveled > MaxRange)
         {
             QueueFree();
-        }  
+            return;
+        }
         // Check for continuous collision every frame
         CheckContinuousImpact();
-        
     }
 
     private void CheckContinuousImpact()
