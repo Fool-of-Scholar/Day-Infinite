@@ -1,29 +1,64 @@
 [gd_scene format=3 uid="uid://bhmg0i0g0i725"]
 
-[ext_resource type="Script" uid="uid://bohtumufjfjcf" path="res://scripts/main_menu/MainMenu.cs" id="1_e8klu"]
-[ext_resource type="Texture2D" uid="uid://2naxhs7tbdon" path="res://assets/main_menu/main_menu_character-Sheet.png" id="1_isrph"]
 [ext_resource type="Script" uid="uid://8bfstamgpdtm" path="res://scripts/main_menu/Play.cs" id="2_e8klu"]
+[ext_resource type="FontFile" uid="uid://bp7ccoa2hmwu7" path="res://assets/main_menu/fonts/8-bit-limit/8bitlimr.ttf" id="2_spnib"]
 [ext_resource type="Script" uid="uid://bt4od5jegmk8m" path="res://scripts/main_menu/Options.cs" id="3_ywaph"]
 [ext_resource type="Script" uid="uid://dcv5ldob4l2pv" path="res://scripts/main_menu/Exit.cs" id="4_spnib"]
 [ext_resource type="Script" uid="uid://hwl7s2dmpt4y" path="res://scripts/main_menu/Encyclopedia.cs" id="4_vny3a"]
-[ext_resource type="Texture2D" uid="uid://byi4cunth2uc3" path="res://assets/main_menu/cog.png" id="6_ywaph"]
+[ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="6_ywaph"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="7_spnib"]
+[ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="8_vny3a"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btyyc"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vny3a"]
 
-[sub_resource type="Animation" id="Animation_7vrkn"]
-length = 0.001
-loop_mode = 1
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spnib"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ywaph"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vqx8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vqx8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font = ExtResource("7_spnib")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_8vrlf"]
+font_size = 54
+
+[sub_resource type="Animation" id="Animation_rq7sb"]
+resource_name = "Play"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("forPlay:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2000, 0), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -40,80 +75,15 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Cog:rotation")
+tracks/2/path = NodePath("PanelContainer:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(703, 241), Vector2(2000, 241)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Cog2:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_fu7sn"]
-resource_name = "idle"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.73333335, 1.5, 2.2333333, 3, 3.7666667, 4.5, 5.233333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Cog:rotation")
-tracks/1/interp = 3
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.5333333, 2.5, 3, 4.0333333, 4.5, 5.5333333, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.6108652381980153, 0.7853981633974483, 1.3962634015954636, 1.5707963267948966, 2.181661564992912, 2.356194490192345, 2.9670597283903604, 3.141592653589793]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Cog2:rotation")
-tracks/2/interp = 4
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1, 1.5333333, 2.5, 3, 4.0333333, 4.5, 5.5333333, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.6108652381980153, 0.7853981633974483, 1.3962634015954636, 1.5707963267948966, 2.181661564992912, 2.356194490192345, 2.9670597283903604, 3.141592653589793]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jix8l"]
-_data = {
-&"RESET": SubResource("Animation_7vrkn"),
-&"idle": SubResource("Animation_fu7sn")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
-font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_8vrlf"]
-font_size = 54
 
 [sub_resource type="Animation" id="Animation_spnib"]
 length = 0.001
@@ -128,6 +98,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-500, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("forPlay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2000, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(703, 241)]
 }
 
 [sub_resource type="Animation" id="Animation_vny3a"]
@@ -164,6 +158,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq7sb"]
 _data = {
+&"Play": SubResource("Animation_rq7sb"),
 &"RESET": SubResource("Animation_spnib"),
 &"options_in": SubResource("Animation_vny3a"),
 &"options_out": SubResource("Animation_1vqx8")
@@ -191,23 +186,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_e8klu")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2068263389]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1405045167]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.48251617, 0.2169621, 0.111725606, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=515897967]
-z_index = 1
-position = Vector2(643.5, 363.5)
-scale = Vector2(2.0046875, 1.9527779)
-texture = ExtResource("1_isrph")
-hframes = 8
+texture = ExtResource("6_ywaph")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=138456306]
 z_index = 1
@@ -216,10 +203,10 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -592.0
-offset_top = 57.0
-offset_right = -169.0
-offset_bottom = -57.0
+offset_left = -577.0
+offset_top = 241.0
+offset_right = -65.99805
+offset_bottom = -48.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -234,42 +221,63 @@ theme_override_constants/margin_bottom = 32
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1651157354]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 28
 
 [node name="Play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1645680111]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_spnib")
 theme_override_font_sizes/font_size = 54
-theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vny3a")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_spnib")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywaph")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
 text = "Play"
 script = ExtResource("2_e8klu")
 
 [node name="Encyclopedia" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1059653401]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_spnib")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vny3a")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_spnib")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywaph")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
 text = "Encyclopedia"
 script = ExtResource("4_vny3a")
 
 [node name="Options" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1060586396]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_spnib")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vny3a")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_spnib")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywaph")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
 text = "Options"
 script = ExtResource("3_ywaph")
 
 [node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=354156445]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_spnib")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_btyyc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vny3a")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_spnib")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywaph")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
 text = "Exit"
 script = ExtResource("4_spnib")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1047898849]
-libraries/ = SubResource("AnimationLibrary_jix8l")
-autoplay = &"idle"
 
 [node name="Options" type="Control" parent="." unique_id=1781975831]
 z_index = 1
@@ -298,6 +306,7 @@ theme_override_constants/margin_bottom = 24
 [node name="VBoxContainer" type="VBoxContainer" parent="Options/PanelContainer/MarginContainer" unique_id=1993163379]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 24
 
 [node name="Language" type="HBoxContainer" parent="Options/PanelContainer/MarginContainer/VBoxContainer" unique_id=247824306]
 layout_mode = 2
@@ -309,6 +318,8 @@ label_settings = SubResource("LabelSettings_1vivr")
 
 [node name="OptionButton" type="OptionButton" parent="Options/PanelContainer/MarginContainer/VBoxContainer/Language" unique_id=2136730943]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("7_spnib")
 theme_override_font_sizes/font_size = 32
 
 [node name="Music" type="HBoxContainer" parent="Options/PanelContainer/MarginContainer/VBoxContainer" unique_id=1822576321]
@@ -322,6 +333,7 @@ label_settings = SubResource("LabelSettings_1vivr")
 [node name="OptionButton" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/Music" unique_id=373606142]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
@@ -338,6 +350,7 @@ label_settings = SubResource("LabelSettings_1vivr")
 [node name="OptionButton" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/SFX" unique_id=1523718639]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
@@ -372,12 +385,9 @@ layout_mode = 2
 text = "Day INFINITE"
 label_settings = SubResource("LabelSettings_v5gy4")
 
-[node name="Cog" type="Sprite2D" parent="." unique_id=1970589975]
-position = Vector2(1280, 360)
-scale = Vector2(3, 3)
-texture = ExtResource("6_ywaph")
-
-[node name="Cog2" type="Sprite2D" parent="." unique_id=1847826109]
-position = Vector2(0, 360)
-scale = Vector2(3, 3)
-texture = ExtResource("6_ywaph")
+[node name="forPlay" type="TextureRect" parent="." unique_id=1230331023]
+layout_mode = 0
+offset_left = 2000.0
+offset_right = 3280.0005
+offset_bottom = 720.0
+texture = ExtResource("8_vny3a")

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5893096971366572327
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DefaultBlue
+  m_Shader: {fileID: -6465566751694194690, guid: b8736fb38b9beca4cb895014266c2ea1, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _HexGridTexture:
+        m_Texture: {fileID: 2800000, guid: 647d0911a21dece42b6245b30da875d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramTexture:
+        m_Texture: {fileID: 2800000, guid: 0846c60b5d19b0f4d9207bb43b49d185, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _FLICKER: 1
+    - _ForceFieldHexSpeed: 0.1
+    - _FresnelGlow: 0
+    - _FresnelPower: 2
+    - _HexDetail: 1
+    - _HologramScrollSpeed: 0.1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _pixelate: 32
+    m_Colors:
+    - _BaseColor: {r: 0.53301877, g: 0.8402529, b: 1, a: 0}
+    - _ForceFieldColor: {r: 0, g: 2.747214, b: 5.992156, a: 0}
+    - _FresnelColor: {r: 0, g: 1.224432, b: 4, a: 0}
+    - _HologramTextureTiling: {r: 1, g: 3, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

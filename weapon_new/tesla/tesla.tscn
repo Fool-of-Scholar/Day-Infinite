@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://brlfyh812ltn2"]
+
+[ext_resource type="Texture2D" uid="uid://biv1pl6cu67q7" path="res://assets/PIXWEP/barrel/barrel_rail.png" id="1_cuxb2"]
+[ext_resource type="Texture2D" uid="uid://bfdit6dyx5x31" path="res://assets/PIXWEP/body/body_laser_02.png" id="2_fu8ld"]
+[ext_resource type="Texture2D" uid="uid://jg3r54i4765f" path="res://assets/PIXWEP/stock/stock_03.png" id="3_wapxs"]
+[ext_resource type="Texture2D" uid="uid://dcb8diyivdikw" path="res://assets/PIXWEP/scope/scope_03.png" id="4_rnm6x"]
+
+[node name="Tesla" type="Node2D" unique_id=89897051]
+scale = Vector2(0.5, 0.5)
+
+[node name="BarrelRail" type="Sprite2D" parent="." unique_id=903565726]
+position = Vector2(5, 3)
+texture = ExtResource("1_cuxb2")
+
+[node name="BodyLaser02" type="Sprite2D" parent="." unique_id=204202779]
+position = Vector2(5, 3)
+texture = ExtResource("2_fu8ld")
+
+[node name="Stock03" type="Sprite2D" parent="." unique_id=1744668343]
+position = Vector2(6, 3)
+texture = ExtResource("3_wapxs")
+
+[node name="Scope03" type="Sprite2D" parent="." unique_id=840612465]
+position = Vector2(-2, 3)
+texture = ExtResource("4_rnm6x")

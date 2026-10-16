@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://tubmoxwhjavc"]
+
+[ext_resource type="Texture2D" uid="uid://ccdxv6w0jwdki" path="res://assets/GameOver/GameOver/Player-GameOver1.png" id="f1"]
+[ext_resource type="Texture2D" uid="uid://cknjcwqxsli6t" path="res://assets/GameOver/GameOver/Player-GameOver2.png" id="f2"]
+[ext_resource type="Texture2D" uid="uid://ckl2slsf0ttha" path="res://assets/GameOver/GameOver/Player-GameOver3.png" id="f3"]
+[ext_resource type="Texture2D" uid="uid://8fgn05ppits0" path="res://assets/GameOver/GameOver/Player-GameOver4.png" id="f4"]
+[ext_resource type="Texture2D" uid="uid://bbsyg4qamtaaa" path="res://assets/GameOver/GameOver/Player-GameOver5.png" id="f5"]
+[ext_resource type="Texture2D" uid="uid://f50dedwj272m" path="res://assets/GameOver/GameOver/Player-GameOver6.png" id="f6"]
+[ext_resource type="Texture2D" uid="uid://ckca73lrbgi0r" path="res://assets/GameOver/GameOver/Player-GameOver7.png" id="f7"]
+[ext_resource type="Texture2D" uid="uid://dwvw3bdxi1hbw" path="res://assets/GameOver/GameOver/Player-GameOver8.png" id="f8"]
+[ext_resource type="Texture2D" uid="uid://duds48gy7htia" path="res://assets/GameOver/GameOver/Player-GameOver9.png" id="f9"]
+[ext_resource type="Texture2D" uid="uid://b5yjlyaqukh7s" path="res://assets/GameOver/GameOver/Player-GameOver10.png" id="f10"]
+[ext_resource type="Texture2D" uid="uid://bnrsqux8gemgm" path="res://assets/GameOver/GameOver/Player-GameOver11.png" id="f11"]
+[ext_resource type="Texture2D" uid="uid://c24yocdhww662" path="res://assets/GameOver/GameOver/Player-GameOver12.png" id="f12"]
+[ext_resource type="Texture2D" uid="uid://cwp6aowjcvu1o" path="res://assets/GameOver/GameOver/Player-GameOver13.png" id="f13"]
+[ext_resource type="Texture2D" uid="uid://x14e0poxo60t" path="res://assets/GameOver/GameOver/Player-GameOver14.png" id="f14"]
+[ext_resource type="Texture2D" uid="uid://bc5bf6bme7a3k" path="res://assets/GameOver/GameOver/Player-GameOver15.png" id="f15"]
+[ext_resource type="Texture2D" uid="uid://qg5yyxcgsrvj" path="res://assets/GameOver/GameOver/Player-GameOver16.png" id="f16"]
+[ext_resource type="Texture2D" uid="uid://bu4qwrrsomcvf" path="res://assets/GameOver/GameOver/Player-GameOver17.png" id="f17"]
+[ext_resource type="Texture2D" uid="uid://dknjt310fqocu" path="res://assets/GameOver/GameOver/Player-GameOver18.png" id="f18"]
+[ext_resource type="Script" uid="uid://7ul0fpfrpw2l" path="res://scripts/BloodSplash.cs" id="script"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_death"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("f18")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_3pda2"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5h11f"]
+gradient = SubResource("Gradient_3pda2")
+fill_from = Vector2(0.359375, 0.060763888)
+
+[node name="PlayerDeathVfx" type="AnimatedSprite2D" unique_id=699930239]
+sprite_frames = SubResource("SpriteFrames_death")
+frame_progress = 0.63374346
+script = ExtResource("script")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1728405855]
+emitting = false
+one_shot = true
+explosiveness = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1287637911]
+texture = SubResource("GradientTexture2D_5h11f")
+texture_scale = 2.5

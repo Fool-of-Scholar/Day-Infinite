@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ioiispsxo8xi"]
+
+[ext_resource type="Script" uid="uid://d3martcvcjeyj" path="res://weapon_new/ar/Ar.cs" id="1_xcigw"]
+[ext_resource type="Texture2D" uid="uid://dti2bamf20r71" path="res://assets/PIXWEP/camo/body/body_projectile_01.png" id="2_w7vg2"]
+[ext_resource type="Texture2D" uid="uid://uebkl7x31ue6" path="res://assets/PIXWEP/camo/barrel/barrel_rifle.png" id="3_npi23"]
+[ext_resource type="Texture2D" uid="uid://cbtv7xvg4b65m" path="res://assets/PIXWEP/camo/stock/stock_06.png" id="4_x2ej7"]
+
+[node name="AR" type="Node2D" unique_id=719383567]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_xcigw")
+
+[node name="BodyProjectile01" type="Sprite2D" parent="." unique_id=2015570930]
+position = Vector2(7, 3)
+texture = ExtResource("2_w7vg2")
+
+[node name="BarrelRifle" type="Sprite2D" parent="." unique_id=530180832]
+position = Vector2(8, 3)
+texture = ExtResource("3_npi23")
+
+[node name="Stock06" type="Sprite2D" parent="." unique_id=1262346666]
+position = Vector2(7, 3)
+texture = ExtResource("4_x2ej7")
