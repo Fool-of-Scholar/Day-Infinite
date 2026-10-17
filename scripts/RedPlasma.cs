@@ -4,10 +4,10 @@ using System;
 public partial class RedPlasma : PlasmaBolt
 {
 
-    [Export] private float Speed { get; set; } = 1000.0f;
-    [Export] private int Damage { get; set; } = 25;
+    [Export] new private float Speed { get; set; } = 1000.0f;
+    [Export] new private int Damage { get; set; } = 25;
 
-    public Vector2 Direction { get; set; } = Vector2.Zero;
+    new public Vector2 Direction { get; set; } = Vector2.Zero;
 
     public override void _Ready()
     {

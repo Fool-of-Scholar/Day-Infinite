@@ -272,6 +272,7 @@ position_smoothing_speed = 8.0
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("4_0tg4p")]
 FastEnemyScene = ExtResource("6_e4vd1")
 SwarmEnemyScene = ExtResource("7_1402k")
+SwarmFacesLeft = true
 TankEnemyScene = ExtResource("8_ol7uo")
 BossScene = ExtResource("9_a7xoa")
 

@@ -5,7 +5,6 @@ public partial class OpeningScreen : Control
 {
 
 	Timer timer;
-	Label label;
 	[Export] public string nextPath = "res://scene/main_menu/another_main_menu.tscn";
 	private bool _canClick = false;
 	// Called when the node enters the scene tree for the first time.

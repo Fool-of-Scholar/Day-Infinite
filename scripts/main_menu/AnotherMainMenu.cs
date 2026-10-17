@@ -31,6 +31,7 @@ public partial class AnotherMainMenu : Control
 			{
 				start.Start();
 			}
+		
 		};
 
 		_timer.Start();

@@ -1,34 +1,28 @@
 [gd_scene format=3 uid="uid://dbqrljrlx5klt"]
 
 [ext_resource type="Script" uid="uid://bxbr0ee430ul5" path="res://scripts/Enemy.cs" id="1_6wa4q"]
-[ext_resource type="Texture2D" uid="uid://ck5eb63ihxew8" path="res://assets/Rat_Gray_Run.png" id="3_6wa4q"]
+[ext_resource type="Texture2D" uid="uid://c1th52t0hjia6" path="res://assets/Enemies/Mice Walking Sprite Sheet.png" id="3_6wa4q"]
+[ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_67lpf"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="3_k44hy"]
+[ext_resource type="PackedScene" uid="uid://buuf51insnvsj" path="res://scene/scrap_item.tscn" id="4_67lpf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k44hy"]
 atlas = ExtResource("3_6wa4q")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67lpf"]
 atlas = ExtResource("3_6wa4q")
-region = Rect2(64, 0, 64, 64)
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ftrtt"]
 atlas = ExtResource("3_6wa4q")
-region = Rect2(128, 0, 64, 64)
+region = Rect2(48, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bvd10"]
 atlas = ExtResource("3_6wa4q")
-region = Rect2(192, 0, 64, 64)
+region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l6gan"]
-atlas = ExtResource("3_6wa4q")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mmuk7"]
-atlas = ExtResource("3_6wa4q")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_1r581"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -42,15 +36,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bvd10")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l6gan")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mmuk7")
 }],
 "loop": 1,
-"name": &"walk",
+"name": &"default",
 "speed": 10.0
 }]
 
@@ -63,13 +51,16 @@ scale = Vector2(0.6, 0.6)
 motion_mode = 1
 script = ExtResource("1_6wa4q")
 BloodScene = ExtResource("3_k44hy")
+DamageNumberScene = ExtResource("3_67lpf")
+ScrapScene = ExtResource("4_67lpf")
 MaxHealth = 20
 MoveSpeed = 500.0
+ExperienceValue = 15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684383523]
-sprite_frames = SubResource("SpriteFrames_5h11f")
-animation = &"walk"
-autoplay = "walk"
+sprite_frames = SubResource("SpriteFrames_1r581")
+autoplay = "default"
+frame_progress = 0.37926206
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
 shape = SubResource("CircleShape2D_f87vc")

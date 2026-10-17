@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://cw4a0d6apxc8a"]
+
+[ext_resource type="Script" uid="uid://cnhr6kqjlit8q" path="res://weapon_new/mine/Mine.cs" id="1_bujx7"]
+[ext_resource type="Texture2D" uid="uid://b7h4xpr7km4wp" path="res://assets/Landmines/mine (149).png" id="1_nhxmj"]
+[ext_resource type="PackedScene" uid="uid://te54yiop11hx" path="res://weapon_new/mine/mine_explosion.tscn" id="2_wv6k7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
+radius = 16.27882
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31oe1"]
+radius = 65.459915
+
+[sub_resource type="Animation" id="Animation_wv6k7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mine(149):scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mine(149):modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dmxl5"]
+resource_name = "warning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mine(149):scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mine(149):modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(0.9930542, 0, 0.0058511593, 1), Color(1, 1, 1, 1), Color(0.9930542, 0, 0.0058511593, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g10et"]
+_data = {
+&"RESET": SubResource("Animation_wv6k7"),
+&"warning": SubResource("Animation_dmxl5")
+}
+
+[node name="Mine" type="Area2D" unique_id=857820435]
+collision_mask = 2
+script = ExtResource("1_bujx7")
+FireRate = 3.0
+ExplosionScene = ExtResource("2_wv6k7")
+
+[node name="Mine(149)" type="Sprite2D" parent="." unique_id=1709827229]
+texture = ExtResource("1_nhxmj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=413220764]
+visible = false
+shape = SubResource("CircleShape2D_ap8p0")
+
+[node name="AreaExplosion" type="Area2D" parent="." unique_id=1373550707]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaExplosion" unique_id=1559209987]
+shape = SubResource("CircleShape2D_31oe1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1130623765]
+libraries/ = SubResource("AnimationLibrary_g10et")
