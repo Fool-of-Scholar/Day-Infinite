@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://g7gktlrdbuv6"]
+
+[ext_resource type="Script" uid="uid://xmw31ruct55l" path="res://weapon_new/tesla/TeslaBurst.cs" id="1_xhh7r"]
+[ext_resource type="Texture2D" uid="uid://cesgcm552grd8" path="res://assets/lightning/png sheets/light1.png" id="2_kwsj3"]
+[ext_resource type="Texture2D" uid="uid://56xskjugjmct" path="res://assets/lightning/png sheets/light2.png" id="3_gl116"]
+[ext_resource type="Texture2D" uid="uid://cl4ipewuhodcv" path="res://assets/lightning/png sheets/light3.png" id="4_1denw"]
+[ext_resource type="PackedScene" uid="uid://jwda5rqffht5" path="res://weapon_new/tesla/tesla_explosion.tscn" id="5_gl116"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwsj3"]
+size = Vector2(476.7485, 42)
+
+[node name="TeslaBurst" type="Area2D" unique_id=100095321]
+position = Vector2(-1, -1)
+script = ExtResource("1_xhh7r")
+Damage = 20
+LightningSprites = Array[Texture2D]([ExtResource("2_kwsj3"), ExtResource("3_gl116"), ExtResource("4_1denw")])
+ExplosionScene = ExtResource("5_gl116")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=749285816]
+position = Vector2(242, 1)
+scale = Vector2(3, 1)
+texture = ExtResource("2_kwsj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=400930824]
+position = Vector2(242, 1)
+scale = Vector2(1.0089177, 1)
+shape = SubResource("RectangleShape2D_kwsj3")

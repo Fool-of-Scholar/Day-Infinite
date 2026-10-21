@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://jwda5rqffht5"]
+
+[ext_resource type="Texture2D" uid="uid://cpusu1521tagd" path="res://assets/lightning/png sheets/lightining6-Sheet.png" id="1_0ikcb"]
+[ext_resource type="Script" uid="uid://dtkebtkultap0" path="res://weapon_new/tesla/TeslaExplosion.cs" id="1_shcaq"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y21be"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1denw"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="TeslaExplosion" type="GPUParticles2D" unique_id=1916344700]
+material = SubResource("CanvasItemMaterial_y21be")
+emitting = false
+texture = ExtResource("1_0ikcb")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1denw")
+script = ExtResource("1_shcaq")

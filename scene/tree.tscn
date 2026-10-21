@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cf4yh40fsnh4"]
+
+[ext_resource type="Texture2D" uid="uid://c36c4yfohu7is" path="res://assets/Environment/Area 2 Environment/Tree.png" id="1_tree"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcgk5"]
+height = 51.5
+
+[node name="Tree" type="StaticBody2D" unique_id=525924127]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=175071980]
+texture_filter = 1
+texture = ExtResource("1_tree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=175071981]
+position = Vector2(7, 8)
+shape = SubResource("CapsuleShape2D_dcgk5")

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://d3vbu4b2c4dhy"]
+
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="1_peale"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jirmc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5wk78"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taakq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0giq3"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=889247620]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 720.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=417901829]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=598388768]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("1_peale")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Resume              "
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1640908320]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("1_peale")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Stats        "
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1191263061]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("1_peale")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "Options"
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=1933536340]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("1_peale")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5wk78")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0giq3")
+text = "        Exit"

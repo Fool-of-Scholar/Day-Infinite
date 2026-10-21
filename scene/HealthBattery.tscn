@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://doqiwtp1sb8l7"]
+
+[ext_resource type="Script" uid="uid://cqksw3rvmlbp1" path="res://scripts/HealthBattery.cs" id="1_f26rp"]
+[ext_resource type="Texture2D" uid="uid://bhpwkd5kjjib4" path="res://assets/Item/Green Battery.png" id="1_ryqii"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5h11f"]
+radius = 3.0
+
+[node name="HealthBattery" type="Area2D" unique_id=1703131144]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_f26rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1841923848]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ryqii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1583169641]
+shape = SubResource("CircleShape2D_5h11f")

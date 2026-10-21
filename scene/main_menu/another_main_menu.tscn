@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://c7f8vc3q5x0f8"]
+
+[ext_resource type="Script" uid="uid://ig1s8hi1bta6" path="res://scripts/main_menu/AnotherMainMenu.cs" id="1_tts6d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_ma2kq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer/Label:label_settings:font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
+
+[sub_resource type="Animation" id="Animation_hyxca"]
+resource_name = "mode"
+length = 0.39999999999999997
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer/Label:label_settings:font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [24, 150]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a0rui"]
+_data = {
+&"RESET": SubResource("Animation_ma2kq"),
+&"mode": SubResource("Animation_hyxca")
+}
+
+[node name="AnotherMainMenu" type="Control" unique_id=182865289]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tts6d")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1866342338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882354, 0.23921569, 0.22745098, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=322399118]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.5
+offset_top = -120.0
+offset_right = 45.5
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=901772999]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Welcome"
+label_settings = SubResource("LabelSettings_1vivr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1875451928]
+libraries/ = SubResource("AnimationLibrary_a0rui")
+autoplay = &"mode"
+
+[node name="LoadingScene" type="Timer" parent="." unique_id=1309872047]
+wait_time = 0.8
+one_shot = true
+
+[node name="Start" type="Timer" parent="." unique_id=672674045]
+one_shot = true
+autostart = true

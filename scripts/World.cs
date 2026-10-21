@@ -25,9 +25,6 @@ public partial class World : Node2D
 
 		EnemySpawner spawner = GetNode<EnemySpawner>("Spawner");
 
-    // Connect the 10-minute timer signal to the HUD display
-    	spawner.TimeUpdated += hud.UpdateTimer;
-
 		if (player != null && hud != null)
 		{
 			player.HealthChanged += hud.UpdateHealth;

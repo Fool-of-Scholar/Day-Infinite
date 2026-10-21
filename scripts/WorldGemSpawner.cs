@@ -6,14 +6,14 @@ public partial class WorldGemSpawner : Node
     [Export] public PackedScene GemScene { get; set; }
     
     [ExportGroup("Spawn Frequency Scaling")]
-    [Export] public float BaseSpawnInterval { get; set; } = 2.0f; // Starting speed (seconds between spawns)
+    [Export] public float BaseSpawnInterval { get; set; } = 0.25f; // Starting speed (seconds between spawns)
     [Export] public float MinSpawnInterval { get; set; } = 0.25f; // Fast late-game speed
     
     [ExportGroup("Spawn Distances")]
     [Export] public float OnScreenMinRadius { get; set; } = 50.0f;   // Near player for the start
-    [Export] public float OnScreenMaxRadius { get; set; } = 350.0f;  // Inside camera view for start
+    [Export] public float OnScreenMaxRadius { get; set; } = 250.0f;  // Inside camera view for start
     
-    [Export] public float OffScreenMinRadius { get; set; } = 800.0f; // Ongoing off-screen minimum distance
+    [Export] public float OffScreenMinRadius { get; set; } = 600.0f; // Ongoing off-screen minimum distance
     [Export] public float OffScreenMaxRadius { get; set; } = 1300.0f;// Ongoing off-screen maximum distance
 
     private float _timer = 0.0f;

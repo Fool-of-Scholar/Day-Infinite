@@ -5,29 +5,27 @@ public partial class EnemySpawner : Node2D
 {
     [Signal] public delegate void TimeUpdatedEventHandler(int minutes, int seconds);
     [Signal] public delegate void BossFightStartedEventHandler();
+    [Signal] public delegate void EliteWarningEventHandler(); // Fires at 5:30 for a mini-boss pulse
 
     [ExportGroup("Testing & Debug")]
     // Set this to 595 or 600 in the Inspector to test the boss instantly
-    [Export] public float StartTimeOffset { get; set; } = 600f;
+    [Export] public float StartTimeOffset { get; set; } = 0f;
 
     // --- BASIC ENEMY ---
     [ExportGroup("Basic Enemy")]
     [Export] public PackedScene BasicEnemyScene { get; set; }
-    [Export] public float BasicInterval { get; set; } = 1.2f;
     [Export] public float BasicUnlockTime { get; set; } = 0f;       // Spawns from 0:00
     [Export] public bool BasicFacesLeft { get; set; } = true;
 
     // --- FAST ENEMY ---
     [ExportGroup("Fast Enemy")]
     [Export] public PackedScene FastEnemyScene { get; set; }
-    [Export] public float FastInterval { get; set; } = 2.2f;
     [Export] public float FastUnlockTime { get; set; } = 120f;     // Spawns from 2:00
     [Export] public bool FastFacesLeft { get; set; } = true;
 
     // --- SWARM ENEMY ---
     [ExportGroup("Swarm Enemy")]
     [Export] public PackedScene SwarmEnemyScene { get; set; }
-    [Export] public float SwarmInterval { get; set; } = 4.5f;
     [Export] public float SwarmUnlockTime { get; set; } = 240f;    // Spawns from 4:00
     [Export] public int SwarmBatchCount { get; set; } = 4;
     [Export] public bool SwarmFacesLeft { get; set; } = false;
@@ -35,8 +33,7 @@ public partial class EnemySpawner : Node2D
     // --- TANK ENEMY ---
     [ExportGroup("Tank Enemy")]
     [Export] public PackedScene TankEnemyScene { get; set; }
-    [Export] public float TankInterval { get; set; } = 8.0f;
-    [Export] public float TankUnlockTime { get; set; } = 420f;     // Spawns from 7:00
+    [Export] public float TankUnlockTime { get; set; } = 360f;     // Spawns from 6:00 (was 7:00)
     [Export] public bool TankFacesLeft { get; set; } = false;
 
     // --- BOSS ENCOUNTER ---
@@ -53,8 +50,9 @@ public partial class EnemySpawner : Node2D
     private float _elapsedTime = 0f;
     private bool _bossSpawned = false;
     private bool _timeFrozen = false;
+    private bool _eliteWarningFired = false; // 5:30 mid-game surge warning
 
-    // Independent timers per enemy archetype
+    // --- INDEPENDENT TIMERS PER ARCHETYPE (all active simultaneously once unlocked) ---
     private float _basicCooldown = 0f;
     private float _fastCooldown = 0f;
     private float _swarmCooldown = 0f;
@@ -67,7 +65,6 @@ public partial class EnemySpawner : Node2D
 
         _spawnPath = GetNodeOrNull<PathFollow2D>("Path2D/PathFollow2D");
 
-        // Locate or automatically generate the EnemyContainer
         _enemyContainer = GetTree().CurrentScene?.GetNodeOrNull<Node2D>("EnemyContainer");
         if (_enemyContainer == null && GetTree().CurrentScene != null)
         {
@@ -88,79 +85,114 @@ public partial class EnemySpawner : Node2D
 
         GlobalPosition = _player.GlobalPosition;
 
-        if (_timeFrozen) return;
+        if (!_timeFrozen)
+        {
+            _elapsedTime += (float)delta;
 
-        _elapsedTime += (float)delta;
+            // Broadcast game clock to HUD
+            int totalSeconds = (int)_elapsedTime;
+            EmitSignal(SignalName.TimeUpdated, totalSeconds / 60, totalSeconds % 60);
 
-        // Broadcast game clock to HUD
-        int totalSeconds = (int)_elapsedTime;
-        EmitSignal(SignalName.TimeUpdated, totalSeconds / 60, totalSeconds % 60);
+            // 5:30 mid-game elite warning surge
+            if (_elapsedTime >= 330f && !_eliteWarningFired)
+            {
+                _eliteWarningFired = true;
+                EmitSignal(SignalName.EliteWarning);
+                TriggerEliteSurge();
+                GD.Print(">>> 5:30 ELITE SURGE! Spawning extra wave! <<<");
+            }
+        }
 
-        // 10-Minute Trigger
+        // 10-Minute Boss Trigger
         if (_elapsedTime >= BossTriggerTime && !_bossSpawned)
         {
             TriggerBossEncounter();
             return;
         }
 
-        // Process independent spawn cycles
+        // All active archetypes spawn simultaneously via independent timers
         HandleIndependentSpawns((float)delta);
     }
 
     private void HandleIndependentSpawns(float dt)
     {
-    if (_spawnPath == null) return;
+        if (_spawnPath == null) return;
 
-    _basicCooldown -= dt;
-    if (_basicCooldown <= 0f)
-    {
-        PackedScene sceneToSpawn = null;
-        int spawnCount = 1;
-        bool facesLeft = true;
-        float baseInterval = 1.0f;
-
-        // Strict time brackets (Mutually Exclusive)
-        if (_elapsedTime >= 420f && TankEnemyScene != null)
+        // --- BASIC ENEMY (always active after unlock, never replaced) ---
+        if (_elapsedTime >= BasicUnlockTime && BasicEnemyScene != null)
         {
-            sceneToSpawn = TankEnemyScene;
-            facesLeft = TankFacesLeft;
-            baseInterval = 1.6f;
-        }
-        else if (_elapsedTime >= 240f && SwarmEnemyScene != null)
-        {
-            sceneToSpawn = SwarmEnemyScene;
-            spawnCount = SwarmBatchCount; // Spawns in clusters of 4
-            facesLeft = SwarmFacesLeft;
-            baseInterval = 1.5f;
-        }
-        else if (_elapsedTime >= 120f && FastEnemyScene != null)
-        {
-            sceneToSpawn = FastEnemyScene;
-            facesLeft = FastFacesLeft;
-            baseInterval = 0.9f;
-        }
-        else if (BasicEnemyScene != null)
-        {
-            sceneToSpawn = BasicEnemyScene;
-            facesLeft = BasicFacesLeft;
-            baseInterval = 1.2f;
+            _basicCooldown -= dt;
+            if (_basicCooldown <= 0f)
+            {
+                // Ramp: starts at 1.4s, drops to 0.6s by minute 9
+                float baseInterval = GetRampedInterval(1.4f, 0.6f, BasicUnlockTime, 540f);
+                SpawnGroup(BasicEnemyScene, 1, BasicFacesLeft);
+                _basicCooldown = GetJitteredInterval(baseInterval);
+            }
         }
 
-        if (sceneToSpawn != null)
+        // --- FAST ENEMY (joins from 2:00, gets faster over time) ---
+        if (_elapsedTime >= FastUnlockTime && FastEnemyScene != null)
         {
-            SpawnGroup(sceneToSpawn, spawnCount, facesLeft);
+            _fastCooldown -= dt;
+            if (_fastCooldown <= 0f)
+            {
+                float baseInterval = GetRampedInterval(1.8f, 0.7f, FastUnlockTime, 540f);
+                SpawnGroup(FastEnemyScene, 1, FastFacesLeft);
+                _fastCooldown = GetJitteredInterval(baseInterval);
+            }
         }
 
-        // Reset cooldown with jitter for the active tier
-        _basicCooldown = GetJitteredInterval(baseInterval);
+        // --- SWARM ENEMY (joins from 4:00 in growing clusters) ---
+        if (_elapsedTime >= SwarmUnlockTime && SwarmEnemyScene != null)
+        {
+            _swarmCooldown -= dt;
+            if (_swarmCooldown <= 0f)
+            {
+                float baseInterval = GetRampedInterval(3.5f, 1.5f, SwarmUnlockTime, 540f);
+                // Batch grows from 3 → 6 over time
+                int batch = (_elapsedTime >= 420f) ? 6 : SwarmBatchCount;
+                SpawnGroup(SwarmEnemyScene, batch, SwarmFacesLeft);
+                _swarmCooldown = GetJitteredInterval(baseInterval);
+            }
+        }
+
+        // --- TANK ENEMY (joins from 6:00, very slow cadence) ---
+        if (_elapsedTime >= TankUnlockTime && TankEnemyScene != null)
+        {
+            _tankCooldown -= dt;
+            if (_tankCooldown <= 0f)
+            {
+                float baseInterval = GetRampedInterval(8.0f, 4.0f, TankUnlockTime, 540f);
+                SpawnGroup(TankEnemyScene, 1, TankFacesLeft);
+                _tankCooldown = GetJitteredInterval(baseInterval);
+            }
         }
     }
 
-    // Applies a ±20% organic variance so enemies don't spawn like a metronome
+    // Lerp a spawn interval from startInterval down to endInterval across a time window
+    private float GetRampedInterval(float startInterval, float endInterval, float windowStart, float windowEnd)
+    {
+        float t = Mathf.Clamp((_elapsedTime - windowStart) / (windowEnd - windowStart), 0f, 1f);
+        return Mathf.Lerp(startInterval, endInterval, t);
+    }
+
+    // Applies ±20% organic variance so enemies don't spawn like a metronome
     private float GetJitteredInterval(float baseInterval)
     {
         float variance = baseInterval * 0.20f;
         return _rng.RandfRange(Mathf.Max(0.2f, baseInterval - variance), baseInterval + variance);
+    }
+
+    // Triggers a burst of mixed enemies at the 5:30 elite moment
+    private void TriggerEliteSurge()
+    {
+        if (_spawnPath == null) return;
+
+        // Spawn a fast wave + swarm cluster together as an elite pressure event
+        if (FastEnemyScene != null) SpawnGroup(FastEnemyScene, 4, FastFacesLeft);
+        if (SwarmEnemyScene != null) SpawnGroup(SwarmEnemyScene, 8, SwarmFacesLeft);
+        if (BasicEnemyScene != null) SpawnGroup(BasicEnemyScene, 5, BasicFacesLeft);
     }
 
     private void SpawnGroup(PackedScene scene, int count, bool facesLeft)
@@ -174,6 +206,9 @@ public partial class EnemySpawner : Node2D
             // Injects orientation into Enemy or Boss1Enemy
             enemy.Set("SpriteFacesLeftByDefault", facesLeft);
 
+            // Scale enemy stats by current time bracket for progressive difficulty
+            ApplyTimeScaling(enemy);
+
             if (_enemyContainer != null)
             {
                 _enemyContainer.AddChild(enemy);
@@ -182,6 +217,25 @@ public partial class EnemySpawner : Node2D
             {
                 GetTree().CurrentScene.AddChild(enemy);
             }
+        }
+    }
+
+    // Scales enemy HP and speed based on current elapsed time — enemy pressure grows organically
+    private void ApplyTimeScaling(Node2D enemy)
+    {
+        if (enemy is Enemy e)
+        {
+            // HP scales: +10% per minute elapsed (capped at +80% max = 9 min)
+            float minutesElapsed = _elapsedTime / 60f;
+            float hpMultiplier = 1f + Mathf.Min(minutesElapsed * 0.10f, 0.80f);
+            e.MaxHealth = Mathf.RoundToInt(e.MaxHealth * hpMultiplier);
+            // Reset CurrentHealth to match new max (node just spawned, so base = export value)
+            // NOTE: Enemy._Ready() sets CurrentHealth = MaxHealth, so we must set MaxHealth BEFORE _Ready runs.
+            // Since we set this right after Instantiate (before AddChild), it applies correctly.
+
+            // Speed scales: +5% per minute elapsed (capped at +45% max = 9 min)
+            float speedMultiplier = 1f + Mathf.Min(minutesElapsed * 0.05f, 0.45f);
+            e.MoveSpeed = e.MoveSpeed * speedMultiplier;
         }
     }
 

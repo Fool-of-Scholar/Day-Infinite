@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dacuxowwvrn48"]
 
 [ext_resource type="Script" uid="uid://gfacnone1jpb" path="res://scripts/Movement.cs" id="1_hjaqi"]
-[ext_resource type="Texture2D" uid="uid://lkljjv6b3kkb" path="res://Player/Walk.png" id="1_xo3ru"]
-[ext_resource type="Texture2D" uid="uid://bow7emcgb8n4j" path="res://Player/Idle.png" id="3_fvtld"]
-[ext_resource type="Script" uid="uid://co7a2435vsrh0" path="res://scripts/Plasma.cs" id="4_hp4bs"]
-[ext_resource type="PackedScene" uid="uid://bcthhe6knbnbp" path="res://scene/plasma_bolt.tscn" id="5_g2vtq"]
+[ext_resource type="PackedScene" uid="uid://tubmoxwhjavc" path="res://scene/player_death_vfx.tscn" id="2_g2vtq"]
+[ext_resource type="Texture2D" uid="uid://sb8185mrb67f" path="res://assets/Movement/Running 1.png" id="3_g2vtq"]
+[ext_resource type="Texture2D" uid="uid://bauvioqd2lypb" path="res://assets/Movement/Idle All SPriteSheet.png" id="3_hp4bs"]
+[ext_resource type="Script" uid="uid://fwte4fhcjewa" path="res://scripts/WeaponManager.cs" id="7_2fvbb"]
 [ext_resource type="AudioStream" uid="uid://dehaprhldkywo" path="res://assets/audio/TailWhip.wav" id="8_g2vtq"]
 [ext_resource type="PackedScene" uid="uid://mq1mu6p4tymw" path="res://scene/magnet_area.tscn" id="8_ml7e8"]
 [ext_resource type="PackedScene" uid="uid://barojeaioqx8r" path="res://scene/collection_area.tscn" id="9_ihjo1"]
@@ -12,11 +12,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5h11f"]
 
 [sub_resource type="Animation" id="Animation_hjaqi"]
-length = 0.001
+length = 0.5
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -33,16 +33,16 @@ tracks/1/path = NodePath("Idle:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_oh5ij"]
 resource_name = "idle_down"
-length = 0.3
-loop_mode = 2
+length = 0.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -50,15 +50,15 @@ tracks/0/path = NodePath("Idle:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_hp4bs"]
 resource_name = "idle_side"
-length = 0.3
+length = 0.5
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -67,15 +67,15 @@ tracks/0/path = NodePath("Idle:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10, 11]
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_g2vtq"]
 resource_name = "idle_up"
-length = 0.3
+length = 0.5
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -84,15 +84,15 @@ tracks/0/path = NodePath("Idle:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7]
+"values": [6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_fvtld"]
 resource_name = "walk_down"
-length = 0.5
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -101,15 +101,15 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0, 5]
+"values": [0, 1, 2, 3, 4, 5, 6]
 }
 
 [sub_resource type="Animation" id="Animation_ct4mp"]
 resource_name = "walk_side"
-length = 0.5
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -118,15 +118,15 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [12, 17]
+"values": [2, 1, 2, 3, 4, 5, 6]
 }
 
 [sub_resource type="Animation" id="Animation_s4jxa"]
 resource_name = "walk_up"
-length = 0.5
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -135,10 +135,10 @@ tracks/0/path = NodePath("Walk:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [6, 11]
+"values": [0, 1, 2, 3, 4, 5, 6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oh5ij"]
@@ -158,32 +158,24 @@ radius = 12.0
 [node name="Player" type="CharacterBody2D" unique_id=1999530487 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_hjaqi")
+DeathVfxScene = ExtResource("2_g2vtq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474345015]
 shape = SubResource("CircleShape2D_5h11f")
 
 [node name="Walk" type="Sprite2D" parent="." unique_id=1657822324]
-texture = ExtResource("1_xo3ru")
-hframes = 6
-vframes = 3
+texture = ExtResource("3_g2vtq")
+flip_h = true
+hframes = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=896037910]
 libraries/ = SubResource("AnimationLibrary_oh5ij")
 
 [node name="Idle" type="Sprite2D" parent="." unique_id=638242184]
-texture = ExtResource("3_fvtld")
-hframes = 4
-vframes = 3
-
-[node name="Weapon" type="Node2D" parent="." unique_id=1118613141]
-
-[node name="Plasma" type="Node2D" parent="Weapon" unique_id=1942639394]
-script = ExtResource("4_hp4bs")
-BulletScene = ExtResource("5_g2vtq")
-
-[node name="Timer" type="Timer" parent="Weapon/Plasma" unique_id=216475571 groups=["player"]]
-wait_time = 0.8
-autostart = true
+texture = ExtResource("3_hp4bs")
+hframes = 6
+vframes = 2
+frame = 6
 
 [node name="MagnetArea" parent="." unique_id=152590452 instance=ExtResource("8_ml7e8")]
 
@@ -202,3 +194,6 @@ one_shot = true
 [node name="sfxwalk" type="AudioStreamPlayer" parent="." unique_id=867764778]
 stream = ExtResource("8_g2vtq")
 volume_db = 2.0
+
+[node name="WeaponManager" type="Node2D" parent="." unique_id=190875351]
+script = ExtResource("7_2fvbb")
