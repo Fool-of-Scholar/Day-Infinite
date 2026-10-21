@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bhmg0i0g0i725"]
 
+[ext_resource type="Script" uid="uid://bohtumufjfjcf" path="res://scripts/main_menu/MainMenu.cs" id="1_rq7sb"]
 [ext_resource type="Script" uid="uid://8bfstamgpdtm" path="res://scripts/main_menu/Play.cs" id="2_e8klu"]
 [ext_resource type="FontFile" uid="uid://bp7ccoa2hmwu7" path="res://assets/main_menu/fonts/8-bit-limit/8bitlimr.ttf" id="2_spnib"]
 [ext_resource type="Script" uid="uid://bt4od5jegmk8m" path="res://scripts/main_menu/Options.cs" id="3_ywaph"]
@@ -8,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="6_ywaph"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="7_spnib"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="8_vny3a"]
+[ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="9_1vqx8"]
+[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="11_3k2ij"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
 
@@ -125,6 +128,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(703, 241)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer/MarginContainer/VBoxContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vny3a"]
 resource_name = "options_in"
@@ -158,12 +185,41 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(50, 0), Vector2(80, 0), Vector2(-500, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3k2ij"]
+resource_name = "start"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/MarginContainer/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq7sb"]
 _data = {
 &"Play": SubResource("Animation_rq7sb"),
 &"RESET": SubResource("Animation_spnib"),
 &"options_in": SubResource("Animation_vny3a"),
-&"options_out": SubResource("Animation_1vqx8")
+&"options_out": SubResource("Animation_1vqx8"),
+&"start": SubResource("Animation_3k2ij")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5gy4"]
@@ -181,6 +237,18 @@ corner_radius_bottom_left = 50
 [sub_resource type="LabelSettings" id="LabelSettings_v5gy4"]
 font_size = 64
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3k2ij"]
+bg_color = Color(0.025363795, 0.025363805, 0.02536378, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 24
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 4
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_bj3ug"]
+font = ExtResource("7_spnib")
+font_size = 36
+
 [node name="MainMenu" type="Control" unique_id=189074760]
 layout_mode = 3
 anchors_preset = 15
@@ -188,6 +256,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_rq7sb")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1405045167]
 layout_mode = 1
@@ -333,12 +402,13 @@ layout_mode = 2
 text = "Music"
 label_settings = SubResource("LabelSettings_1vivr")
 
-[node name="OptionButton" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/Music" unique_id=373606142]
+[node name="MusicSlider" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/Music" unique_id=373606142]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
+value = 1.0
 
 [node name="SFX" type="HBoxContainer" parent="Options/PanelContainer/MarginContainer/VBoxContainer" unique_id=18390150]
 layout_mode = 2
@@ -350,12 +420,13 @@ size_flags_stretch_ratio = 0.3
 text = "SFX"
 label_settings = SubResource("LabelSettings_1vivr")
 
-[node name="OptionButton" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/SFX" unique_id=1523718639]
+[node name="SFXSlider" type="HSlider" parent="Options/PanelContainer/MarginContainer/VBoxContainer/SFX" unique_id=1523718639]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
+value = 1.0
 
 [node name="Label" type="Label" parent="Options/PanelContainer/MarginContainer" unique_id=1498531669]
 layout_mode = 2
@@ -367,6 +438,7 @@ label_settings = SubResource("LabelSettings_8vrlf")
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="Options" unique_id=57167998]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_rq7sb")
+autoplay = &"start"
 
 [node name="Title" type="PanelContainer" parent="." unique_id=1685878623]
 layout_mode = 0
@@ -394,3 +466,76 @@ offset_left = 2000.0
 offset_right = 3280.0005
 offset_bottom = 720.0
 texture = ExtResource("8_vny3a")
+
+[node name="ButtonSound" parent="." unique_id=980604888 instance=ExtResource("9_1vqx8")]
+
+[node name="Currency" type="Control" parent="." unique_id=1623726099]
+anchors_preset = 0
+offset_right = 348.0
+offset_bottom = 260.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Currency" unique_id=1909999821]
+layout_mode = 0
+offset_right = 348.0
+offset_bottom = 260.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Currency/MarginContainer" unique_id=1161226446]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Coins" type="PanelContainer" parent="Currency/MarginContainer/VBoxContainer" unique_id=2048623758]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3k2ij")
+
+[node name="MarginContainer" type="MarginContainer" parent="Currency/MarginContainer/VBoxContainer/Coins" unique_id=1300620139]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Currency/MarginContainer/VBoxContainer/Coins/MarginContainer" unique_id=433284911]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer" unique_id=439089375]
+layout_mode = 2
+texture = ExtResource("11_3k2ij")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer" unique_id=313748990]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_bj3ug")
+horizontal_alignment = 2
+
+[node name="Scraps" type="PanelContainer" parent="Currency/MarginContainer/VBoxContainer" unique_id=346312086]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3k2ij")
+
+[node name="MarginContainer" type="MarginContainer" parent="Currency/MarginContainer/VBoxContainer/Scraps" unique_id=46503039]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer" unique_id=1265035850]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer" unique_id=2053878485]
+modulate = Color(1, 0.19215687, 1, 1)
+layout_mode = 2
+texture = ExtResource("11_3k2ij")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer" unique_id=1923697671]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_bj3ug")
+horizontal_alignment = 2

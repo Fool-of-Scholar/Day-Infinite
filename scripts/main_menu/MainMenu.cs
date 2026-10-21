@@ -5,10 +5,13 @@ public partial class MainMenu : Control
 {
 	AnimationPlayer _animPlayer;
 	Button _btnPlay;
+	AudioStreamPlayer _buttonSounds;
 	private Label _totalScrapsLabel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
+
 		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_btnPlay = GetNode<Button>("VBoxContainer/BtnPlay");
 		_btnPlay.Pressed += OnPlayPressed;

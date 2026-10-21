@@ -1,11 +1,83 @@
 [gd_scene format=3 uid="uid://dy45ku51sxasm"]
 
 [ext_resource type="Script" uid="uid://cilyuijgw7axt" path="res://scripts/DiedInterface.cs" id="1_k7syq"]
-[ext_resource type="Texture2D" uid="uid://b4tflaw6cuq57" path="res://assets/main_menu/Died.jpg" id="2_lnblp"]
-[ext_resource type="Texture2D" uid="uid://ugta8m8eegfe" path="res://assets/main_menu/play_deathScreen.png" id="3_dy1sr"]
+[ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_lsn6p"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="3_2grij"]
+[ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="4_2grij"]
+[ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="5_wc1of"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vivr"]
-texture = ExtResource("3_dy1sr")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2pp6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v5gy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qbdty"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auskg"]
+
+[sub_resource type="Animation" id="Animation_2grij"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2000, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wc1of"]
+resource_name = "main"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ln2b1"]
+_data = {
+&"RESET": SubResource("Animation_2grij"),
+&"main": SubResource("Animation_wc1of")
+}
 
 [node name="DiedInterface" type="Control" unique_id=1953952388]
 process_mode = 3
@@ -18,37 +90,66 @@ grow_vertical = 2
 script = ExtResource("1_k7syq")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=188633277]
+modulate = Color(0.4812579, 0.4557319, 2.2340405, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_lnblp")
+texture = ExtResource("2_lsn6p")
 
-[node name="MainMenu" type="Button" parent="TextureRect" unique_id=1683095380]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1089887397]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 100.0
-offset_top = -61.0
-offset_right = 362.0
-offset_bottom = 61.0
+offset_left = -25.0
+offset_top = -20.0
+offset_right = 25.0
+offset_bottom = 20.0
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_1vivr")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_d2pp6")
 
-[node name="Retry" type="Button" parent="TextureRect" unique_id=352298021]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -362.0
-offset_top = -61.0
-offset_right = -100.0
-offset_bottom = 61.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_1vivr")
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=674042252]
+layout_mode = 2
+theme_override_constants/separation = 256
+
+[node name="Retry" type="Button" parent="PanelContainer/HBoxContainer" unique_id=988986588]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
+theme_override_fonts/font = ExtResource("3_2grij")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1vivr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8vrlf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5gy4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qbdty")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_auskg")
+text = "Retry"
+
+[node name="MainMenu" type="Button" parent="PanelContainer/HBoxContainer" unique_id=732653957]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
+theme_override_fonts/font = ExtResource("3_2grij")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1vivr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8vrlf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v5gy4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qbdty")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_auskg")
+text = "Main Menu"
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1602622919]
+layout_mode = 0
+offset_left = -2000.0
+offset_right = -720.0
+offset_bottom = 720.0
+texture = ExtResource("4_2grij")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1994610450]
+libraries/ = SubResource("AnimationLibrary_ln2b1")
+
+[node name="ButtonSound" parent="." unique_id=980604888 instance=ExtResource("5_wc1of")]

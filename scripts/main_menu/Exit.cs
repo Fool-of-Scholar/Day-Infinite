@@ -3,9 +3,11 @@ using System;
 
 public partial class Exit : Button
 {
-	// Called when the node enters the scene tree for the first time.
+	AudioStreamPlayer _buttonSounds;
 	public override void _Ready()
 	{
+		_buttonSounds = GetNode<AudioStreamPlayer>("../../../../ButtonSound");
+
 		this.Pressed += exitGame;
 	}
 
@@ -16,6 +18,8 @@ public partial class Exit : Button
 
 	private void exitGame()
 	{
+		_buttonSounds.Play();
+
 		GetTree().Quit();
 	}
 }

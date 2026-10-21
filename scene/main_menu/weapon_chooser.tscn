@@ -5,15 +5,25 @@
 [ext_resource type="Texture2D" uid="uid://cml1selfdcstx" path="res://assets/PIXWEP/body/body_laser_01.png" id="2_255o7"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_dcubs"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_me3sh"]
+[ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="2_t0xc4"]
 [ext_resource type="Texture2D" uid="uid://dhql0ssxqcf0q" path="res://assets/PIXWEP/body/body_projectile_01.png" id="4_me3sh"]
+[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="4_yb87i"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="7_ng5o7"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5oa5"]
 texture = ExtResource("2_me3sh")
 
-[sub_resource type="LabelSettings" id="LabelSettings_v5gy4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfavx"]
+bg_color = Color(0.025363795, 0.025363805, 0.02536378, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 24
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 4
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_7jx3p"]
 font = ExtResource("2_dcubs")
-font_size = 32
+font_size = 36
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_255o7"]
 
@@ -24,6 +34,10 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_8vrlf"]
 font = ExtResource("2_dcubs")
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbdty"]
+font = ExtResource("2_dcubs")
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_t0xc4"]
 length = 0.001
@@ -100,6 +114,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_255o7")
 
+[node name="ButtonSound" parent="." unique_id=980604888 instance=ExtResource("2_t0xc4")]
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1691268389]
 layout_mode = 0
 offset_right = 40.0
@@ -111,7 +127,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -0.0007324219
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_e5oa5")
@@ -143,30 +158,63 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 
-[node name="EnergyLabel" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=521420523]
+[node name="Coins" type="PanelContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=744444066]
 layout_mode = 2
-text = "Energy:"
-label_settings = SubResource("LabelSettings_v5gy4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfavx")
 
-[node name="EnergyAmount" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=1843942077]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins" unique_id=283480602]
 layout_mode = 2
-text = "00"
-label_settings = SubResource("LabelSettings_v5gy4")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins/MarginContainer" unique_id=379242028]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins/MarginContainer/HBoxContainer" unique_id=1568180097]
+layout_mode = 2
+texture = ExtResource("4_yb87i")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins/MarginContainer/HBoxContainer" unique_id=1710163791]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_7jx3p")
+horizontal_alignment = 2
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=130743242]
 layout_mode = 2
 theme_override_constants/separation = 256
 theme_override_styles/separator = SubResource("StyleBoxEmpty_255o7")
 
-[node name="ScrapsLabel" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=558079689]
+[node name="Scraps" type="PanelContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=888549048]
 layout_mode = 2
-text = "Scraps:"
-label_settings = SubResource("LabelSettings_v5gy4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfavx")
 
-[node name="ScrapsAmount" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash" unique_id=1396369089]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps" unique_id=572719555]
 layout_mode = 2
-text = "00"
-label_settings = SubResource("LabelSettings_v5gy4")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps/MarginContainer" unique_id=2011027997]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps/MarginContainer/HBoxContainer" unique_id=437180563]
+modulate = Color(1, 0.19215687, 1, 1)
+layout_mode = 2
+texture = ExtResource("4_yb87i")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps/MarginContainer/HBoxContainer" unique_id=60947396]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_7jx3p")
+horizontal_alignment = 2
 
 [node name="WeaponName" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1745487514]
 layout_mode = 2
@@ -205,29 +253,33 @@ text = "<details>
 label_settings = SubResource("LabelSettings_8vrlf")
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=236274014]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 64
-
-[node name="Back" type="Button" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=179177256]
-custom_minimum_size = Vector2(270, 45)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dcubs")
-theme_override_font_sizes/font_size = 24
-text = "Back"
-
-[node name="PlayScene" type="Button" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1626002102]
-custom_minimum_size = Vector2(270, 45)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dcubs")
-theme_override_font_sizes/font_size = 24
-text = "Proceed"
-
 [node name="Next" type="Button" parent="PanelContainer/HBoxContainer" unique_id=167726897]
 layout_mode = 2
 text = "<pad>"
+
+[node name="Locked" type="Panel" parent="PanelContainer" unique_id=598092722]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+
+[node name="Label" type="Label" parent="PanelContainer/Locked" unique_id=152778598]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOCKED"
+label_settings = SubResource("LabelSettings_qbdty")
+horizontal_alignment = 1
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=315785953]
 layout_mode = 0
@@ -242,3 +294,39 @@ libraries/ = SubResource("AnimationLibrary_gfavx")
 [node name="Timer" type="Timer" parent="." unique_id=57687380]
 wait_time = 0.2
 one_shot = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1368323359]
+custom_minimum_size = Vector2(2000, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_top = -55.0
+offset_right = 1000.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=236274014]
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_position_ratio = Vector2(0, 0.325)
+offset_transform_visual_only = false
+theme_override_constants/separation = 64
+
+[node name="Back" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=179177256]
+custom_minimum_size = Vector2(270, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 24
+text = "Back"
+
+[node name="PlayScene" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1626002102]
+custom_minimum_size = Vector2(270, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 24
+text = "Proceed"

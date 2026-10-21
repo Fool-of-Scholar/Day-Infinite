@@ -11,9 +11,12 @@ public partial class Encyclopedia : Control
 	PanelContainer _loreBox;
 	PanelContainer _upgradesBox;
 	PanelContainer _weaponsBox;
+
+	AudioStreamPlayer _buttonSounds;
 	
 	public override void _Ready()
 	{
+		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
 		GD.Print("Emcyclopedia Initialized");
 		_back = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back");
 		_weapons = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Weapon");
@@ -40,6 +43,7 @@ public partial class Encyclopedia : Control
 
 	private void BackButton()
 	{
+		_buttonSounds.Play();
 		_animPlayer.Play("back");
 		_animPlayer.AnimationFinished += Back;
 	}
@@ -54,6 +58,8 @@ public partial class Encyclopedia : Control
 
 	private void Weapons()
 	{
+		_buttonSounds.Play();
+		_animPlayer.Play("next");
 		_weaponsBox.Visible = true;
 		_loreBox.Visible = false;
 		_upgradesBox.Visible = false;
@@ -61,6 +67,8 @@ public partial class Encyclopedia : Control
 
 	private void Upgrades()
 	{
+		_buttonSounds.Play();
+		_animPlayer.Play("next");
 		_weaponsBox.Visible = false;
 		_loreBox.Visible = false;
 		_upgradesBox.Visible = true;
@@ -68,6 +76,8 @@ public partial class Encyclopedia : Control
 
 	private void Lores()
 	{
+		_buttonSounds.Play();
+		_animPlayer.Play("next");
 		_weaponsBox.Visible = false;
 		_loreBox.Visible = true;
 		_upgradesBox.Visible = false;

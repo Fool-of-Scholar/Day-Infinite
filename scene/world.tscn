@@ -262,6 +262,7 @@ use_parent_material = true
 tile_set = ExtResource("2_txmk2")
 
 [node name="Player" parent="." unique_id=1999530487 instance=ExtResource("3_w4qq1")]
+MaxHealth = 100
 Speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=592598760]

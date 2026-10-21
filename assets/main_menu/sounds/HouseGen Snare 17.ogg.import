@@ -1,0 +1,18 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bkjb0j3x7ue3v"
+valid=false
+
+[deps]
+
+source_file="res://assets/main_menu/sounds/HouseGen Snare 17.ogg"
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

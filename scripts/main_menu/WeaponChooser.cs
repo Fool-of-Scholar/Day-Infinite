@@ -13,6 +13,8 @@ public partial class WeaponChooser : Control
 	TextureRect _weaponNext;
 	Label _weaponName;
 	Label _weaponStats;
+	Panel _lockedManager;
+	AudioStreamPlayer _buttonSounds;
 	public string[] _weaponStringModifierDesc = new string[]
 	{
 		"Fast, accurate weapon that automatically tracks and fires toward enemies\n",
@@ -48,6 +50,17 @@ public partial class WeaponChooser : Control
 	"res://assets/PIXWEP/desert/body/body_laser_01.png"//stopper
 	};
 
+	public bool[] _lockManagerWeapon = new bool[]
+	{
+		true,//stopper
+		true, //1
+		false,
+		false,
+		false,
+		false, //5
+		true
+	};
+
 	//for null weapons
 	private String _Weapon0 = "res://assets/Encylopedia/weapons.png";
 	private String _Weapon6 = "res://assets/Encylopedia/weapons.png";
@@ -62,11 +75,13 @@ public partial class WeaponChooser : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
 		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_next = GetNode<Button>("PanelContainer/HBoxContainer/Next");
 		_prev = GetNode<Button>("PanelContainer/HBoxContainer/Prev");
-		_back = GetNode<Button>("PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back");
-		_proceedArea = GetNode<Button>("PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/PlayScene");
+		_back = GetNode<Button>("VBoxContainer/HBoxContainer2/Back");
+		_proceedArea = GetNode<Button>("VBoxContainer/HBoxContainer2/PlayScene");
+		_lockedManager = GetNode<Panel>("PanelContainer/Locked");
 
 		_weaponName = GetNode<Label>("PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/WeaponName");
 		_weaponStats = GetNode<Label>("PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Details");
@@ -82,6 +97,7 @@ public partial class WeaponChooser : Control
 		NextWeapon();
 
 		_animPlayer.AnimationFinished += BottomButtons;
+		_lockedManager.Visible = false;
 	}
 
   public override void _Input(InputEvent @event)
@@ -102,6 +118,7 @@ public partial class WeaponChooser : Control
 
 	private void NextWeapon()
 	{
+		_buttonSounds.Play();
 		if (count >= 1 && count <= 5)
 		{
 			_weaponMain.Texture = GD.Load<Texture2D>(_weaponPaths[count]);
@@ -110,6 +127,17 @@ public partial class WeaponChooser : Control
 
 			_weaponName.Text = _weaponStringModifierName[count - 1];
 			_weaponStats.Text = _weaponStringModifierDesc[count - 1] + _weaponStringModifierStats[count - 1];
+
+			if (_lockManagerWeapon[count] == false)
+			{
+				_lockedManager.Visible = true;
+				_proceedArea.Visible = false;
+			}
+			else
+			{
+				_proceedArea.Visible = true;
+				_lockedManager.Visible = false;
+			}
 		}
 	}
 
@@ -147,11 +175,13 @@ public partial class WeaponChooser : Control
 
 	private void BackHome()
 	{
+		_buttonSounds.Play();
 		_animPlayer.Play("back");
 	}
 
 	private void ProceedAnim()
 	{
+		_buttonSounds.Play();
 		_animPlayer.Play("next");
 	}
 	
