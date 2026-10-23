@@ -23,7 +23,7 @@ public partial class AreaChooser : Control
 	{
 		true, //stopper
 		true, //1
-		false,
+		true,
 		false,
 		false,
 		false,
@@ -33,7 +33,7 @@ public partial class AreaChooser : Control
 	private string[] _areaTitle = new string[] //22 letters per line max
 	{
 		"Urban Decayed City",
-		"???",
+		"Primal Forest (Bukid)",
 		"???",
 		"???",
 		"???",
@@ -41,23 +41,32 @@ public partial class AreaChooser : Control
 	};
 	private string[] _areaDetails = new string[]
 	{
-		"\nThis city, a once-thriving\nmetropolis capital now\novergrown with mutated\nflora, populatedby a swarm\nof mice. The city was\ndesigned to be an\norchid-filled environmental\ncity",
-		"???",
+		"\nThis city, a once-thriving\nmetropolis capital now\novergrown with mutated\nflora, populatedby a swarm\nof mice. The city was\ndesigned to be an\norchid-filled environmental\ncity.",
+		"\nThe mountains and forests in\nthe outskirt, once lush\nand filled with serenity,\nnow harbors corrupted apex\npredators out to kill\nanyone. Inside the thick\nmist is filled with domestic\nberserk dogs.",
 		"???",
 		"???",
 		"???",
 		"???",
 	};
+	private string[] _areaScene = new string[]
+	{
+		"res://scene/levels/area.tscn",
+		"res://scene/levels/area_2.tscn",
+		"",
+		"",
+		"",
+		""
+	};
 	private string[] _areaChooser = new string[]
 	{
-		"res://assets/Encylopedia/buttons.png",//stopper
-		"res://assets/main_menu/area/received_1996949624323731.jpeg",//1
-		"res://assets/Encylopedia/buttons.png",
+		"res://assets/main_menu/area/Stopper.jpg",//stopper
+		"res://assets/main_menu/area/Area1.jpeg",//1
+		"res://assets/main_menu/area/Area2.webp",
 		"res://assets/Encylopedia/weapons.png",
 		"res://assets/Encylopedia/buttons.png",
 		"res://assets/Encylopedia/weapons.png",
 		"res://assets/Encylopedia/buttons.png",//6
-		"res://assets/Encylopedia/weapons.png"	//stopper
+		"res://assets/main_menu/area/Stopper.jpg"	//stopper
 	};
 	public override void _Ready()
 	{
@@ -92,8 +101,7 @@ public partial class AreaChooser : Control
 	private void StartGame()
 	{
 		_buttonSounds.Play();
-		string scene = "res://scene/levels/area.tscn";
-		GetTree().ChangeSceneToFile(scene);
+		GetTree().ChangeSceneToFile(_areaScene[count - 1]);
 	}
 
 	private void BackToWeapons()

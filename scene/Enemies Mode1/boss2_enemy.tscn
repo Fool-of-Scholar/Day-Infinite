@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://2boss2001"]
+
+[ext_resource type="Script" uid="uid://cpnib185n1vmq" path="res://scripts/Boss2Enemy.cs" id="1_b2"]
+[ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_b2"]
+[ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_b2"]
+[ext_resource type="PackedScene" uid="uid://b2rootproj01" path="res://scene/Enemies Mode1/root_projectile.tscn" id="5_b2"]
+[ext_resource type="PackedScene" uid="uid://b2mistproj01" path="res://scene/Enemies Mode1/mist_projectile.tscn" id="6_b2"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="7_b2"]
+[ext_resource type="Texture2D" uid="uid://bqpa3xk7e3ely" path="res://assets/Enemies/Area 2 Enemy/Final Boss 2 Sprite Sheet.png" id="8_kw423"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i33c7"]
+atlas = ExtResource("8_kw423")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw423"]
+atlas = ExtResource("8_kw423")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16xx5"]
+atlas = ExtResource("8_kw423")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8xhc"]
+atlas = ExtResource("8_kw423")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtty1"]
+atlas = ExtResource("8_kw423")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pvmw"]
+atlas = ExtResource("8_kw423")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ghe"]
+atlas = ExtResource("8_kw423")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa7f2"]
+atlas = ExtResource("8_kw423")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki1re"]
+atlas = ExtResource("8_kw423")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buaae"]
+atlas = ExtResource("8_kw423")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu4e7"]
+atlas = ExtResource("8_kw423")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rvg0"]
+atlas = ExtResource("8_kw423")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kiolp"]
+atlas = ExtResource("8_kw423")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yatjs"]
+atlas = ExtResource("8_kw423")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt8gl"]
+atlas = ExtResource("8_kw423")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgjfy"]
+atlas = ExtResource("8_kw423")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsehv"]
+atlas = ExtResource("8_kw423")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ktjd"]
+atlas = ExtResource("8_kw423")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5uku"]
+atlas = ExtResource("8_kw423")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtixa"]
+atlas = ExtResource("8_kw423")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boss2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i33c7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw423")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16xx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8xhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtty1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pvmw")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36ghe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa7f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki1re")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buaae")
+}],
+"loop": 0,
+"name": &"mist_attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu4e7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rvg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kiolp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yatjs")
+}],
+"loop": 0,
+"name": &"root_attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt8gl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgjfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsehv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ktjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5uku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtixa")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 28.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=8001 groups=["enemies"]]
+scale = Vector2(2.2, 2.2)
+motion_mode = 1
+script = ExtResource("1_b2")
+RootProjectileScene = ExtResource("5_b2")
+MistProjectileScene = ExtResource("6_b2")
+GemScene = ExtResource("7_b2")
+BloodScene = ExtResource("2_b2")
+DamageNumberScene = ExtResource("3_b2")
+MaxHealth = 6500
+MoveSpeed = 62.0
+SpriteFacesLeftByDefault = false
+ExperienceValue = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=8002]
+sprite_frames = SubResource("SpriteFrames_boss2")
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=8003]
+shape = SubResource("CircleShape2D_body")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=8004]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=8005 groups=["enemies"]]
+shape = SubResource("CircleShape2D_hit")

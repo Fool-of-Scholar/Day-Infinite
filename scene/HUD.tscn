@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dbnirx5fq0sdy"]
 
 [ext_resource type="Script" uid="uid://bdqew6sn3aieb" path="res://scripts/HUD.cs" id="1_mmka4"]
+[ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="2_5nt5s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvcfn"]
 bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
@@ -109,8 +110,17 @@ show_percentage = false
 
 [node name="ScrapLabel" type="Label" parent="Control" unique_id=202293395]
 layout_mode = 0
-offset_left = 102.0
-offset_top = 98.0
-offset_right = 142.0
-offset_bottom = 121.0
+offset_left = 121.0
+offset_top = 97.0
+offset_right = 182.0
+offset_bottom = 120.0
 text = "Scrap: 0"
+
+[node name="TextureRect" type="TextureRect" parent="Control/ScrapLabel" unique_id=905512836]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -1.0
+offset_bottom = 22.0
+texture = ExtResource("2_5nt5s")
+expand_mode = 1

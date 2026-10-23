@@ -158,7 +158,6 @@ radius = 12.0
 [node name="Player" type="CharacterBody2D" unique_id=1999530487 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_hjaqi")
-MaxHealth = 10000
 DeathVfxScene = ExtResource("2_g2vtq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474345015]

@@ -5,6 +5,7 @@ public partial class AudioManager : Node
 {
     private AudioStreamPlayer _bgmAudioPlayer;
 
+
     public override void _Ready()
     {
         // Create the audio player programmatically
@@ -15,6 +16,7 @@ public partial class AudioManager : Node
         // Replace with your actual audio file path
         AudioStream music = GD.Load<AudioStream>("res://assets/music/Dread Pitt - Pyro [NCS Release].mp3");
         _bgmAudioPlayer.Stream = music;
+        _bgmAudioPlayer.ProcessMode = ProcessModeEnum.Always;
     }
 
     public void PlayMusic()
@@ -26,6 +28,7 @@ public partial class AudioManager : Node
             _bgmAudioPlayer.Play();
 
         }
+        
     }
 
     public void SetVolumeMusic(float bgmVolume)

@@ -8,8 +8,10 @@
 [ext_resource type="Script" uid="uid://bt6kplcn12kxs" path="res://scripts/main_menu/EncyclopediaMainMenu.cs" id="4_vny3a"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="6_ywaph"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="7_spnib"]
+[ext_resource type="Texture2D" uid="uid://bdn7owrorn5xq" path="res://assets/main_menu/template/Untitled165_20261022234636.png" id="8_bj3ug"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="8_vny3a"]
 [ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="9_1vqx8"]
+[ext_resource type="Texture2D" uid="uid://8107tq01q0dj" path="res://assets/main_menu/logo/Logo.png" id="10_eo5a4"]
 [ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="11_3k2ij"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
@@ -42,6 +44,9 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_666tf"]
+texture = ExtResource("8_bj3ug")
 
 [sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
 font = ExtResource("7_spnib")
@@ -222,20 +227,12 @@ _data = {
 &"start": SubResource("Animation_3k2ij")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5gy4"]
-bg_color = Color(0.00051548635, 0.09436927, 0.24275813, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="LabelSettings" id="LabelSettings_v5gy4"]
-font_size = 64
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lt21p"]
+texture = ExtResource("10_eo5a4")
+expand_margin_left = 7.0
+expand_margin_top = 185.0
+expand_margin_right = 24.0
+expand_margin_bottom = 165.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3k2ij"]
 bg_color = Color(0.025363795, 0.025363805, 0.02536378, 1)
@@ -367,12 +364,13 @@ offset_top = 75.0
 offset_right = 454.0
 offset_bottom = 603.0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_666tf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Options/PanelContainer" unique_id=1737921388]
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 54
+theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Options/PanelContainer/MarginContainer" unique_id=1993163379]
@@ -446,19 +444,13 @@ offset_left = 440.0
 offset_top = 20.0
 offset_right = 892.0
 offset_bottom = 161.33337
-theme_override_styles/panel = SubResource("StyleBoxFlat_v5gy4")
+theme_override_styles/panel = SubResource("StyleBoxTexture_lt21p")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title" unique_id=607522322]
+[node name="TextureRect" type="TextureRect" parent="Title" unique_id=1660101889]
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
-
-[node name="Title" type="Label" parent="Title/MarginContainer" unique_id=1190293968]
-layout_mode = 2
-text = "Day INFINITE"
-label_settings = SubResource("LabelSettings_v5gy4")
+texture = ExtResource("10_eo5a4")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="forPlay" type="TextureRect" parent="." unique_id=1230331023]
 layout_mode = 0

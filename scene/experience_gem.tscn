@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dtx8kmkfpyh22" path="res://assets/Item/Blue Battery.png" id="2_p2hcs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
+radius = 3.0
 
 [node name="ExperienceGem" type="Area2D" unique_id=342359533]
 collision_layer = 8
@@ -12,6 +13,7 @@ script = ExtResource("1_p2hcs")
 ExperienceValue = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2005548923]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_p2hcs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1501421463]

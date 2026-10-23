@@ -5,3 +5,4 @@
 [node name="ButtonSound" type="AudioStreamPlayer" unique_id=980604888]
 stream = ExtResource("1_muclh")
 pitch_scale = 3.1
+bus = &"SFX"

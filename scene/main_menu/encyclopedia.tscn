@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_jirmc"]
 [ext_resource type="Texture2D" uid="uid://55581xhfrov1" path="res://assets/main_menu/Encyclopedia.png" id="5_2f10u"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="5_7748y"]
+[ext_resource type="Script" uid="uid://dnmjcrn43wdlf" path="res://scripts/main_menu/EnclopediaThings/Lore.cs" id="7_2on2e"]
+[ext_resource type="Texture2D" uid="uid://ds510m4m214gj" path="res://assets/main_menu/template/Untitled167_20261023000156.png" id="7_4ck44"]
+[ext_resource type="Texture2D" uid="uid://cpjkt68ogd51v" path="res://assets/main_menu/template/Untitled171_20261023000548.png" id="7_qw32v"]
+[ext_resource type="Script" uid="uid://b6tquikyqy4ni" path="res://scripts/main_menu/EnclopediaThings/Upgrades.cs" id="10_vt5nq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vivr"]
 texture = ExtResource("2_jirmc")
@@ -47,14 +51,46 @@ font_size = 48
 [sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
 font_size = 24
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7748y"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q2pgc"]
 texture = ExtResource("5_2f10u")
 expand_margin_bottom = 48.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_qbdty"]
-font_size = 48
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ck44"]
+content_margin_top = 16.0
+content_margin_bottom = 16.0
+texture = ExtResource("7_qw32v")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taakq"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2on2e"]
+content_margin_left = 4.0
+content_margin_top = 20.0
+content_margin_right = 4.0
+content_margin_bottom = 20.0
+texture = ExtResource("7_qw32v")
+texture_margin_top = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vt5nq"]
+content_margin_top = 18.0
+content_margin_bottom = 18.0
+texture = ExtResource("7_qw32v")
+modulate_color = Color(1, 1, 1, 0.43529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jb214"]
+texture = ExtResource("7_4ck44")
+expand_margin_left = 30.0
+expand_margin_right = 30.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbdty"]
+font = ExtResource("2_0giq3")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ck44"]
+font = ExtResource("2_0giq3")
+font_size = 24
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qw32v"]
+region_rect = Rect2(0, 0, 400, 53)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jirmc"]
 
@@ -432,6 +468,7 @@ text = "Encyclopedia"
 label_settings = SubResource("LabelSettings_btyyc")
 
 [node name="Weapons" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=167561955]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
@@ -546,13 +583,12 @@ label_settings = SubResource("LabelSettings_1vivr")
 horizontal_alignment = 1
 
 [node name="Lore" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1368236130]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
-offset_transform_enabled = true
 offset_transform_visual_only = false
 theme = SubResource("Theme_8vrlf")
-theme_override_styles/panel = SubResource("StyleBoxTexture_7748y")
+theme_override_styles/panel = SubResource("StyleBoxTexture_q2pgc")
+script = ExtResource("7_2on2e")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore" unique_id=1874776327]
 layout_mode = 2
@@ -574,6 +610,8 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer" unique_id=1668615205]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.01, 0)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer" unique_id=1171164002]
 custom_minimum_size = Vector2(400, 0)
@@ -588,43 +626,91 @@ theme_override_constants/separation = 12
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=767014113]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1225774113]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1143390990]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=524312436]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=799433206]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1072323558]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1502704482]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
+text = "?????"
+
+[node name="Button8" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1800851135]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
+text = "?????"
+
+[node name="Button9" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1043659869]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
 [node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer" unique_id=1400932563]
@@ -633,116 +719,218 @@ layout_mode = 2
 size_flags_horizontal = 4
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(-0.1, 0)
+theme_override_styles/panel = SubResource("StyleBoxTexture_jb214")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel" unique_id=1998440186]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel" unique_id=1296921479]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 31
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=72632403]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8vrlf")
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=1998440186]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+offset_transform_position_ratio = Vector2(2.155, 0.58)
 text = "??????"
 label_settings = SubResource("LabelSettings_qbdty")
 horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Details" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=479502968]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+offset_transform_position_ratio = Vector2(3.505, 3.275)
+text = "????????????????????????????????????????"
+label_settings = SubResource("LabelSettings_4ck44")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Upgrades" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=931747876]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-offset_transform_enabled = true
 theme = SubResource("Theme_8vrlf")
-theme_override_styles/panel = SubResource("StyleBoxTexture_7748y")
+theme_override_styles/panel = SubResource("StyleBoxTexture_q2pgc")
+script = ExtResource("10_vt5nq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades" unique_id=449627469]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades" unique_id=552819611]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1472043818]
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1556827394]
 layout_mode = 2
 theme_override_constants/separation = 64
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=35330383]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1391302882]
 layout_mode = 2
-text = "Upgrade's"
+text = "Lore's"
 label_settings = SubResource("LabelSettings_v5gy4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1533036218]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1584769442]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.01, 0)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1222880557]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1081900596]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=358544195]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=11699542]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1565085164]
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1075023577]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1446346386]
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1466132903]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=944104492]
+[node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1407969878]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=789547325]
+[node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1520099476]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=125656875]
+[node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1812052546]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=300719198]
+[node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1697605273]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1061426932]
+[node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=2131274016]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
 text = "?????"
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1237248267]
+[node name="Button8" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1162592438]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
+text = "?????"
+
+[node name="Button9" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=2037578989]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ck44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2on2e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vt5nq")
+text = "?????"
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1021206103]
 custom_minimum_size = Vector2(680, 320)
 layout_mode = 2
 size_flags_horizontal = 4
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(-0.1, 0)
+theme_override_styles/panel = SubResource("StyleBoxTexture_jb214")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel" unique_id=213957684]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel" unique_id=1709601968]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 31
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=902945397]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8vrlf")
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=165707238]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+offset_transform_position_ratio = Vector2(2.155, 0.58)
 text = "??????"
 label_settings = SubResource("LabelSettings_qbdty")
 horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Details" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel/VBoxContainer" unique_id=664965532]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+offset_transform_position_ratio = Vector2(3.505, 3.275)
+text = "????????????????????????????????????????"
+label_settings = SubResource("LabelSettings_4ck44")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=999907881]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, 0.1)
 theme_override_constants/separation = 128
 
 [node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=703577834]
@@ -751,12 +939,12 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
 theme_override_fonts/font = ExtResource("2_0giq3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qw32v")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
-text = "<back>"
+text = "Back"
 
 [node name="Weapon" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2104966247]
 layout_mode = 2
@@ -764,12 +952,12 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
 theme_override_fonts/font = ExtResource("2_0giq3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qw32v")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
-text = "<weapon>"
+text = "Weapon"
 
 [node name="Upgrades" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1155723121]
 layout_mode = 2
@@ -777,12 +965,12 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
 theme_override_fonts/font = ExtResource("2_0giq3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qw32v")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
-text = "<upgrades>"
+text = "Enemies"
 
 [node name="Lores" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=984697875]
 layout_mode = 2
@@ -790,12 +978,12 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
 theme_override_fonts/font = ExtResource("2_0giq3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qw32v")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
-text = "<lore>"
+text = "Lore"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1197867362]
 libraries/ = SubResource("AnimationLibrary_4ck44")

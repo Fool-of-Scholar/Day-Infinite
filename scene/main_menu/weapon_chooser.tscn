@@ -6,12 +6,31 @@
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_dcubs"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_me3sh"]
 [ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="2_t0xc4"]
+[ext_resource type="Texture2D" uid="uid://83ihh5h2skvp" path="res://assets/main_menu/template/Untitled164_20261022234644.png" id="4_gfavx"]
 [ext_resource type="Texture2D" uid="uid://dhql0ssxqcf0q" path="res://assets/PIXWEP/body/body_projectile_01.png" id="4_me3sh"]
 [ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="4_yb87i"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="7_ng5o7"]
+[ext_resource type="Texture2D" uid="uid://baiy1oft4fart" path="res://assets/main_menu/template/Untitled166_20261022235401.png" id="11_7jx3p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5oa5"]
 texture = ExtResource("2_me3sh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bb7kh"]
+content_margin_left = 70.0
+content_margin_right = 64.0
+texture = ExtResource("4_gfavx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gfavx"]
+content_margin_left = 70.0
+content_margin_right = 64.0
+texture = ExtResource("4_gfavx")
+texture_margin_left = 100.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7jx3p"]
+content_margin_left = 70.0
+content_margin_right = 64.0
+texture = ExtResource("4_gfavx")
+modulate_color = Color(1, 1, 1, 0.827451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfavx"]
 bg_color = Color(0.025363795, 0.025363805, 0.02536378, 1)
@@ -105,6 +124,17 @@ _data = {
 &"next": SubResource("Animation_ng5o7")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ey8l"]
+texture = ExtResource("11_7jx3p")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a60st"]
+texture = ExtResource("11_7jx3p")
+texture_margin_top = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7lji3"]
+texture = ExtResource("11_7jx3p")
+modulate_color = Color(1, 1, 1, 0.827451)
+
 [node name="WeaponChooser" type="Control" unique_id=729411658]
 layout_mode = 3
 anchors_preset = 15
@@ -138,7 +168,11 @@ theme_override_constants/separation = 46
 
 [node name="Prev" type="Button" parent="PanelContainer/HBoxContainer" unique_id=1278817478]
 layout_mode = 2
-text = "<pad>"
+offset_transform_enabled = true
+offset_transform_scale = Vector2(-1, 1.065)
+theme_override_styles/normal = SubResource("StyleBoxTexture_bb7kh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gfavx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7jx3p")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer" unique_id=1101409743]
 layout_mode = 2
@@ -255,7 +289,11 @@ horizontal_alignment = 1
 
 [node name="Next" type="Button" parent="PanelContainer/HBoxContainer" unique_id=167726897]
 layout_mode = 2
-text = "<pad>"
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1, 1.065)
+theme_override_styles/normal = SubResource("StyleBoxTexture_bb7kh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gfavx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7jx3p")
 
 [node name="Locked" type="Panel" parent="PanelContainer" unique_id=598092722]
 custom_minimum_size = Vector2(500, 300)
@@ -322,6 +360,9 @@ custom_minimum_size = Vector2(270, 45)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dcubs")
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
 text = "Back"
 
 [node name="PlayScene" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1626002102]
@@ -329,4 +370,7 @@ custom_minimum_size = Vector2(270, 45)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dcubs")
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
 text = "Proceed"
