@@ -139,6 +139,7 @@ motion_mode = 1
 script = ExtResource("1_uhmq8")
 BloodScene = ExtResource("2_uueh3")
 DamageNumberScene = ExtResource("3_ickdi")
+MaxHealth = 8000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]
 shape = SubResource("CircleShape2D_f87vc")
@@ -146,6 +147,7 @@ shape = SubResource("CircleShape2D_f87vc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=290062266]
 scale = Vector2(0.99999994, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_btyyc")
+animation = &"windup"
 autoplay = "default"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=336066589]

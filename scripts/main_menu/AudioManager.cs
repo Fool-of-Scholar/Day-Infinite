@@ -3,27 +3,33 @@ using System;
 
 public partial class AudioManager : Node
 {
-    private AudioStreamPlayer _audioPlayer;
+    private AudioStreamPlayer _bgmAudioPlayer;
 
     public override void _Ready()
     {
         // Create the audio player programmatically
-        _audioPlayer = new AudioStreamPlayer();
-        AddChild(_audioPlayer);
+        _bgmAudioPlayer = new AudioStreamPlayer();
+        AddChild(_bgmAudioPlayer);
 
         // Load your music file from the res:// folder
         // Replace with your actual audio file path
         AudioStream music = GD.Load<AudioStream>("res://assets/music/Dread Pitt - Pyro [NCS Release].mp3");
-        _audioPlayer.Stream = music;
+        _bgmAudioPlayer.Stream = music;
     }
 
     public void PlayMusic()
     {
-        _audioPlayer.SetProcess(true);
+        _bgmAudioPlayer.SetProcess(true);
         // Only play if it isn't already playing
-        if (!_audioPlayer.Playing)
+        if (!_bgmAudioPlayer.Playing)
         {
-            _audioPlayer.Play();
+            _bgmAudioPlayer.Play();
+
         }
+    }
+
+    public void SetVolumeMusic(float bgmVolume)
+    {
+        _bgmAudioPlayer.VolumeDb = bgmVolume;
     }
 }

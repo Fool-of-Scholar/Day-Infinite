@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://2kappa001"]
+
+[ext_resource type="Script" uid="uid://dxmc7c6fjysja" path="res://scripts/SpiritKappaEnemy.cs" id="1_kap"]
+[ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_kap"]
+[ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_kap"]
+[ext_resource type="Texture2D" uid="uid://sh2eprcaxm0y" path="res://assets/Enemies/Area 2 Enemy/Spirit Kappa.png" id="4_kap"]
+[ext_resource type="PackedScene" uid="uid://buuf51insnvsj" path="res://scene/scrap_item.tscn" id="5_kap"]
+[ext_resource type="PackedScene" uid="uid://doqiwtp1sb8l7" path="res://scene/HealthBattery.tscn" id="6_adkyb"]
+[ext_resource type="PackedScene" uid="uid://b2kappaproj02" path="res://scene/Enemies Mode1/kappa_projectile.tscn" id="6_kap"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0"]
+atlas = ExtResource("4_kap")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1"]
+atlas = ExtResource("4_kap")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2"]
+atlas = ExtResource("4_kap")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3"]
+atlas = ExtResource("4_kap")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4"]
+atlas = ExtResource("4_kap")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5"]
+atlas = ExtResource("4_kap")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kappa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 12.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=6001 groups=["enemies"]]
+motion_mode = 1
+script = ExtResource("1_kap")
+ProjectileScene = ExtResource("6_kap")
+BloodScene = ExtResource("2_kap")
+DamageNumberScene = ExtResource("3_kap")
+ScrapScene = ExtResource("5_kap")
+HealthBatteryScene = ExtResource("6_adkyb")
+MaxHealth = 55
+MoveSpeed = 0.0
+ExperienceValue = 25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=6002]
+sprite_frames = SubResource("SpriteFrames_kappa")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=6003]
+shape = SubResource("CircleShape2D_body")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=6004]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=6005 groups=["enemies"]]
+shape = SubResource("CircleShape2D_hit")

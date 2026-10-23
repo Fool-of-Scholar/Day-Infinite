@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://btjjof4qbt6vu"]
+
+[ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="1_i0n2d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5h11f"]
+size = Vector2(20, 55)
+
+[node name="StreetLight" type="StaticBody2D" unique_id=794202331]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=456528107]
+position = Vector2(0, 26.5)
+shape = SubResource("RectangleShape2D_5h11f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=329403775]
+texture = ExtResource("1_i0n2d")

@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://2basic001"]
+
+[ext_resource type="Script" uid="uid://bog43ofb05pyp" path="res://scripts/Area2BasicEnemy.cs" id="1_a2b"]
+[ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_a2b"]
+[ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_a2b"]
+[ext_resource type="Texture2D" uid="uid://d0jekfmqxtw2a" path="res://assets/Enemies/Area 2 Enemy/Creature SpriteSheet .png" id="4_a2b"]
+[ext_resource type="PackedScene" uid="uid://buuf51insnvsj" path="res://scene/scrap_item.tscn" id="5_a2b"]
+[ext_resource type="PackedScene" uid="uid://doqiwtp1sb8l7" path="res://scene/HealthBattery.tscn" id="5_xyr8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0"]
+atlas = ExtResource("4_a2b")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1"]
+atlas = ExtResource("4_a2b")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2"]
+atlas = ExtResource("4_a2b")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3"]
+atlas = ExtResource("4_a2b")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4"]
+atlas = ExtResource("4_a2b")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5"]
+atlas = ExtResource("4_a2b")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_creature"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 20.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=4001 groups=["enemies"]]
+scale = Vector2(0.8, 0.8)
+motion_mode = 1
+script = ExtResource("1_a2b")
+BloodScene = ExtResource("2_a2b")
+DamageNumberScene = ExtResource("3_a2b")
+ScrapScene = ExtResource("5_a2b")
+HealthBatteryScene = ExtResource("5_xyr8c")
+HealthBatteryDropChance = 0.005
+MaxHealth = 200
+MoveSpeed = 68.0
+ExperienceValue = 12
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=4002]
+sprite_frames = SubResource("SpriteFrames_creature")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=4003]
+shape = SubResource("CircleShape2D_body")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=4004]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=4005 groups=["enemies"]]
+shape = SubResource("CircleShape2D_hit")

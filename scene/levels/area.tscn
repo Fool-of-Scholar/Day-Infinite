@@ -19,6 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="13_gem0"]
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="14_upin"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="15_upot"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="19_1wt8d"]
+[ext_resource type="Texture2D" uid="uid://hdmro1p1g1tr" path="res://assets/Environment/Area 1 Environment/BrokenBench.png" id="e1_bench"]
+[ext_resource type="Script" uid="uid://6deafnr1yf15" path="res://scripts/Area1EnvironmentSpawner.cs" id="e1_env_spawner"]
+[ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="e1_streetlight"]
+[ext_resource type="Texture2D" uid="uid://drva553r2a68j" path="res://assets/Environment/Area 1 Environment/TrashCan.png" id="e1_trashcan"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a1g12"]
 texture = ExtResource("1_sbad0")
@@ -69,6 +74,12 @@ gradient = SubResource("Gradient_osjpx")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font = ExtResource("19_1wt8d")
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_upgr_reset"]
 resource_name = "RESET"
@@ -121,10 +132,63 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hud/Panel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hud/Panel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1wt8d"]
+resource_name = "StartA"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_upgr"]
 _data = {
 &"RESET": SubResource("Animation_upgr_reset"),
+&"StartA": SubResource("Animation_1wt8d"),
 &"upgrade_in": ExtResource("14_upin"),
 &"upgrade_out": ExtResource("15_upot")
 }
@@ -302,8 +366,12 @@ color = Color(0.12, 0.14, 0.22, 1)
 [node name="Ground" type="TileMapLayer" parent="." unique_id=263770609]
 tile_set = SubResource("TileSet_o81xu")
 
-[node name="Environment" type="TileMapLayer" parent="." unique_id=1733286532]
-tile_set = SubResource("TileSet_o81xu")
+[node name="EnvironmentProps" type="Node2D" parent="." unique_id=1599430342]
+y_sort_enabled = true
+script = ExtResource("e1_env_spawner")
+StreetLightTexture = ExtResource("e1_streetlight")
+TrashCanTexture = ExtResource("e1_trashcan")
+BrokenBenchTexture = ExtResource("e1_bench")
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=153917818]
 tile_set = SubResource("TileSet_o81xu")
@@ -322,7 +390,6 @@ texture = SubResource("GradientTexture2D_5h11f")
 texture_scale = 30.47
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("2_spwn")]
-StartTimeOffset = 600.0
 FastEnemyScene = ExtResource("8_fast")
 SwarmEnemyScene = ExtResource("9_swrm")
 SwarmFacesLeft = true
@@ -340,6 +407,33 @@ offset_bottom = 800.0
 
 [node name="DiedInterface" parent="Hud" unique_id=1953952388 instance=ExtResource("7_died")]
 visible = false
+
+[node name="Panel" type="Panel" parent="Hud" unique_id=945504019]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="Hud/Panel" unique_id=242736197]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -106.5
+offset_right = 275.0
+offset_bottom = 106.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Area 1
+---------
+Urban Decayed City"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("4_aud0")]
 volume_db = -10.0
@@ -359,6 +453,7 @@ autostart = true
 unique_name_in_owner = true
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_upgr")
+autoplay = &"StartA"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=708618664]
 process_mode = 3

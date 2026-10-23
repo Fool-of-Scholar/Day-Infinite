@@ -4,16 +4,19 @@ using System;
 public partial class Play : Button
 {
 	AnimationPlayer _animPlayer;
+	AudioStreamPlayer _buttonSounds;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_animPlayer = GetNode<AnimationPlayer>("../../../../Options/AnimationPlayer2");
+		_buttonSounds = GetNode<AudioStreamPlayer>("../../../../ButtonSound");
 
 		this.Pressed += openWorldAnim;
 	}
 
 	private void openWorldAnim()
 	{
+		_buttonSounds.Play();
 		_animPlayer.Play("Play");
 		_animPlayer.AnimationFinished += openWorld;
 	}

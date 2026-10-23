@@ -1,41 +1,42 @@
 [gd_scene format=3 uid="uid://cow6rt0afqsob"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5gy4"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[ext_resource type="Texture2D" uid="uid://ca1ogvf7l41k0" path="res://assets/main_menu/template/Untitled168_20261022235715.png" id="1_wdtbs"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_pbi36"]
+[ext_resource type="Texture2D" uid="uid://bxps7kxfb8qnv" path="res://assets/main_menu/template/Untitled169_20261023000041.png" id="2_s5pla"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vo0d"]
+texture = ExtResource("1_wdtbs")
+expand_margin_left = 128.0
+expand_margin_top = 70.0
+expand_margin_right = 128.0
+expand_margin_bottom = 70.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5pla"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_s5pla")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pbi36"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_s5pla")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1nvce"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_s5pla")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbdty"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auskg"]
-bg_color = Color(0.37539852, 0.3753986, 0.37539843, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
 
 [node name="UpgradeMenu" type="Control" unique_id=643145189]
 process_mode = 3
@@ -61,6 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1vo0d")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1410590360]
 layout_mode = 2
@@ -79,9 +81,14 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_v5gy4")
+theme_override_fonts/font = ExtResource("2_pbi36")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5pla")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pbi36")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1nvce")
 text = "+25 Health
 "
+text_direction = 2
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1859831166]
 layout_mode = 2
@@ -92,8 +99,13 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_8vrlf")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_qbdty")
+theme_override_fonts/font = ExtResource("2_pbi36")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5pla")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pbi36")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1nvce")
 text = "+30 Speed"
+text_direction = 2
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=207643949]
 layout_mode = 2
@@ -104,5 +116,10 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_auskg")
+theme_override_fonts/font = ExtResource("2_pbi36")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5pla")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pbi36")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1nvce")
 text = "+15 Damage  "
+text_direction = 2

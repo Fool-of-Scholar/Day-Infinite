@@ -179,9 +179,13 @@ public partial class HUD : CanvasLayer
 
     public void OpenUpgradeMenu() 
     {
-        if (_openAnimation != null)
+        if (_openAnimation != null && _openAnimation.HasAnimation("upgrade_in"))
         {
             _openAnimation.Play("upgrade_in");
+        }
+        else if (_upgradeMenu != null)
+        {
+            _upgradeMenu.Visible = true;
         }
         
         // Make sure buttons are visible in case they were hidden by the sub-menu previously
