@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://2spawner001"]
+
+[ext_resource type="Script" uid="uid://a2spawnscr01" path="res://scripts/EnemySpawner2.cs" id="1_sp2"]
+[ext_resource type="PackedScene" uid="uid://a2basic001" path="res://scene/Enemies Mode1/creature_enemy.tscn" id="2_sp2"]
+[ext_resource type="PackedScene" uid="uid://a2kappa001" path="res://scene/Enemies Mode1/spirit_kappa_enemy.tscn" id="3_sp2"]
+[ext_resource type="PackedScene" uid="uid://a2entrap001" path="res://scene/Enemies Mode1/entrapping_enemy.tscn" id="4_sp2"]
+[ext_resource type="PackedScene" uid="uid://a2wolf001" path="res://scene/Enemies Mode1/wolf_hound_enemy.tscn" id="5_sp2"]
+[ext_resource type="PackedScene" uid="uid://a2boss2001" path="res://scene/Enemies Mode1/boss2_enemy.tscn" id="6_sp2"]
+
+[sub_resource type="Curve2D" id="Curve2D_sp2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -957, -541, 0, 0, 0, 0, 719, -570, 0, 0, 0, 0, 756, 345, 0, 0, 0, 0, -965, 334, 0, 0, 0, 0, -957, -541)
+}
+point_count = 5
+
+[node name="Spawner2" type="Node2D" unique_id=9001]
+script = ExtResource("1_sp2")
+BasicCreatureScene = ExtResource("2_sp2")
+KappaScene = ExtResource("3_sp2")
+EntrappingScene = ExtResource("4_sp2")
+WolfScene = ExtResource("5_sp2")
+Boss2Scene = ExtResource("6_sp2")
+BasicUnlockTime = 0.0
+KappaUnlockTime = 180.0
+EntrappingFirstTime = 300.0
+EntrappingRepeatEvery = 300.0
+EntrappingRingCount = 12
+WolfUnlockTime = 420.0
+WolfPackSize = 4
+Boss2TriggerTime = 600.0
+
+[node name="Path2D" type="Path2D" parent="." unique_id=9002]
+scale = Vector2(0.75, 0.75)
+curve = SubResource("Curve2D_sp2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=9003]

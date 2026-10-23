@@ -1,11 +1,104 @@
 [gd_scene format=3 uid="uid://17aroydenp6q"]
 
-[ext_resource type="Texture2D" uid="uid://5iuj52s2b0r6" path="res://assets/Encylopedia/weapons.png" id="2_0giq3"]
-[ext_resource type="Texture2D" uid="uid://b3sd7qiambl77" path="res://assets/Encylopedia/buttons.png" id="3_5wk78"]
-[ext_resource type="Script" uid="uid://buamlshe773gj" path="res://scripts/main_menu/EnclopediaThings/BackButton.cs" id="3_jirmc"]
+[ext_resource type="Script" uid="uid://hwl7s2dmpt4y" path="res://scripts/main_menu/Encyclopedia.cs" id="1_5wk78"]
+[ext_resource type="Texture2D" uid="uid://bnmlshmqxfs4f" path="res://assets/PIXWEP/desert/body/body_laser_01.png" id="1_taakq"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_0giq3"]
+[ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_jirmc"]
+[ext_resource type="Texture2D" uid="uid://55581xhfrov1" path="res://assets/main_menu/Encyclopedia.png" id="5_2f10u"]
+[ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="5_7748y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6n06g"]
-bg_color = Color(0.59448063, 0.5944807, 0.59448045, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vivr"]
+texture = ExtResource("2_jirmc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_btyyc"]
+font = ExtResource("2_0giq3")
+font_size = 64
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v5gy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qbdty"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auskg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2pp6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u7cuq"]
+
+[sub_resource type="Theme" id="Theme_8vrlf"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_v5gy4")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_qbdty")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_auskg")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_d2pp6")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_u7cuq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hqqxl"]
+texture = ExtResource("5_2f10u")
+expand_margin_bottom = 48.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v5gy4"]
+font = ExtResource("2_0giq3")
+font_size = 48
+
+[sub_resource type="Theme" id="Theme_qw32v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font_size = 24
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7748y"]
+texture = ExtResource("5_2f10u")
+expand_margin_bottom = 48.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbdty"]
+font_size = 48
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taakq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jirmc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2f10u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hqqxl"]
+
+[sub_resource type="Animation" id="Animation_2f10u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2000, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hqqxl"]
+resource_name = "back"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ck44"]
+_data = {
+&"RESET": SubResource("Animation_2f10u"),
+&"back": SubResource("Animation_hqqxl")
+}
 
 [node name="Encyclopedia" type="Control" unique_id=100114723]
 layout_mode = 3
@@ -16,203 +109,400 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_5wk78")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1888709441]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=889247620]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1vivr")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=45631882]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=492728736]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="ListItems" type="PanelContainer" parent="PanelContainer/MarginContainer" unique_id=442656717]
-layout_mode = 2
-offset_transform_scale = Vector2(0.9, 0.9)
-theme_override_styles/panel = SubResource("StyleBoxFlat_6n06g")
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/ListItems" unique_id=1030863867]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer" unique_id=1100038476]
-layout_mode = 2
-theme_override_constants/separation = 24
-
-[node name="FirstSet" type="HBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer" unique_id=1726774121]
-layout_mode = 2
-theme_override_constants/separation = 64
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=487033820]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton2" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=1414386395]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton3" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=2072977540]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton4" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=599480233]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton5" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=883386163]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton6" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet" unique_id=1254554142]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="FirstSet2" type="HBoxContainer" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer" unique_id=1390994838]
-layout_mode = 2
-theme_override_constants/separation = 64
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=576450383]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton2" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=1968649880]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton3" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=172112203]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton4" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=53397583]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton5" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=1656357793]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="TextureButton6" type="TextureButton" parent="PanelContainer/MarginContainer/ListItems/MarginContainer/VBoxContainer/FirstSet2" unique_id=966961258]
-custom_minimum_size = Vector2(150, 200)
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(100, 130)
-offset_transform_scale = Vector2(2.3, 2.3)
-texture_normal = ExtResource("2_0giq3")
-
-[node name="ButtonManager" type="PanelContainer" parent="PanelContainer" unique_id=2087672810]
-custom_minimum_size = Vector2(200, 140)
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ButtonManager" unique_id=1627099410]
-layout_mode = 2
-theme_override_constants/margin_left = 94
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 64
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/ButtonManager/MarginContainer" unique_id=495003191]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=735085487]
 layout_mode = 2
+
+[node name="Encyclopedia" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=996112967]
+layout_mode = 2
+text = "Encyclopedia"
+label_settings = SubResource("LabelSettings_btyyc")
+
+[node name="Weapons" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=167561955]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_8vrlf")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hqqxl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons" unique_id=171711386]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/VBoxContainer" unique_id=2094837402]
+layout_mode = 2
+theme_override_constants/separation = 60
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/VBoxContainer" unique_id=1385644095]
+layout_mode = 2
+text = "Weapons"
+label_settings = SubResource("LabelSettings_v5gy4")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons" unique_id=265673590]
+custom_minimum_size = Vector2(1100, 330)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -0.11)
+offset_transform_visual_only = false
+theme = SubResource("Theme_qw32v")
+horizontal_scroll_mode = 0
+
+[node name="FirstSet" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer" unique_id=1914178132]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet" unique_id=287138662]
+custom_minimum_size = Vector2(220, 180)
+layout_mode = 2
+texture_normal = ExtResource("1_taakq")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet/TextureRect" unique_id=229639421]
+layout_mode = 0
+offset_top = 148.0
+offset_right = 217.0
+offset_bottom = 198.0
+text = "<weapon name>"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet" unique_id=255057421]
+custom_minimum_size = Vector2(220, 180)
+layout_mode = 2
+texture_normal = ExtResource("1_taakq")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet/TextureRect2" unique_id=1275578132]
+layout_mode = 0
+offset_top = 148.0
+offset_right = 217.0
+offset_bottom = 198.0
+text = "<weapon name>"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="TextureRect3" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet" unique_id=215514432]
+custom_minimum_size = Vector2(220, 180)
+layout_mode = 2
+texture_normal = ExtResource("1_taakq")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet/TextureRect3" unique_id=277905563]
+layout_mode = 0
+offset_top = 148.0
+offset_right = 217.0
+offset_bottom = 198.0
+text = "<weapon name>"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="TextureRect4" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet" unique_id=1898068437]
+custom_minimum_size = Vector2(220, 180)
+layout_mode = 2
+texture_normal = ExtResource("1_taakq")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet/TextureRect4" unique_id=1399037177]
+layout_mode = 0
+offset_top = 148.0
+offset_right = 217.0
+offset_bottom = 198.0
+text = "<weapon name>"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="TextureRect5" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet" unique_id=724918207]
+custom_minimum_size = Vector2(220, 180)
+layout_mode = 2
+texture_normal = ExtResource("1_taakq")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Weapons/ScrollContainer/FirstSet/TextureRect5" unique_id=837708223]
+layout_mode = 0
+offset_top = 148.0
+offset_right = 217.0
+offset_bottom = 198.0
+text = "<weapon name>"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="Lore" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1368236130]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_8vrlf")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7748y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore" unique_id=1874776327]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer" unique_id=621051331]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer" unique_id=511212354]
+layout_mode = 2
+text = "Lore's"
+label_settings = SubResource("LabelSettings_v5gy4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer" unique_id=1668615205]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer" unique_id=1171164002]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=534403385]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="BackButton" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=358996266]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=767014113]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
-script = ExtResource("3_jirmc")
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
 
-[node name="TextureButton2" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=2070145967]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1225774113]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
 
-[node name="TextureButton3" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=158169150]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1143390990]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
 
-[node name="TextureButton4" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=736208961]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=524312436]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
 
-[node name="TextureButton5" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=1289472658]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=799433206]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
 
-[node name="TextureButton6" type="TextureButton" parent="PanelContainer/ButtonManager/MarginContainer/HBoxContainer" unique_id=1123003189]
-custom_minimum_size = Vector2(170, 50)
+[node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1072323558]
 layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1502704482]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer" unique_id=1400932563]
+custom_minimum_size = Vector2(680, 320)
+layout_mode = 2
+size_flags_horizontal = 4
 offset_transform_enabled = true
-offset_transform_position = Vector2(110, 80)
-offset_transform_scale = Vector2(2.24, 2.24)
-texture_normal = ExtResource("3_5wk78")
+offset_transform_position_ratio = Vector2(-0.1, 0)
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lore/VBoxContainer/HBoxContainer/Panel" unique_id=1998440186]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "<Details of Lore>"
+label_settings = SubResource("LabelSettings_qbdty")
+horizontal_alignment = 1
+
+[node name="Upgrades" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=931747876]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_8vrlf")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7748y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades" unique_id=449627469]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1472043818]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=35330383]
+layout_mode = 2
+text = "Upgrade's"
+label_settings = SubResource("LabelSettings_v5gy4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer" unique_id=1533036218]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1222880557]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=358544195]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1565085164]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1446346386]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=944104492]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=789547325]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=125656875]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=300719198]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1061426932]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Area 1"
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer" unique_id=1237248267]
+custom_minimum_size = Vector2(680, 320)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.1, 0)
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Upgrades/VBoxContainer/HBoxContainer/Panel" unique_id=213957684]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "<Details of Upgrades>"
+label_settings = SubResource("LabelSettings_qbdty")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=999907881]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 128
+
+[node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=703577834]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
+text = "<back>"
+
+[node name="Weapon" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2104966247]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
+text = "<weapon>"
+
+[node name="Upgrades" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1155723121]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
+text = "<upgrades>"
+
+[node name="Lores" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=984697875]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_taakq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
+text = "<lore>"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1197867362]
+libraries/ = SubResource("AnimationLibrary_4ck44")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=499942404]
+layout_mode = 0
+offset_left = -2000.0
+offset_right = -720.0
+offset_bottom = 720.0
+texture = ExtResource("5_7748y")

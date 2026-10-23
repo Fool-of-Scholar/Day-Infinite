@@ -83,7 +83,7 @@ BloodScene = ExtResource("3_4t6l2")
 DamageNumberScene = ExtResource("3_0sbnx")
 ScrapScene = ExtResource("4_1xhpe")
 HealthBatteryScene = ExtResource("4_lk4vw")
-MaxHealth = 300
+MaxHealth = 1000
 ExperienceValue = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93839970]

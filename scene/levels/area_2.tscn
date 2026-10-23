@@ -1,0 +1,359 @@
+[gd_scene format=3 uid="uid://rea2level01"]
+
+[ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="1_a2"]
+[ext_resource type="Texture2D" uid="uid://bww330g124w0e" path="res://assets/Tilemap/Grass TileSet.png" id="1_j84xc"]
+[ext_resource type="PackedScene" uid="uid://2spawner001" path="res://scene/spawner2.tscn" id="3_a2"]
+[ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="4_a2"]
+[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="5_a2"]
+[ext_resource type="Texture2D" uid="uid://dqbsqnq1oos72" path="res://assets/Environment/Area 2 Environment/Rose.png" id="5_j84xc"]
+[ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="6_a2"]
+[ext_resource type="PackedScene" uid="uid://bgt05xn8h7gqm" path="res://scene/main_menu/pause_menu.tscn" id="7_a2"]
+[ext_resource type="Texture2D" uid="uid://fd0su65122jm" path="res://assets/Environment/Area 2 Environment/Falling levaes.png" id="7_obbvl"]
+[ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/main_menu/died_interface.tscn" id="8_a2"]
+[ext_resource type="Script" uid="uid://d3y0r7i7h8abk" path="res://scripts/WorldGemSpawner.cs" id="9_a2"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="10_a2"]
+[ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="11_a2"]
+[ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="12_a2"]
+[ext_resource type="Texture2D" uid="uid://c1m3o0sshd6k" path="res://assets/Environment/Area 2 Environment/dirt.png" id="e2_dirt"]
+[ext_resource type="Script" uid="uid://dsp2sxle1tsqd" path="res://scripts/Area2EnvironmentSpawner.cs" id="e2_env_spawner"]
+[ext_resource type="Texture2D" uid="uid://cey0yv30j1l7n" path="res://assets/Environment/Area 2 Environment/Grass.png" id="e2_grass"]
+[ext_resource type="Texture2D" uid="uid://c36c4yfohu7is" path="res://assets/Environment/Area 2 Environment/Tree.png" id="e2_tree1"]
+[ext_resource type="Texture2D" uid="uid://bumahjwqxd70q" path="res://assets/Environment/Area 2 Environment/Tree 2.png" id="e2_tree2"]
+[ext_resource type="Script" uid="uid://d0lifl32yopnh" path="res://scripts/IntroLeavesEffect.cs" id="leaves_script"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_leaves"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id="Gradient_a2lgt"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a2lgt"]
+gradient = SubResource("Gradient_a2lgt")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Animation_a2_upgr_reset"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/UpgradeMenu:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(848, 422)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/UpgradeMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(216, 149)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/UpgradeMenu:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hud/UpgradeMenu:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2upgr"]
+_data = {
+&"RESET": SubResource("Animation_a2_upgr_reset"),
+&"upgrade_in": ExtResource("11_a2"),
+&"upgrade_out": ExtResource("12_a2")
+}
+
+[sub_resource type="Animation" id="Animation_hud_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 800)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hud/PauseMenu:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_died"]
+resource_name = "died"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/DiedInterface:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, 100), Vector2(0, 30), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pause_in"]
+resource_name = "pause_in"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/PauseMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -800), Vector2(0, 100), Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1280, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_pause_out"]
+resource_name = "pause_out"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/PauseMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 30), Vector2(0, 100), Vector2(0, -800)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/PauseMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.23333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/PauseMenu:size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1280, 720), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hud"]
+_data = {
+&"RESET": SubResource("Animation_hud_reset"),
+&"died": SubResource("Animation_died"),
+&"pause_in": SubResource("Animation_pause_in"),
+&"pause_out": SubResource("Animation_pause_out"),
+&"upgrade_in": ExtResource("11_a2"),
+&"upgrade_out": ExtResource("12_a2")
+}
+
+[node name="Area2" type="Node2D" unique_id=10001]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=10002]
+repeat_size = Vector2(576, 576)
+repeat_times = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=10003]
+texture_filter = 1
+texture = ExtResource("1_j84xc")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=10004]
+color = Color(0.2, 0.24, 0.2, 1)
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=10005]
+
+[node name="EnvironmentProps" type="Node2D" parent="." unique_id=10006]
+y_sort_enabled = true
+scale = Vector2(2, 2)
+script = ExtResource("e2_env_spawner")
+TreeTexture1 = ExtResource("e2_tree1")
+TreeTexture2 = ExtResource("e2_tree2")
+BushTexture = ExtResource("5_j84xc")
+GrassTexture = ExtResource("e2_grass")
+DirtTexture = ExtResource("e2_dirt")
+DecorCount = 30
+
+[node name="IntroLeaves" type="CanvasLayer" parent="." unique_id=10050]
+script = ExtResource("leaves_script")
+
+[node name="FallingLeaves" type="CPUParticles2D" parent="IntroLeaves" unique_id=10051]
+material = SubResource("CanvasItemMaterial_leaves")
+position = Vector2(640, -30)
+amount = 25
+texture = ExtResource("7_obbvl")
+lifetime = 6.0
+speed_scale = 0.8
+emission_shape = 3
+emission_rect_extents = Vector2(680, 10)
+direction = Vector2(0.2, 1)
+spread = 20.0
+gravity = Vector2(10, 25)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+scale_amount_min = 0.7
+scale_amount_max = 1.1
+color = Color(1, 1, 1, 0.9)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+anim_offset_max = 1.0
+
+[node name="Player" parent="." unique_id=10060 instance=ExtResource("1_a2")]
+Speed = 100
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=10061]
+scale = Vector2(1, 0.99999994)
+zoom = Vector2(1.4, 1.4)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=10062]
+position = Vector2(0, 16)
+texture = SubResource("GradientTexture2D_a2lgt")
+texture_scale = 30.47
+
+[node name="Spawner2" parent="." unique_id=10070 instance=ExtResource("3_a2")]
+
+[node name="Hud" parent="." unique_id=10080 instance=ExtResource("4_a2")]
+
+[node name="UpgradeMenu" parent="Hud" unique_id=10081 instance=ExtResource("6_a2")]
+visible = false
+
+[node name="PauseMenu" parent="Hud" unique_id=10082 instance=ExtResource("7_a2")]
+offset_top = 800.0
+offset_bottom = 800.0
+
+[node name="DiedInterface" parent="Hud" unique_id=10083 instance=ExtResource("8_a2")]
+visible = false
+
+[node name="AudioStreamPlayer" parent="." unique_id=10090 instance=ExtResource("5_a2")]
+volume_db = -10.0
+
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=10100]
+
+[node name="WorldGemSpawner" type="Node" parent="." unique_id=10110]
+script = ExtResource("9_a2")
+GemScene = ExtResource("10_a2")
+
+[node name="Timer" type="Timer" parent="." unique_id=10120]
+wait_time = 1200.0
+one_shot = true
+autostart = true
+
+[node name="UpgradePopUp" type="AnimationPlayer" parent="." unique_id=10130]
+unique_name_in_owner = true
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_a2upgr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=10140]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_hud")
+
+[editable path="Hud/UpgradeMenu"]
+[editable path="Hud/PauseMenu"]

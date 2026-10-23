@@ -19,6 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="13_gem0"]
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="14_upin"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="15_upot"]
+[ext_resource type="Texture2D" uid="uid://hdmro1p1g1tr" path="res://assets/Environment/Area 1 Environment/BrokenBench.png" id="e1_bench"]
+[ext_resource type="Script" uid="uid://6deafnr1yf15" path="res://scripts/Area1EnvironmentSpawner.cs" id="e1_env_spawner"]
+[ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="e1_streetlight"]
+[ext_resource type="Texture2D" uid="uid://drva553r2a68j" path="res://assets/Environment/Area 1 Environment/TrashCan.png" id="e1_trashcan"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a1g12"]
 texture = ExtResource("1_sbad0")
@@ -302,8 +306,12 @@ color = Color(0.12, 0.14, 0.22, 1)
 [node name="Ground" type="TileMapLayer" parent="." unique_id=263770609]
 tile_set = SubResource("TileSet_o81xu")
 
-[node name="Environment" type="TileMapLayer" parent="." unique_id=1733286532]
-tile_set = SubResource("TileSet_o81xu")
+[node name="EnvironmentProps" type="Node2D" parent="." unique_id=1599430342]
+y_sort_enabled = true
+script = ExtResource("e1_env_spawner")
+StreetLightTexture = ExtResource("e1_streetlight")
+TrashCanTexture = ExtResource("e1_trashcan")
+BrokenBenchTexture = ExtResource("e1_bench")
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=153917818]
 tile_set = SubResource("TileSet_o81xu")
@@ -322,7 +330,6 @@ texture = SubResource("GradientTexture2D_5h11f")
 texture_scale = 30.47
 
 [node name="Spawner" parent="." unique_id=1486537965 instance=ExtResource("2_spwn")]
-StartTimeOffset = 600.0
 FastEnemyScene = ExtResource("8_fast")
 SwarmEnemyScene = ExtResource("9_swrm")
 SwarmFacesLeft = true

@@ -9,12 +9,12 @@ public partial class DiedInterface : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_btnRestart = GetNode<Button>("TextureRect/Retry");
-		_mainMenu = GetNode<Button>("TextureRect/MainMenu");
-		_btnGiveUp = GetNode<Button>("TextureRect/GiveUp");
+		_btnRestart = GetNodeOrNull<Button>("TextureRect/Retry");
+		_mainMenu = GetNodeOrNull<Button>("TextureRect/MainMenu");
+		_btnGiveUp = GetNodeOrNull<Button>("TextureRect/GiveUp");
 
-		_btnRestart.Pressed += OnRestartPressed;
-		_mainMenu.Pressed += OnMainMenuPressed;
+		if (_btnRestart != null) _btnRestart.Pressed += OnRestartPressed;
+		if (_mainMenu != null) _mainMenu.Pressed += OnMainMenuPressed;
 		if (_btnGiveUp != null) _btnGiveUp.Pressed += OnGiveUpPressed;
 	}
 
