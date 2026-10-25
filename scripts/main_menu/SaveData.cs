@@ -7,4 +7,5 @@ public partial class SaveData : Resource
 	[Export] public Godot.Collections.Array<bool> _weaponUnlocked;
 	[Export] public Godot.Collections.Array<int> _statsRepeatUpgrades;
 	[Export] public int _coinsTotal;
+	[Export] public int _weaponPick;
 }

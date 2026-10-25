@@ -244,6 +244,7 @@ public partial class WeaponChooser : Control
 
 	private void ProceedAnim()
 	{
+		_saveManager.SavedWeapon(count);
 		_buttonSounds.Play();
 		_animPlayer.Play("next");
 	}

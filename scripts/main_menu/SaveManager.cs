@@ -37,6 +37,18 @@ public partial class SaveManager : Node
 		}
 	}
 
+	public void SavedWeapon(int weapon)
+	{
+		SaveData currentData = LoadGame();
+		currentData._weaponPick = weapon;
+
+		Error error = ResourceSaver.Save(currentData, SavePath);
+		if (error == Error.Ok)
+		{
+			GD.Print("Game saved!");
+		}
+	}
+
 	public SaveData LoadGame()
 	{
 		if (!FileAccess.FileExists(SavePath))

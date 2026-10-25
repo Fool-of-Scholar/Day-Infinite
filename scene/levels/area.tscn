@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://1dkg58cwpk5b" path="res://assets/PIXWEP/Remains Sprite Sheet.png" id="2_y3eir"]
 [ext_resource type="Texture2D" uid="uid://bbqxnta127u8w" path="res://assets/Tilemap/Ground Tileset.png" id="3_6u7te"]
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="3_hud0"]
-[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="4_aud0"]
 [ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="5_upgr"]
 [ext_resource type="PackedScene" uid="uid://bgt05xn8h7gqm" path="res://scene/main_menu/pause_menu.tscn" id="6_paus"]
 [ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/main_menu/died_interface.tscn" id="7_died"]
@@ -435,9 +434,6 @@ text = "Area 1
 Urban Decayed City"
 label_settings = SubResource("LabelSettings_1vivr")
 horizontal_alignment = 1
-
-[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("4_aud0")]
-volume_db = -10.0
 
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
 

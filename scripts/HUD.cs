@@ -6,6 +6,20 @@ using System.Linq;
 
 public partial class HUD : CanvasLayer
 {
+    private int phase = 0;
+    AudioManager _audioManager;
+    EnemySpawner _enemySpawner;
+
+    private int _weaponPickInt;
+    private PackedScene[] _weaponPick = new PackedScene[]
+    {
+        GD.Load<PackedScene>("res://weapon_new/ar/ar_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/mine/mine.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/force field/force_field.tscn"),
+    };
+
     private int[] _statsUpgradeTimes = new int[]
     {
         0,
@@ -58,6 +72,7 @@ public partial class HUD : CanvasLayer
     public override void _Ready()
     {
         GD.Print("--- HUD SCRIPT INITIALIZING ---");
+        _audioManager = GetNode<AudioManager>("/root/AudioManager");
         _levelLabelP = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Lvl");
         _healthLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Health2");
         _damageLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Damage");
@@ -69,7 +84,7 @@ public partial class HUD : CanvasLayer
         ScorePoints = GetNode<Label>("DiedInterface/PanelContainer/VBoxContainer/Label");
         CoinsPoints = GetNode<Label>("DiedInterface/PanelContainer/VBoxContainer/Coins");
 
-        _saveManager = GetNode<SaveManager>("/root/SaveManager");
+            _saveManager = GetNode<SaveManager>("/root/SaveManager");
         _wCollect = GetNode<WeaponManager>("Player/WeaponManager");
 
         // 1. Basic Controls
@@ -115,6 +130,9 @@ public partial class HUD : CanvasLayer
     }
 
     TriggerLoad();
+    
+    _wCollect.DefaultBulletScene = _weaponPick[_weaponPickInt - 1];
+
 
         for(int i = 0; i < _statsUpgradeTimes.Length; i++)
         {
@@ -165,6 +183,30 @@ public partial class HUD : CanvasLayer
                 score += seconds;
                 
             }
+            
+            if (minutes == 2 && phase == 0)
+            {
+                _audioManager._musicSlot = "res://assets/main_menu/sounds/Area1 Music Phase 1 Final.mp3";
+                _audioManager.PlayMusic();
+                phase = 1; // one run
+            }
+            if (minutes == 6 && phase == 1)
+            {
+                _audioManager._musicSlot = "res://assets/main_menu/sounds/Area1 Music Phase 2 Final.mp3";
+                _audioManager.PlayMusic();
+                phase = 2; // one run
+            }
+            if (minutes == 6 && phase == 2)
+            {
+                _audioManager._musicSlot = "res://assets/main_menu/sounds/Area1 Boss Music FInal.mp3";
+                _audioManager.PlayMusic();
+                phase = 3; // one run
+            }
+            if (!_audioManager._bgmAudioPlayer.Playing)
+                {
+                    _audioManager._bgmAudioPlayer.Play();
+
+                }
         }
     }
 
@@ -576,6 +618,7 @@ public partial class HUD : CanvasLayer
 		{
             SaveData loadedData = _saveManager.LoadGame();
 		    _statsUpgradeTimes = loadedData._statsRepeatUpgrades.ToArray();
+            _weaponPickInt = loadedData._weaponPick;
         }
     }
 }
