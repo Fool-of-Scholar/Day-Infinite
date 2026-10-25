@@ -18,6 +18,10 @@ public partial class AnotherMainMenu : Control
 			var audioManager = GetNode<AudioManager>("/root/AudioManager");
       audioManager.PlayMusic();
 		};
+
+		GD.Load<PackedScene>("res://scene/main_menu/main_menu.tscn");
+		GD.Load<PackedScene>("res://scene/main_menu/weapon_chooser.tscn");
+		GD.Load<PackedScene>("res://scene/main_menu/area_chooser.tscn");
 	}
 
 

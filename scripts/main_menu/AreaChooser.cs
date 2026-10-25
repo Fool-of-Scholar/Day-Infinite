@@ -3,6 +3,11 @@ using System;
 
 public partial class AreaChooser : Control
 {
+	Label _scrapsLabel;
+	Label _coinsLabel;
+	private SaveManager _saveManager;
+	private int _currentScraps;
+	private int _currentCoins;
 	Button _startGame;
 	Button _backWeapons;
 	Button _nextArea;
@@ -70,6 +75,10 @@ public partial class AreaChooser : Control
 	};
 	public override void _Ready()
 	{
+		_scrapsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer/Label");
+		_coinsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer/Label");
+		_saveManager = GetNode<SaveManager>("/root/SaveManager");
+
 		_areaTitleLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaTitle");
 		_areaDetailsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaDetails");
 		_lockedManager = GetNode<Panel>("Locked");
@@ -95,6 +104,7 @@ public partial class AreaChooser : Control
 		_nextTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count + 1]);
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
 		TextureChanged();
+		TriggerLoad();
 	}
 
 
@@ -165,6 +175,26 @@ public partial class AreaChooser : Control
 		{
 			_lockedManager.Visible = true;
 			_startGame.Visible = false;
+		}
+	}
+
+	public void TriggerSave()
+	{
+		if (_saveManager != null)
+		{
+			_saveManager.SaveGame(_currentScraps, _currentCoins);
+			GD.Print("Scraps changed!");
+		}
+	}
+	public void TriggerLoad()
+	{
+		if (_saveManager != null)
+		{
+			SaveData loadedData = _saveManager.LoadGame();
+			_currentScraps = loadedData._scrapsTotal;
+			_currentCoins = loadedData._coinsTotal;
+			_scrapsLabel.Text = $"{_currentScraps}";
+			_coinsLabel.Text = $"{_currentCoins}";
 		}
 	}
 }

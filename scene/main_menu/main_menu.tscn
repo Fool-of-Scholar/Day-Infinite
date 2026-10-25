@@ -12,7 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="8_vny3a"]
 [ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="9_1vqx8"]
 [ext_resource type="Texture2D" uid="uid://8107tq01q0dj" path="res://assets/main_menu/logo/Logo.png" id="10_eo5a4"]
-[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="11_3k2ij"]
+[ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="13_lt21p"]
+[ext_resource type="Texture2D" uid="uid://co8qv12wj4461" path="res://assets/main_menu/logo/Untitled161_20261010180549.png" id="14_kvq8n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7748y"]
 
@@ -453,6 +454,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="forPlay" type="TextureRect" parent="." unique_id=1230331023]
+z_index = 2
 layout_mode = 0
 offset_left = 2000.0
 offset_right = 3280.0005
@@ -496,7 +498,7 @@ theme_override_constants/separation = 154
 
 [node name="TextureRect" type="TextureRect" parent="Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer" unique_id=439089375]
 layout_mode = 2
-texture = ExtResource("11_3k2ij")
+texture = ExtResource("13_lt21p")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer" unique_id=313748990]
@@ -521,9 +523,8 @@ layout_mode = 2
 theme_override_constants/separation = 154
 
 [node name="TextureRect" type="TextureRect" parent="Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer" unique_id=2053878485]
-modulate = Color(1, 0.19215687, 1, 1)
 layout_mode = 2
-texture = ExtResource("11_3k2ij")
+texture = ExtResource("14_kvq8n")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer" unique_id=1923697671]
