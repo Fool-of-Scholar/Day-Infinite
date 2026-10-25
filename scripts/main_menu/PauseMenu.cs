@@ -2,9 +2,16 @@ using Godot;
 using System;
 
 public partial class PauseMenu : Control
-{
+{  
     private AnimationPlayer _pauseOpenAnimation;
-
+    AnimationPlayer _animPlayer;
+    OptionButton _languageOptions;
+	HSlider _musicSlider;
+	HSlider _sfxSlider;
+    AudioStreamPlayer _buttonSounds;
+    private bool verify = true;
+    private int _musicBusIndex;
+    private int _sfxBusIndex;
     public override void _Ready()
     {
         // 1. Safe Parent Reference Check
@@ -25,21 +32,44 @@ public partial class PauseMenu : Control
         Button btnQuit = GetNodeOrNull<Button>("PanelContainer/VBoxContainer/Quit") ?? GetNodeOrNull<Button>("%Quit");
         Button btnSettings = GetNodeOrNull<Button>("PanelContainer/VBoxContainer/Settings") ?? GetNodeOrNull<Button>("%Settings");
         Button btnStats = GetNodeOrNull<Button>("PanelContainer/VBoxContainer/Stats") ?? GetNodeOrNull<Button>("%Stats");
+        _animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
+
+        
 
         // 3. Connect listeners ONLY if the buttons are successfully found to prevent crashes
         if (btnRetry != null) btnRetry.Pressed += OnRetryPressed;
         if (btnResume != null) btnResume.Pressed += OnResumePressed;
         if (btnQuit != null) btnQuit.Pressed += OnQuitPressed;
+        if (btnSettings != null) btnSettings.Pressed += OnSettingsPressed;
+        if (btnStats != null) btnStats.Pressed += OnStatsPressed;
 
-        if (btnRetry == null || btnResume == null || btnQuit == null)
+        if (btnRetry == null || btnResume == null || btnQuit == null || btnSettings == null ||  btnStats == null)
         {
             GD.PrintErr("HUD Pause Menu Warning: One or more button paths inside the script do not match the editor names!");
         }
+
+        _languageOptions = GetNode<OptionButton>("Options/PanelContainer/MarginContainer/VBoxContainer/Language/OptionButton");
+        _musicSlider = GetNode<HSlider>("Options/PanelContainer/MarginContainer/VBoxContainer/Music/MusicSlider");
+        _sfxSlider = GetNode<HSlider>("Options/PanelContainer/MarginContainer/VBoxContainer/SFX/SFXSlider");
+
+        _languageOptions.AddItem("English", 0);
+		_languageOptions.AddItem("Jireh", 1);
+		_languageOptions.AddItem("Kalbo", 2);
+
+        _musicBusIndex = AudioServer.GetBusIndex("Master");
+		_musicSlider.Value = Mathf.DbToLinear(_musicBusIndex);
+		_musicSlider.ValueChanged += SetMusicSlider;
+
+        _sfxBusIndex = AudioServer.GetBusIndex("SFX");
+        _sfxSlider.Value = Mathf.DbToLinear(_sfxBusIndex);
+        _sfxSlider.ValueChanged += SetSFXSlider;
     }
 
     private void OnRetryPressed()
     {
-				GD.Print("Retry button pressed. Reloading current scene...");
+        _buttonSounds.Play();
+		GD.Print("Retry button pressed. Reloading current scene...");
         GetTree().Paused = false; 
         _pauseOpenAnimation?.Play("pause_in");
         GetTree().ReloadCurrentScene();
@@ -47,12 +77,14 @@ public partial class PauseMenu : Control
 
     private void OnResumePressed()
     {
+        _buttonSounds.Play();
         GetTree().Paused = false;
         _pauseOpenAnimation?.Play("pause_out");
     }
 
     private void OnQuitPressed()
     {
+        _buttonSounds.Play();
         GetTree().Paused = false; 
         _pauseOpenAnimation?.Play("pause_in");
         GetTree().ChangeSceneToFile("res://scene/main_menu/another_main_menu.tscn");
@@ -60,13 +92,68 @@ public partial class PauseMenu : Control
     
     private void OnSettingsPressed()
     {
-        GD.Print("Settings button pressed. Opening settings menu...");
-        // Implement your settings menu logic here
+        _buttonSounds.Play();
+        GD.Print("options");
+        if (verify == true)
+        {
+            _animPlayer.Play("options");
+            GD.Print("Settings button pressed. Opening settings menu...");
+            // Implement your settings menu logic here
+            verify = false;
+        }
     }
 
     private void OnStatsPressed()
     {
-        GD.Print("Stats button pressed. Opening stats menu...");
-        // Implement your stats menu logic here
+        _buttonSounds.Play();
+        GD.Print("stats");
+        if (verify == false)
+        {
+            _animPlayer.Play("stats");
+            GD.Print("Stats button pressed. Opening stats menu...");
+            // Implement your stats menu logic here
+            verify = true;
+        }
+    }
+
+    //Music
+    public void SetMusicSlider(double value)
+	{
+		GD.Print(value, "Minecrafe");
+		if (value <= 0.0)
+		{
+		AudioServer.SetBusMute(_musicBusIndex, true);
+		}
+		else
+		{
+		AudioServer.SetBusMute(_musicBusIndex, false);
+		float dbVolume = Mathf.LinearToDb((float)value);
+		AudioServer.SetBusVolumeDb(_musicBusIndex, dbVolume);
+		}
+	}
+
+    public void SetSFXSlider(double value)
+    {
+        GD.Print(value, "Minecrafe");
+		if (value <= 0.0)
+		{
+		AudioServer.SetBusMute(_musicBusIndex, true);
+		}
+		else
+		{
+		AudioServer.SetBusMute(_musicBusIndex, false);
+		float dbVolume = Mathf.LinearToDb((float)value);
+		AudioServer.SetBusVolumeDb(_musicBusIndex, dbVolume);
+		}
+    }
+
+	//remove function
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && _musicSlider != null)
+        {
+            _musicSlider.ValueChanged -= SetMusicSlider;
+        }
+        base.Dispose(disposing);
     }
 }

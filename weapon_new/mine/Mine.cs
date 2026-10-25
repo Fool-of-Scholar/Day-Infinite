@@ -24,13 +24,15 @@ public partial class Mine : Area2D
     private bool _hasExploded = false;
     private bool _isSucking = false;
     private AnimationPlayer _animPlayer;
+    private AudioStreamPlayer _warningAudio;
+    private AudioStreamPlayer _explodeAudio;
 
     public override async void _Ready()
     {
         _areaexplosion = GetNode<Area2D>("AreaExplosion");
-
-        // Grab the AnimationPlayer you just created
         _animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _warningAudio = GetNodeOrNull<AudioStreamPlayer>("WarningAudio");
+        _explodeAudio = GetNodeOrNull<AudioStreamPlayer>("ExplodeAudio");
         
         BodyEntered += OnBodyEntered;
         AreaEntered += OnAreaEntered;
@@ -102,6 +104,7 @@ public partial class Mine : Area2D
     private async void StartSuck(Enemy trigger)
     {
         _isSucking = true;
+        _warningAudio?.Play();
 
         // Play the warning animation!
         _animPlayer.Play("warning");
@@ -110,11 +113,13 @@ public partial class Mine : Area2D
         await ToSignal(GetTree().CreateTimer(SuckDuration), SceneTreeTimer.SignalName.Timeout);
 
         _isSucking = false;
+        _warningAudio?.Stop();
         Explode(trigger);
     }
 
     private void Explode(Enemy triggerEnemy)
     {
+        _explodeAudio?.Play();
         HashSet<ulong> damaged = new HashSet<ulong>();
 
         // Always damage the trigger enemy even if they stepped off
@@ -148,6 +153,12 @@ public partial class Mine : Area2D
         if (!IsDuplicate && DuplicateCount > 0)
         {
             SpawnDuplicates();
+        }
+
+        if (_explodeAudio != null && _explodeAudio.Playing)
+        {
+            _explodeAudio.Reparent(GetTree().CurrentScene);
+            _explodeAudio.Finished += () => _explodeAudio.QueueFree();
         }
 
         QueueFree();

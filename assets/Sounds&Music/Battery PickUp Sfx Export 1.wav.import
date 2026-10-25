@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmjve3vf8uuds"
+path="res://.godot/imported/Battery PickUp Sfx Export 1.wav-d878c60c5794f475e93537ec32602698.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Battery PickUp Sfx Export 1.wav"
+dest_files=["res://.godot/imported/Battery PickUp Sfx Export 1.wav-d878c60c5794f475e93537ec32602698.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=1
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

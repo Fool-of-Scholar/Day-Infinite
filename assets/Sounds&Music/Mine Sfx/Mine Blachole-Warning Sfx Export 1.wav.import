@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://8vps7vjmai4a"
+path="res://.godot/imported/Mine Blachole-Warning Sfx Export 1.wav-28d0557a4c66a8af352f822558ce4a9e.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Mine Sfx/Mine Blachole-Warning Sfx Export 1.wav"
+dest_files=["res://.godot/imported/Mine Blachole-Warning Sfx Export 1.wav-28d0557a4c66a8af352f822558ce4a9e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

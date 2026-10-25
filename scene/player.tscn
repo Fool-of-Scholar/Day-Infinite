@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://sb8185mrb67f" path="res://assets/Movement/Running 1.png" id="3_g2vtq"]
 [ext_resource type="Texture2D" uid="uid://bauvioqd2lypb" path="res://assets/Movement/Idle All SPriteSheet.png" id="3_hp4bs"]
 [ext_resource type="Script" uid="uid://fwte4fhcjewa" path="res://scripts/WeaponManager.cs" id="7_2fvbb"]
-[ext_resource type="AudioStream" uid="uid://dehaprhldkywo" path="res://assets/audio/TailWhip.wav" id="8_g2vtq"]
 [ext_resource type="PackedScene" uid="uid://mq1mu6p4tymw" path="res://scene/magnet_area.tscn" id="8_ml7e8"]
 [ext_resource type="PackedScene" uid="uid://barojeaioqx8r" path="res://scene/collection_area.tscn" id="9_ihjo1"]
 
@@ -191,9 +190,8 @@ shape = SubResource("CircleShape2D_bx8n8")
 wait_time = 0.5
 one_shot = true
 
-[node name="sfxwalk" type="AudioStreamPlayer" parent="." unique_id=867764778]
-stream = ExtResource("8_g2vtq")
-volume_db = 2.0
-
 [node name="WeaponManager" type="Node2D" parent="." unique_id=190875351]
 script = ExtResource("7_2fvbb")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1498182589]
+current = true

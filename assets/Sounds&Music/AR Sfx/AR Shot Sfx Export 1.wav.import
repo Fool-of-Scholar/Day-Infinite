@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cj11w8fl2l8ms"
+path="res://.godot/imported/AR Shot Sfx Export 1.wav-1dcd08d97af2ff7156694d49134f760a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/AR Sfx/AR Shot Sfx Export 1.wav"
+dest_files=["res://.godot/imported/AR Shot Sfx Export 1.wav-1dcd08d97af2ff7156694d49134f760a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

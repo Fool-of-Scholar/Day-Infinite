@@ -290,22 +290,22 @@ public partial class Movement : CharacterBody2D
         ExperienceGem gem = area as ExperienceGem ?? area.GetParent() as ExperienceGem;
         if (gem != null)
         {
-            AddExperience(gem.ExperienceValue);
-            gem.QueueFree();
+            gem.Collect(this);
+            return;
         }   
 
         HealthBattery battery = area as HealthBattery ?? area.GetParent() as HealthBattery;
         if (battery != null)
         {
-            battery.Target = this;
-            battery.Collect();
+            battery.Collect(this);
+            return;
         }
 
         ScrapItem scrap = area as ScrapItem ?? area.GetParent() as ScrapItem;
         if (scrap != null)
         {
-            AddScrap(scrap.ScrapValue);
-            scrap.QueueFree();
+            scrap.Collect(this);
+            return;
         }
     }
 

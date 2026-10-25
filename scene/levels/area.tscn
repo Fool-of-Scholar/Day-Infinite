@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://1dkg58cwpk5b" path="res://assets/PIXWEP/Remains Sprite Sheet.png" id="2_y3eir"]
 [ext_resource type="Texture2D" uid="uid://bbqxnta127u8w" path="res://assets/Tilemap/Ground Tileset.png" id="3_6u7te"]
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="3_hud0"]
-[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="4_aud0"]
 [ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="5_upgr"]
 [ext_resource type="PackedScene" uid="uid://bgt05xn8h7gqm" path="res://scene/main_menu/pause_menu.tscn" id="6_paus"]
 [ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/main_menu/died_interface.tscn" id="7_died"]
@@ -19,6 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="13_gem0"]
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="14_upin"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="15_upot"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="19_1wt8d"]
+[ext_resource type="Script" uid="uid://wawf7mtctb26" path="res://scripts/AreaAudioStreamPlayer.cs" id="24_yv082"]
+[ext_resource type="AudioStream" uid="uid://b0c2oyha4tlat" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 1 Final.mp3" id="25_p1"]
+[ext_resource type="AudioStream" uid="uid://dc4ctr3iyxpop" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 2 Final.mp3" id="26_p2"]
+[ext_resource type="AudioStream" uid="uid://bbvkat4x0cpj1" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Boss Music FInal.mp3" id="27_p3"]
 [ext_resource type="Texture2D" uid="uid://hdmro1p1g1tr" path="res://assets/Environment/Area 1 Environment/BrokenBench.png" id="e1_bench"]
 [ext_resource type="Script" uid="uid://6deafnr1yf15" path="res://scripts/Area1EnvironmentSpawner.cs" id="e1_env_spawner"]
 [ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="e1_streetlight"]
@@ -40,25 +44,9 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_o81xu"]
 sources/1 = SubResource("TileSetAtlasSource_a1g12")
@@ -73,6 +61,12 @@ gradient = SubResource("Gradient_osjpx")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font = ExtResource("19_1wt8d")
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_upgr_reset"]
 resource_name = "RESET"
@@ -125,10 +119,63 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hud/Panel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hud/Panel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1wt8d"]
+resource_name = "StartA"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_upgr"]
 _data = {
 &"RESET": SubResource("Animation_upgr_reset"),
+&"StartA": SubResource("Animation_1wt8d"),
 &"upgrade_in": ExtResource("14_upin"),
 &"upgrade_out": ExtResource("15_upot")
 }
@@ -342,14 +389,39 @@ BossScene = ExtResource("11_boss")
 visible = false
 
 [node name="PauseMenu" parent="Hud" unique_id=2057780145 instance=ExtResource("6_paus")]
+z_index = 2
 offset_top = 800.0
 offset_bottom = 800.0
 
 [node name="DiedInterface" parent="Hud" unique_id=1953952388 instance=ExtResource("7_died")]
 visible = false
 
-[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("4_aud0")]
-volume_db = -10.0
+[node name="Panel" type="Panel" parent="Hud" unique_id=945504019]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="Hud/Panel" unique_id=242736197]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -106.5
+offset_right = 275.0
+offset_bottom = 106.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Area 1
+---------
+Urban Decayed City"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
 
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
 
@@ -366,10 +438,18 @@ autostart = true
 unique_name_in_owner = true
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_upgr")
+autoplay = &"StartA"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=708618664]
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_hud")
+
+[node name="Area1Audio" type="Node" parent="." unique_id=2082456077 node_paths=PackedStringArray("MusicPlayer")]
+script = ExtResource("24_yv082")
+Phase1 = ExtResource("25_p1")
+Phase2 = ExtResource("26_p2")
+Phase3 = ExtResource("27_p3")
+MusicPlayer = NodePath("")
 
 [editable path="Hud/UpgradeMenu"]
 [editable path="Hud/PauseMenu"]

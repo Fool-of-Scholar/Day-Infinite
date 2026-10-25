@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ci7skrcqroigi"
+path="res://.godot/imported/Rocket Explosion.wav-0f7c59bca20ff7177d0e8e92c9a16f3a.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Rocket Sfx/Rocket Explosion.wav"
+dest_files=["res://.godot/imported/Rocket Explosion.wav-0f7c59bca20ff7177d0e8e92c9a16f3a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

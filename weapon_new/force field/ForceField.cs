@@ -19,6 +19,7 @@ public partial class ForceField : Area2D
     private Timer _cooldownTimer;
     private CollisionShape2D _collider;
     private Node2D _visuals;
+    private AudioStreamPlayer _shatterAudio;
 
     private Dictionary<ulong, double> _enemyCooldowns = new Dictionary<ulong, double>();
     private Dictionary<ulong, float> _slowedEnemies = new Dictionary<ulong, float>();
@@ -32,6 +33,9 @@ public partial class ForceField : Area2D
     _cooldownTimer = GetNodeOrNull<Timer>("CooldownTimer") ?? GetNode<Timer>("Timer");
     _collider = GetNode<CollisionShape2D>("CollisionShape2D");
     _visuals = GetNodeOrNull<Node2D>("Sprite2D") ?? GetNodeOrNull<Node2D>("Visuals");
+    _shatterAudio = GetNodeOrNull<AudioStreamPlayer>("ShatterAudio");
+
+
 
     _cooldownTimer.WaitTime = CooldownTime;
     _cooldownTimer.OneShot = true;
@@ -95,6 +99,7 @@ public override void _Process(double delta)
             enemy.TakeDamage(BaseDamage);
             Vector2 pushDir = (enemy.GlobalPosition - GlobalPosition).Normalized();
             enemy.ApplyKnockback(pushDir, KnockbackForce);
+            _shatterAudio?.Play();
 
             _enemyCooldowns[id] = PerEnemyCooldownTime;
         }
@@ -103,6 +108,7 @@ public override void _Process(double delta)
             enemy.TakeDamage(BaseDamage);
             Vector2 pushDir = (enemy.GlobalPosition - GlobalPosition).Normalized();
             enemy.ApplyKnockback(pushDir, KnockbackForce);
+            _shatterAudio?.Play();
             Deactivate();
         }
     }

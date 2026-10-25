@@ -13,31 +13,71 @@ public partial class AreaChooser : Control
 	TextureRect _mainTextureArea;
 	TextureRect _prevTextureArea;
 	TextureRect _nextTextureArea;
+	AudioStreamPlayer _buttonSounds;
+	Panel _lockedManager;
+	Label _areaDetailsLabel;
+	Label _areaTitleLabel;
 
 	private int count = 1;
-
-	// Index 0 and last are sentinels so Prev/Next can peek safely.
-	// Index 1 = Area 1, Index 2 = Area 2.
+	private bool[] _lockedManagerArea = new bool[]
+	{
+		true, //stopper
+		true, //1
+		true,
+		false,
+		false,
+		false,
+		false, //6
+		true	//stopper
+	};
+	private string[] _areaTitle = new string[] //22 letters per line max
+	{
+		"Urban Decayed City",
+		"Primal Forest (Bukid)",
+		"???",
+		"???",
+		"???",
+		"???",
+	};
+	private string[] _areaDetails = new string[]
+	{
+		"\nThis city, a once-thriving\nmetropolis capital now\novergrown with mutated\nflora, populatedby a swarm\nof mice. The city was\ndesigned to be an\norchid-filled environmental\ncity.",
+		"\nThe mountains and forests in\nthe outskirt, once lush\nand filled with serenity,\nnow harbors corrupted apex\npredators out to kill\nanyone. Inside the thick\nmist is filled with domestic\nberserk dogs.",
+		"???",
+		"???",
+		"???",
+		"???",
+	};
+	private string[] _areaScene = new string[]
+	{
+		"res://scene/levels/area.tscn",
+		"res://scene/levels/area_2.tscn",
+		"",
+		"",
+		"",
+		""
+	};
 	private string[] _areaChooser = new string[]
 	{
-		"res://assets/Tilemap/Area 1.png",  // [0] left-peek sentinel
-		"res://assets/Tilemap/Area 1.png",  // [1] Area 1
-		"res://assets/Tilemap/Area 2.png",  // [2] Area 2
-		"res://assets/Tilemap/Area 2.png",  // [3] right-peek sentinel
-	};
-
-	// Maps chooser index → scene path
-	private string[] _areaScenes = new string[]
-	{
-		"res://scene/levels/area.tscn",    // index 1 → Area 1
-		"res://scene/levels/area_2.tscn",  // index 2 → Area 2
+		"res://assets/main_menu/area/Stopper.jpg",//stopper
+		"res://assets/main_menu/area/Area1.jpeg",//1
+		"res://assets/main_menu/area/Area2.webp",
+		"res://assets/Encylopedia/weapons.png",
+		"res://assets/Encylopedia/buttons.png",
+		"res://assets/Encylopedia/weapons.png",
+		"res://assets/Encylopedia/buttons.png",//6
+		"res://assets/main_menu/area/Stopper.jpg"	//stopper
 	};
 	public override void _Ready()
 	{
+		_areaTitleLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaTitle");
+		_areaDetailsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaDetails");
+		_lockedManager = GetNode<Panel>("Locked");
 		_prevArea = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/PrevArea");
 		_nextArea = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/NextArea");
 		_backWeapons = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BackButton");
 		_startGame = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProceedWorld");
+		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
 
 		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_timer = GetNode<Timer>("Timer");
@@ -54,19 +94,19 @@ public partial class AreaChooser : Control
 		_mainTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count]);
 		_nextTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count + 1]);
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
+		TextureChanged();
 	}
 
 
 	private void StartGame()
 	{
-		// count 1 = Area 1, count 2 = Area 2 (maps to _areaScenes index 0, 1)
-		int sceneIndex = Mathf.Clamp(count - 1, 0, _areaScenes.Length - 1);
-		string scene = _areaScenes[sceneIndex];
-		GetTree().ChangeSceneToFile(scene);
+		_buttonSounds.Play();
+		GetTree().ChangeSceneToFile(_areaScene[count - 1]);
 	}
 
 	private void BackToWeapons()
 	{
+		_buttonSounds.Play();
 		_animPlayer.PlayBackwards("fromWeapons");
 
 		_animPlayer.AnimationFinished += (Back) => GetTree().ChangeSceneToFile("res://scene/main_menu/weapon_chooser.tscn");
@@ -75,8 +115,7 @@ public partial class AreaChooser : Control
 
 	private void NextArea()
 	{
-		// Cap at index 2 (Area 2), which is _areaChooser.Length - 2
-		if (_timer.TimeLeft == 0 && count < _areaChooser.Length - 2)
+		if (_timer.TimeLeft == 0 && count <= 5)
 		{
 			_animPlayer.Play("upping");
 			_timer.Start();
@@ -84,13 +123,14 @@ public partial class AreaChooser : Control
 			GD.Print("Next Anim Played");
 			count += 1;
 			_timer.Timeout += TextureChanged;
+			
 		}
+		
 	}
 
 	private void PrevArea()
 	{
-		// Floor at index 1 (Area 1)
-		if (_timer.TimeLeft == 0 && count > 1)
+		if (_timer.TimeLeft == 0 && count >= 2)
 		{
 			_animPlayer.PlayBackwards("upping");
 			_timer.Start();
@@ -99,13 +139,32 @@ public partial class AreaChooser : Control
 
 			count -= 1;
 			_timer.Timeout += TextureChanged;
+			
 		}
+		
+		
 	}
 
 	private void TextureChanged()
 	{
+		_buttonSounds.Play();
 		_mainTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count]);
 		_nextTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count + 1]);
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
+
+		_areaDetailsLabel.Text = _areaDetails[count-1];
+		_areaTitleLabel.Text = _areaTitle[count-1];
+
+		GD.Print(count);
+		if (_lockedManagerArea[count] == true)
+		{
+			_lockedManager.Visible = false;
+			_startGame.Visible = true;
+		}
+		else
+		{
+			_lockedManager.Visible = true;
+			_startGame.Visible = false;
+		}
 	}
 }

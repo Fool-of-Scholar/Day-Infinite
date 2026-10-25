@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cnhr6kqjlit8q" path="res://weapon_new/mine/Mine.cs" id="1_bujx7"]
 [ext_resource type="Texture2D" uid="uid://b7h4xpr7km4wp" path="res://assets/Landmines/mine (149).png" id="1_nhxmj"]
 [ext_resource type="PackedScene" uid="uid://te54yiop11hx" path="res://weapon_new/mine/mine_explosion.tscn" id="2_wv6k7"]
+[ext_resource type="AudioStream" uid="uid://8vps7vjmai4a" path="res://assets/Sounds&Music/Mine Sfx/Mine Blachole-Warning Sfx Export 1.wav" id="3_warning"]
+[ext_resource type="AudioStream" uid="uid://t4d50iphvebb" path="res://assets/Sounds&Music/Mine Sfx/MineExplosion.wav" id="4_explode"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ap8p0"]
 radius = 16.27882
@@ -92,3 +95,16 @@ shape = SubResource("CircleShape2D_31oe1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1130623765]
 libraries/ = SubResource("AnimationLibrary_g10et")
+
+[node name="WarningAudio" type="AudioStreamPlayer" parent="." unique_id=1847192844]
+stream = ExtResource("3_warning")
+volume_db = 0.0
+bus = &"SFX"
+
+[node name="ExplodeAudio" type="AudioStreamPlayer" parent="." unique_id=1847192845]
+stream = ExtResource("4_explode")
+volume_db = 1.0
+bus = &"SFX"
+
+
+

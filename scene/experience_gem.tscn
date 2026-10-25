@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dv7cxkynkfr1k" path="res://scripts/ExperienceGem.cs" id="1_p2hcs"]
 [ext_resource type="Texture2D" uid="uid://dtx8kmkfpyh22" path="res://assets/Item/Blue Battery.png" id="2_p2hcs"]
+[ext_resource type="AudioStream" uid="uid://cmjve3vf8uuds" path="res://assets/Sounds&Music/Battery PickUp Sfx Export 1.wav" id="3_v004y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
 radius = 3.0
@@ -18,3 +19,8 @@ texture = ExtResource("2_p2hcs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1501421463]
 shape = SubResource("CircleShape2D_bx8n8")
+
+[node name="Pickup" type="AudioStreamPlayer" parent="." unique_id=787403658]
+stream = ExtResource("3_v004y")
+volume_db = -1.0
+pitch_scale = 0.01

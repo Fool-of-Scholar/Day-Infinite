@@ -2,21 +2,75 @@
 
 [ext_resource type="Script" uid="uid://cobysj3nkja8c" path="res://scripts/main_menu/AreaChooser.cs" id="1_e5oa5"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="1_s223w"]
+[ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="2_8cpcu"]
 [ext_resource type="Texture2D" uid="uid://b3sd7qiambl77" path="res://assets/Encylopedia/buttons.png" id="2_e5oa5"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_h3ism"]
+[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="5_bimrv"]
+[ext_resource type="Texture2D" uid="uid://bxi4ytsacl4i7" path="res://assets/main_menu/area/Area1.jpeg" id="6_8cpcu"]
+[ext_resource type="Texture2D" uid="uid://83ihh5h2skvp" path="res://assets/main_menu/template/Untitled164_20261022234644.png" id="6_yvm0m"]
+[ext_resource type="Texture2D" uid="uid://bdn7owrorn5xq" path="res://assets/main_menu/template/Untitled165_20261022234636.png" id="9_jb214"]
+[ext_resource type="Texture2D" uid="uid://baiy1oft4fart" path="res://assets/main_menu/template/Untitled166_20261022235401.png" id="9_pv0ej"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2f10u"]
 texture = ExtResource("2_h3ism")
 
-[sub_resource type="LabelSettings" id="LabelSettings_e5oa5"]
-font = ExtResource("1_s223w")
-font_size = 32
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bimrv"]
+bg_color = Color(0.025363795, 0.025363805, 0.02536378, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 24
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 4
+corner_detail = 20
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3ism"]
+[sub_resource type="LabelSettings" id="LabelSettings_yvm0m"]
+font = ExtResource("1_s223w")
+font_size = 36
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abq0a"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7jx3p"]
+content_margin_left = 70.0
+content_margin_right = 62.0
+texture = ExtResource("6_yvm0m")
+region_rect = Rect2(0, 19, 128, 519)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pv0ej"]
+content_margin_left = 70.0
+content_margin_right = 62.0
+texture = ExtResource("6_yvm0m")
+texture_margin_right = 100.0
+region_rect = Rect2(0, 19, 128, 519)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_onrcs"]
+content_margin_left = 70.0
+content_margin_right = 62.0
+texture = ExtResource("6_yvm0m")
+region_rect = Rect2(0, 19, 128, 519)
+modulate_color = Color(1, 1, 1, 0.43529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_um5y5"]
+texture = ExtResource("9_jb214")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
 font = ExtResource("1_s223w")
-font_size = 24
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_8cpcu"]
+font = ExtResource("1_s223w")
+font_size = 14
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jb214"]
+texture = ExtResource("9_pv0ej")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_abq0a"]
+texture = ExtResource("9_pv0ej")
+texture_margin_top = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ubpkl"]
+texture = ExtResource("9_pv0ej")
+modulate_color = Color(1, 1, 1, 0.43529412)
 
 [sub_resource type="Animation" id="Animation_e5oa5"]
 length = 0.001
@@ -132,6 +186,10 @@ _data = {
 &"upping": SubResource("Animation_h3ism")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_h3ism"]
+font = ExtResource("1_s223w")
+font_size = 64
+
 [node name="AreaChooser" type="Control" unique_id=959658300]
 layout_mode = 3
 anchors_preset = 15
@@ -140,6 +198,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e5oa5")
+
+[node name="ButtonSound" parent="." unique_id=980604888 instance=ExtResource("2_8cpcu")]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1639655942]
 layout_mode = 1
@@ -155,6 +215,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_2f10u")
@@ -170,36 +232,69 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Cash" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=13440743]
+[node name="Currency" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=13440743]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 
-[node name="EnergyLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Cash" unique_id=1904256168]
+[node name="Coins" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency" unique_id=1703899130]
 layout_mode = 2
-text = "Energy:"
-label_settings = SubResource("LabelSettings_e5oa5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bimrv")
 
-[node name="EnergyAmount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Cash" unique_id=1975235836]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins" unique_id=895582137]
 layout_mode = 2
-text = "00"
-label_settings = SubResource("LabelSettings_e5oa5")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Cash" unique_id=2108608682]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer" unique_id=2066112403]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer" unique_id=1073361046]
+layout_mode = 2
+texture = ExtResource("5_bimrv")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer" unique_id=1877345057]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_yvm0m")
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Currency" unique_id=2108608682]
 layout_mode = 2
 theme_override_constants/separation = 256
-theme_override_styles/separator = SubResource("StyleBoxEmpty_h3ism")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_abq0a")
 
-[node name="ScrapsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Cash" unique_id=619225283]
+[node name="Scraps" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency" unique_id=1853501451]
 layout_mode = 2
-text = "Scraps:"
-label_settings = SubResource("LabelSettings_e5oa5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bimrv")
 
-[node name="ScrapsAmount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Cash" unique_id=438981549]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps" unique_id=392745625]
 layout_mode = 2
-text = "00"
-label_settings = SubResource("LabelSettings_e5oa5")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer" unique_id=790485042]
+layout_mode = 2
+theme_override_constants/separation = 154
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer" unique_id=372491966]
+modulate = Color(1, 0.19215687, 1, 1)
+layout_mode = 2
+texture = ExtResource("5_bimrv")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer" unique_id=1376109473]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_yvm0m")
+horizontal_alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=459463538]
 custom_minimum_size = Vector2(0, 550)
@@ -212,42 +307,73 @@ theme_override_constants/separation = 24
 
 [node name="PrevArea" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1227954178]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(-1, 1)
 theme_override_fonts/font = ExtResource("1_s223w")
 theme_override_font_sizes/font_size = 42
-text = "<pad>"
+theme_override_styles/normal = SubResource("StyleBoxTexture_7jx3p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pv0ej")
+theme_override_styles/hover = SubResource("StyleBoxTexture_onrcs")
 
 [node name="Prev" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1643047185]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 offset_transform_enabled = true
 texture = ExtResource("2_e5oa5")
+expand_mode = 1
 
 [node name="Main" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1072739321]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 offset_transform_enabled = true
-texture = ExtResource("2_e5oa5")
+texture = ExtResource("6_8cpcu")
+expand_mode = 1
 
 [node name="Next" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=290576183]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 offset_transform_enabled = true
 texture = ExtResource("2_e5oa5")
+expand_mode = 1
+flip_h = true
 
 [node name="NextArea" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1793536941]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_s223w")
 theme_override_font_sizes/font_size = 42
-text = "<pad>"
+theme_override_styles/normal = SubResource("StyleBoxTexture_7jx3p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pv0ej")
+theme_override_styles/hover = SubResource("StyleBoxTexture_onrcs")
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=70543774]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(245, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.07, -0.015)
+offset_transform_scale = Vector2(1.055, 1.055)
+theme_override_styles/panel = SubResource("StyleBoxTexture_um5y5")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=1664807645]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=38723440]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=435569422]
+layout_mode = 2
+theme_override_constants/separation = 24
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="AreaTitle" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1664807645]
 layout_mode = 2
 text = "<Details of Area>"
 label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="AreaDetails" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=40126729]
+layout_mode = 2
+text = "<Details of Area>"
+label_settings = SubResource("LabelSettings_8cpcu")
+horizontal_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1681990043]
 layout_mode = 2
@@ -262,6 +388,9 @@ theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-
 theme_override_colors/font_hover_pressed_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("1_s223w")
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_jb214")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_abq0a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ubpkl")
 text = "<back>"
 
 [node name="ProceedWorld" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=82973082]
@@ -271,6 +400,9 @@ theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-
 theme_override_colors/font_hover_pressed_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("1_s223w")
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_jb214")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_abq0a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ubpkl")
 text = "<proceed>"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=681900375]
@@ -280,3 +412,31 @@ autoplay = &"fromWeapons"
 [node name="Timer" type="Timer" parent="." unique_id=276769721]
 wait_time = 0.233
 one_shot = true
+
+[node name="Locked" type="Panel" parent="." unique_id=1694678336]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 0
+offset_left = 244.0
+offset_top = 182.0
+offset_right = 744.0
+offset_bottom = 482.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+
+[node name="Label" type="Label" parent="Locked" unique_id=549759233]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOCKED"
+label_settings = SubResource("LabelSettings_h3ism")
+horizontal_alignment = 1

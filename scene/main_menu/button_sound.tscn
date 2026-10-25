@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bi737hgnlet38"]
+
+[ext_resource type="AudioStream" uid="uid://bc4s61ly4puuy" path="res://assets/main_menu/sounds/BOMB - PAK.wav" id="1_muclh"]
+
+[node name="ButtonSound" type="AudioStreamPlayer" unique_id=980604888]
+stream = ExtResource("1_muclh")
+pitch_scale = 3.1
+bus = &"SFX"

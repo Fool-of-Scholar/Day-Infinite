@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bn2ca7sq18l0e"]
+
+[ext_resource type="AudioStream" uid="uid://bj88vdjligmw" path="res://assets/music/Dread Pitt - Pyro [NCS Release].mp3" id="1_cwpvr"]
+
+[node name="Node2D" type="Node2D" unique_id=56434408]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2115339996]
+stream = ExtResource("1_cwpvr")
+volume_db = -40.0
+autoplay = true

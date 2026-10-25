@@ -25,7 +25,6 @@ public partial class AnotherMainMenu : Control
 	private void TransitionToNextScene()
 	{
 
-		_animPlayer.Play("mode");
 		_animPlayer.AnimationFinished += (StringName animName) => {
 			if (animName == "mode")
 			{

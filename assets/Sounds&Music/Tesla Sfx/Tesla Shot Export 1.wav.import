@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://de4lnyk5x5wa3"
+path="res://.godot/imported/Tesla Shot Export 1.wav-273405f95012fd5560569be3ddba672c.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Tesla Sfx/Tesla Shot Export 1.wav"
+dest_files=["res://.godot/imported/Tesla Shot Export 1.wav-273405f95012fd5560569be3ddba672c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

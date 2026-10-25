@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://dacuxowwvrn48" path="res://scene/player.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dgli1sewwbpo4" path="res://scene/spawner.tscn" id="4_0tg4p"]
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="5_emkrx"]
-[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="6_0tg4p"]
 [ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="6_7ghph"]
 [ext_resource type="PackedScene" uid="uid://dbqrljrlx5klt" path="res://scene/Enemies Mode1/fast_enemy.tscn" id="6_e4vd1"]
 [ext_resource type="PackedScene" uid="uid://csug2r5a6rex2" path="res://scene/Enemies Mode1/swarm_enemy.tscn" id="7_1402k"]
@@ -262,6 +261,7 @@ use_parent_material = true
 tile_set = ExtResource("2_txmk2")
 
 [node name="Player" parent="." unique_id=1999530487 instance=ExtResource("3_w4qq1")]
+MaxHealth = 100
 Speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=592598760]
@@ -287,9 +287,6 @@ offset_bottom = 800.0
 
 [node name="DiedInterface" parent="Hud" unique_id=1953952388 instance=ExtResource("8_na5tu")]
 visible = false
-
-[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("6_0tg4p")]
-volume_db = -10.0
 
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
 
