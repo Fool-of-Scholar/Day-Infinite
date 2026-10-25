@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c12ylwrfc8ysj"]
+
+[ext_resource type="Texture2D" uid="uid://c1m27wjjtnbpg" path="res://assets/PIXWEP/desert/stock/stock_07.png" id="1_1cy63"]
+[ext_resource type="Texture2D" uid="uid://bgv6wxcbg74rh" path="res://assets/PIXWEP/desert/scope/scope_03.png" id="2_dwtqr"]
+[ext_resource type="Texture2D" uid="uid://ceqf3sgr8mrvg" path="res://assets/PIXWEP/desert/body/body_plasma_02.png" id="3_rjyqd"]
+[ext_resource type="Texture2D" uid="uid://btryl3ay2ajsu" path="res://assets/PIXWEP/desert/barrel/barrel_heavy.png" id="4_g7bvu"]
+[ext_resource type="Texture2D" uid="uid://dero40wx62rj1" path="res://assets/PIXWEP/desert/barrel/barrel_short.png" id="5_x8cw2"]
+[ext_resource type="Texture2D" uid="uid://ewkawkgqtcjf" path="res://assets/PIXWEP/desert/barrel/barrel_rail.png" id="6_6hkaq"]
+
+[node name="ARTeslaFusion" type="Node2D" unique_id=172654605]
+
+[node name="Stock07" type="Sprite2D" parent="." unique_id=2128433120]
+position = Vector2(2, 0)
+texture = ExtResource("1_1cy63")
+
+[node name="Scope03" type="Sprite2D" parent="." unique_id=1991663816]
+position = Vector2(-5, 2)
+scale = Vector2(1, -1)
+texture = ExtResource("2_dwtqr")
+
+[node name="Scope05" type="Sprite2D" parent="." unique_id=176017336]
+position = Vector2(-7, 0)
+texture = ExtResource("2_dwtqr")
+
+[node name="BodyPlasma02" type="Sprite2D" parent="." unique_id=466121218]
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_rjyqd")
+
+[node name="BarrelHeavy" type="Sprite2D" parent="." unique_id=477670690]
+position = Vector2(2, 1)
+texture = ExtResource("4_g7bvu")
+
+[node name="BarrelShort" type="Sprite2D" parent="." unique_id=1253181995]
+position = Vector2(-20, 0)
+texture = ExtResource("5_x8cw2")
+
+[node name="BarrelRail" type="Sprite2D" parent="." unique_id=921557702]
+position = Vector2(2, -12)
+scale = Vector2(1, -1)
+texture = ExtResource("6_6hkaq")
+
+[node name="BarrelRail2" type="Sprite2D" parent="." unique_id=1511556296]
+position = Vector2(2, 14)
+texture = ExtResource("6_6hkaq")

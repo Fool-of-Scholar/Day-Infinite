@@ -16,7 +16,7 @@ warnings/check_invalid_track_paths=false
 
 config/name="Day Infinite"
 run/main_scene="uid://dhb60yq2nryv1"
-config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]

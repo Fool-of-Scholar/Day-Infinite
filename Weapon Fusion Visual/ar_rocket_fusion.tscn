@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://3h5ei26lh5gy"]
+
+[ext_resource type="Texture2D" uid="uid://bixk0ajqplluu" path="res://assets/PIXWEP/camo/barrel/barrel_assault.png" id="1_xyw5n"]
+[ext_resource type="Texture2D" uid="uid://773k27mcy38l" path="res://assets/PIXWEP/camo/body/body_projectile_03.png" id="2_wexu5"]
+[ext_resource type="Texture2D" uid="uid://d32y8crydw7lu" path="res://assets/PIXWEP/camo/barrel/barrel_heavy.png" id="3_0ds1o"]
+[ext_resource type="Texture2D" uid="uid://dl2i6w8loc7qt" path="res://assets/PIXWEP/camo/barrel/barrel_gatling.png" id="4_0ds1o"]
+[ext_resource type="Texture2D" uid="uid://to73jc5grqft" path="res://assets/PIXWEP/camo/stock/stock_04.png" id="4_un6ve"]
+[ext_resource type="Texture2D" uid="uid://blkna4xamjjgq" path="res://assets/PIXWEP/camo/barrel/barrel_heavy_short.png" id="6_un6ve"]
+
+[node name="ARRocketFusion" type="Node2D" unique_id=594152758]
+
+[node name="BodyProjectile03" type="Sprite2D" parent="." unique_id=1795039771]
+position = Vector2(10, 1)
+texture = ExtResource("2_wexu5")
+
+[node name="BarrelAssault2" type="Sprite2D" parent="." unique_id=1740506273]
+position = Vector2(12, 1)
+texture = ExtResource("1_xyw5n")
+
+[node name="Stock04" type="Sprite2D" parent="." unique_id=1148676084]
+position = Vector2(10, 1)
+texture = ExtResource("4_un6ve")
+
+[node name="BarrelGatling" type="Sprite2D" parent="." unique_id=356199192]
+position = Vector2(-5, 1)
+texture = ExtResource("4_0ds1o")
+
+[node name="BarrelHeavy" type="Sprite2D" parent="." unique_id=360184976]
+position = Vector2(19, 5)
+texture = ExtResource("3_0ds1o")
+
+[node name="BarrelHeavyShort" type="Sprite2D" parent="." unique_id=319167097]
+position = Vector2(-4, 6)
+texture = ExtResource("6_un6ve")

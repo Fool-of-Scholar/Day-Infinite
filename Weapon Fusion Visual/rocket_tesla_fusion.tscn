@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d0wrblkm6npgc"]
+
+[ext_resource type="Texture2D" uid="uid://dgp0k5xh08804" path="res://assets/PIXWEP/red/stock/stock_02.png" id="1_yn7gw"]
+[ext_resource type="Texture2D" uid="uid://togtmh3i3e7r" path="res://assets/PIXWEP/red/scope/scope_02.png" id="2_f4cm1"]
+[ext_resource type="Texture2D" uid="uid://ucmvogrqq4ue" path="res://assets/PIXWEP/red/body/body_laser_02.png" id="3_bqp8f"]
+[ext_resource type="Texture2D" uid="uid://dncsvg1rtdj7d" path="res://assets/PIXWEP/red/barrel/barrel_heavy.png" id="4_sc5kx"]
+[ext_resource type="Texture2D" uid="uid://c0ygoeu00cs81" path="res://assets/PIXWEP/red/barrel/barrel_heavy_short.png" id="5_2vv1a"]
+[ext_resource type="Texture2D" uid="uid://bpwf2qhf6jew7" path="res://assets/PIXWEP/red/barrel/barrel_rail.png" id="6_clw0n"]
+
+[node name="RocketTeslaFusion" type="Node2D" unique_id=774299576]
+
+[node name="Stock02" type="Sprite2D" parent="." unique_id=1795207664]
+position = Vector2(-1, 0)
+texture = ExtResource("1_yn7gw")
+
+[node name="Scope02" type="Sprite2D" parent="." unique_id=944071000]
+position = Vector2(-11, 1)
+texture = ExtResource("2_f4cm1")
+
+[node name="Scope03" type="Sprite2D" parent="." unique_id=698796231]
+position = Vector2(-10, -1)
+scale = Vector2(1, -1)
+texture = ExtResource("2_f4cm1")
+
+[node name="BodyLaser03" type="Sprite2D" parent="." unique_id=1931124207]
+position = Vector2(-2, 0)
+texture = ExtResource("3_bqp8f")
+
+[node name="BarrelHeavy" type="Sprite2D" parent="." unique_id=1763469135]
+position = Vector2(1, 0)
+texture = ExtResource("4_sc5kx")
+
+[node name="BarrelHeavyShort" type="Sprite2D" parent="." unique_id=497249751]
+position = Vector2(-21, 0)
+texture = ExtResource("5_2vv1a")
+
+[node name="BarrelRail" type="Sprite2D" parent="." unique_id=599350142]
+position = Vector2(1, 8)
+texture = ExtResource("6_clw0n")
+
+[node name="BarrelRail2" type="Sprite2D" parent="." unique_id=768273689]
+position = Vector2(1, -11)
+scale = Vector2(1, -1)
+texture = ExtResource("6_clw0n")
