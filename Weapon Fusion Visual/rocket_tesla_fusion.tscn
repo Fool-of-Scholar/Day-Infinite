@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bpwf2qhf6jew7" path="res://assets/PIXWEP/red/barrel/barrel_rail.png" id="6_clw0n"]
 
 [node name="RocketTeslaFusion" type="Node2D" unique_id=774299576]
+scale = Vector2(0.5, 0.5)
 
 [node name="Stock02" type="Sprite2D" parent="." unique_id=1795207664]
 position = Vector2(-1, 0)

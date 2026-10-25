@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://blkna4xamjjgq" path="res://assets/PIXWEP/camo/barrel/barrel_heavy_short.png" id="6_un6ve"]
 
 [node name="ARRocketFusion" type="Node2D" unique_id=594152758]
+scale = Vector2(0.5, 0.5)
 
 [node name="BodyProjectile03" type="Sprite2D" parent="." unique_id=1795039771]
 position = Vector2(10, 1)

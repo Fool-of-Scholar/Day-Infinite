@@ -33,6 +33,18 @@ public partial class WeaponManager : Node2D
         {"Tesla", "res://weapon_new/tesla/tesla_burst.tscn"},
         { "ForceField", "res://weapon_new/force field/force_field.tscn" } // You can create this tonight!
     };
+    // ADD THIS NEW DICTIONARY:
+    public Dictionary<string, string> GunVisualPaths = new Dictionary<string, string>
+    {
+        { "AR", "res://weapon_new/ar/ar.tscn" },
+        { "Tesla", "res://weapon_new/tesla/tesla.tscn" },
+        { "Rocket", "res://weapon_new/rocket/rocket.tscn" },
+        { "AR_Tesla", "res://Weapon Fusion Visual/ar_tesla_fusion.tscn" },
+        { "AR_Rocket", "res://Weapon Fusion Visual/ar_rocket_fusion.tscn" },
+        { "Rocket_Tesla", "res://Weapon Fusion Visual/rocket_tesla_fusion.tscn" },
+        
+        { "AR_Rocket_Tesla", "res://Weapon Fusion Visual/ar_rocket_tesla_fusion.tscn" }
+    };
 
     // --- GLOBAL STAT TRACKERS ---
     public int BonusDamage { get; set; } = 0;
@@ -73,12 +85,38 @@ public partial class WeaponManager : Node2D
         }
         else 
         {
-            EquipNewWeapon("AR", GD.Load<PackedScene>(WeaponPaths["AR"]));
+            EquipNewWeapon("AR", GD.Load<PackedScene>(WeaponPaths["AR"]));  
         }
 
         // --- INSTANTLY EQUIP FORCE FIELD ---
         // Comment Bullet TESTING first before uncommenting this
         // EquipNewWeapon("ForceField");
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_gunContainer == null) return;
+
+        // Find the closest enemy using your existing method
+        Node2D nearestEnemy = GetNearestEnemy();
+        
+        // If there are no enemies on screen, stop running this code so the gun stays still
+        if (nearestEnemy == null) return; 
+
+        Vector2 targetPosition = nearestEnemy.GlobalPosition;
+
+        // 1. Make the gun dynamically rotate to face the enemy
+        _gunContainer.LookAt(targetPosition);
+
+        // 2. Prevent the gun from turning upside-down when the enemy is on the left
+        if (targetPosition.X < GlobalPosition.X)
+        {
+            _gunContainer.Scale = new Vector2(1, -1); // Flip vertically
+        }
+        else
+        {
+            _gunContainer.Scale = new Vector2(1, 1);  // Normal
+        }
     }
 
     // --- WEAPON INVENTORY LOGIC ---
@@ -138,6 +176,8 @@ public partial class WeaponManager : Node2D
         
         EquippedWeapons.Add(newSlot);
         GD.Print($"Equipped {weaponId}. Total weapons: {EquippedWeapons.Count}/{MaxWeapons}");
+
+        UpdateGunVisual();
     }
 
     public void UpgradeWeaponStage(string weaponId)
@@ -350,5 +390,59 @@ public partial class WeaponManager : Node2D
     {
         BonusDamage += 20;
         GD.Print($"Global Damage Upgraded! Bonus is now +{BonusDamage}");
+    }
+
+    // --- VISUAL FUSION LOGIC ---
+    public void UpdateGunVisual()
+    {
+        if (_gunContainer == null) return;
+
+        // 1. Determine which gun or fusion should be shown
+        string visualKey = DetermineVisualKey();
+
+        // 2. Delete the old gun visual
+        foreach (Node child in _gunContainer.GetChildren())
+        {
+            child.QueueFree();
+        }
+
+        // 3. Load and attach the new gun visual
+        if (GunVisualPaths.ContainsKey(visualKey))
+        {
+            PackedScene newVisualScene = GD.Load<PackedScene>(GunVisualPaths[visualKey]);
+            if (newVisualScene != null)
+            {
+                Node2D visualNode = newVisualScene.Instantiate<Node2D>();
+                _gunContainer.AddChild(visualNode);
+                GD.Print($"Gun Visual updated to: {visualKey}");
+            }
+        }
+    }
+
+    private string DetermineVisualKey()
+    {
+        bool hasAR = HasWeapon("AR");
+        bool hasTesla = HasWeapon("Tesla");
+        bool hasRocket = HasWeapon("Rocket");
+
+        if (hasAR && hasTesla && hasRocket) return "AR_Rocket_Tesla";
+
+        // Check for Fusions first (Pairs)
+        if (hasAR && hasTesla) return "AR_Tesla";
+        if (hasAR && hasRocket) return "AR_Rocket";
+        if (hasRocket && hasTesla) return "Rocket_Tesla";
+        
+        // If no fusions, check base weapons
+        if (hasAR) return "AR";
+        if (hasTesla) return "Tesla";
+        if (hasRocket) return "Rocket";
+
+        return "Default"; 
+    }
+
+    private bool HasWeapon(string weaponId)
+    {
+        // Checks if the weapon is currently in the EquippedWeapons list
+        return EquippedWeapons.Exists(w => w.WeaponId == weaponId);
     }
 }
