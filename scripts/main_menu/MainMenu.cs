@@ -3,6 +3,7 @@ using System;
 
 public partial class MainMenu : Control
 {
+	Button _cheat;
 	Label _scrapsLabel;
 	Label _coinsLabel;
 	private SaveManager _saveManager;
@@ -14,9 +15,17 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_cheat = GetNode<Button>("Options/PanelContainer/MarginContainer/VBoxContainer/Button");
 		_scrapsLabel = GetNode<Label>("Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer/Label");
 		_coinsLabel = GetNode<Label>("Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer/Label");
 		_saveManager = GetNode<SaveManager>("/root/SaveManager");
+
+		_cheat.Pressed += () =>
+		{
+			_currentScraps = 1000;
+			_currentCoins = 100000;
+			TriggerSave();
+		};
 
 		TriggerLoad();
 	}

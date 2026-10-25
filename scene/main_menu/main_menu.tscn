@@ -427,6 +427,13 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="Button" type="Button" parent="Options/PanelContainer/MarginContainer/VBoxContainer" unique_id=286945490]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_spnib")
+text = "Cheat
+Make 1000 Scraps
+Make 100000 Coins"
+
 [node name="Label" type="Label" parent="Options/PanelContainer/MarginContainer" unique_id=1498531669]
 layout_mode = 2
 size_flags_horizontal = 4
