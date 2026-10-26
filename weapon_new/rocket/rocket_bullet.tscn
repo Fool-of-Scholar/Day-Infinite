@@ -3,7 +3,12 @@
 [ext_resource type="Script" uid="uid://ceoiyv54x0jr5" path="res://weapon_new/rocket/RocketBullet.cs" id="1_mft44"]
 [ext_resource type="Texture2D" uid="uid://bdr65xgqfi5gk" path="res://assets/Ryann1908 MKII Shot Sheet v1.0/bulletNew1.png" id="2_sxuv5"]
 
+[ext_resource type="AudioStream" uid="uid://df6m32lswuhnj" path="res://assets/Sounds&Music/Rocket Sfx/Rocket Shot Sfx Export 1.wav" id="3_shot"]
+[ext_resource type="AudioStream" uid="uid://0rkutxddt6xa" path="res://assets/Sounds&Music/Rocket Sfx/Rocker BlackHole Sfx Export 1.wav" id="4_suck"]
+[ext_resource type="AudioStream" uid="uid://ci7skrcqroigi" path="res://assets/Sounds&Music/Rocket Sfx/Rocket Explosion.wav" id="5_explode"]
+
 [sub_resource type="Animation" id="Animation_odvht"]
+
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -100,3 +105,21 @@ shape = SubResource("CircleShape2D_ap8p0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Explode" unique_id=1231733355]
 shape = SubResource("CircleShape2D_31oe1")
+
+[node name="ShotAudio" type="AudioStreamPlayer" parent="." unique_id=1847192841]
+stream = ExtResource("3_shot")
+volume_db = 0.0
+bus = &"SFX"
+
+[node name="SuckAudio" type="AudioStreamPlayer" parent="." unique_id=1847192842]
+stream = ExtResource("4_suck")
+volume_db = 0.0
+bus = &"SFX"
+
+[node name="ExplodeAudio" type="AudioStreamPlayer" parent="." unique_id=1847192843]
+stream = ExtResource("5_explode")
+volume_db = 1.0
+bus = &"SFX"
+
+
+

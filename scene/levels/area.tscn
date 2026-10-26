@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://1dkg58cwpk5b" path="res://assets/PIXWEP/Remains Sprite Sheet.png" id="2_y3eir"]
 [ext_resource type="Texture2D" uid="uid://bbqxnta127u8w" path="res://assets/Tilemap/Ground Tileset.png" id="3_6u7te"]
 [ext_resource type="PackedScene" uid="uid://dbnirx5fq0sdy" path="res://scene/HUD.tscn" id="3_hud0"]
-[ext_resource type="PackedScene" uid="uid://c5j6nvp2mjsj" path="res://scene/audio_stream_player.tscn" id="4_aud0"]
 [ext_resource type="PackedScene" uid="uid://cow6rt0afqsob" path="res://scene/main_menu/upgrade_menu.tscn" id="5_upgr"]
 [ext_resource type="PackedScene" uid="uid://bgt05xn8h7gqm" path="res://scene/main_menu/pause_menu.tscn" id="6_paus"]
 [ext_resource type="PackedScene" uid="uid://dy45ku51sxasm" path="res://scene/main_menu/died_interface.tscn" id="7_died"]
@@ -20,6 +19,10 @@
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="14_upin"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="15_upot"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="19_1wt8d"]
+[ext_resource type="Script" uid="uid://wawf7mtctb26" path="res://scripts/AreaAudioStreamPlayer.cs" id="24_yv082"]
+[ext_resource type="AudioStream" uid="uid://b0c2oyha4tlat" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 1 Final.mp3" id="25_p1"]
+[ext_resource type="AudioStream" uid="uid://dc4ctr3iyxpop" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 2 Final.mp3" id="26_p2"]
+[ext_resource type="AudioStream" uid="uid://bbvkat4x0cpj1" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Boss Music FInal.mp3" id="27_p3"]
 [ext_resource type="Texture2D" uid="uid://hdmro1p1g1tr" path="res://assets/Environment/Area 1 Environment/BrokenBench.png" id="e1_bench"]
 [ext_resource type="Script" uid="uid://6deafnr1yf15" path="res://scripts/Area1EnvironmentSpawner.cs" id="e1_env_spawner"]
 [ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="e1_streetlight"]
@@ -41,25 +44,9 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_o81xu"]
 sources/1 = SubResource("TileSetAtlasSource_a1g12")
@@ -402,6 +389,7 @@ BossScene = ExtResource("11_boss")
 visible = false
 
 [node name="PauseMenu" parent="Hud" unique_id=2057780145 instance=ExtResource("6_paus")]
+z_index = 2
 offset_top = 800.0
 offset_bottom = 800.0
 
@@ -435,9 +423,6 @@ Urban Decayed City"
 label_settings = SubResource("LabelSettings_1vivr")
 horizontal_alignment = 1
 
-[node name="AudioStreamPlayer" parent="." unique_id=1713162277 instance=ExtResource("4_aud0")]
-volume_db = -10.0
-
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
 
 [node name="WorldGemSpawner" type="Node" parent="." unique_id=566826345]
@@ -458,6 +443,13 @@ autoplay = &"StartA"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=708618664]
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_hud")
+
+[node name="Area1Audio" type="Node" parent="." unique_id=2082456077 node_paths=PackedStringArray("MusicPlayer")]
+script = ExtResource("24_yv082")
+Phase1 = ExtResource("25_p1")
+Phase2 = ExtResource("26_p2")
+Phase3 = ExtResource("27_p3")
+MusicPlayer = NodePath("")
 
 [editable path="Hud/UpgradeMenu"]
 [editable path="Hud/PauseMenu"]

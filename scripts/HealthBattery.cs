@@ -8,6 +8,8 @@ public partial class HealthBattery : Area2D
 
     public Node2D Target { get; set; }
 
+    private bool _isCollected = false;
+
     public override void _Ready()
     {
         AddToGroup("health_batteries");
@@ -15,6 +17,7 @@ public partial class HealthBattery : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (_isCollected) return;
         if (Target == null || !IsInstanceValid(Target)) return;
 
         // Move toward the player and accelerate
@@ -34,31 +37,33 @@ public partial class HealthBattery : Area2D
         Speed = Mathf.Max(Speed, 600f);
     }
 
-    // This is the method Movement.cs was looking for!
-    public void Collect()
+    public void Collect(Movement player = null)
     {
-        if (Target is Movement player)
+        if (_isCollected) return; // Prevent double collection
+        _isCollected = true;
+
+        Movement recipient = player ?? Target as Movement;
+        if (recipient == null && IsInsideTree())
         {
-            player.Heal(HealthRestoreAmount);
+            recipient = GetTree().GetFirstNodeInGroup("player") as Movement;
         }
-        else
-        {
-            // Fallback if collected via body collision area instead of magnet target
-            Node2D playerNode = GetTree().GetFirstNodeInGroup("player") as Node2D;
-            if (playerNode is Movement p)
-            {
-                p.Heal(HealthRestoreAmount);
-            }
-        }
+
+        recipient?.Heal(HealthRestoreAmount);
+
+        // Play health pickup sound with uplifting distinct pitch
+        var customStream = GetNodeOrNull<AudioStreamPlayer>("Pickup")?.Stream;
+        AudioManager.PlayHealthPickup(customStream);
+
         QueueFree();
     }
 
     private void OnBodyEntered(Node2D body)
     {
+        if (_isCollected) return;
         if (body is Movement player)
         {
             Target = player;
-            Collect();
+            Collect(player);
         }
     }
 }

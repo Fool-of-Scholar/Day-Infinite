@@ -21,7 +21,10 @@ public partial class TeslaBurst : Area2D
 
     public override async void _Ready()
     {
+        GetNodeOrNull<AudioStreamPlayer>("ShotAudio")?.Play();
+
         Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
+
 
         if (LightningSprites != null && LightningSprites.Length > 0)
         {

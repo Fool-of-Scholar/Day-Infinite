@@ -8,9 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="2_t0xc4"]
 [ext_resource type="Texture2D" uid="uid://83ihh5h2skvp" path="res://assets/main_menu/template/Untitled164_20261022234644.png" id="4_gfavx"]
 [ext_resource type="Texture2D" uid="uid://dhql0ssxqcf0q" path="res://assets/PIXWEP/body/body_projectile_01.png" id="4_me3sh"]
-[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="4_yb87i"]
+[ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="5_7ey8l"]
+[ext_resource type="Texture2D" uid="uid://co8qv12wj4461" path="res://assets/main_menu/logo/Untitled161_20261010180549.png" id="7_7ey8l"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="7_ng5o7"]
 [ext_resource type="Texture2D" uid="uid://baiy1oft4fart" path="res://assets/main_menu/template/Untitled166_20261022235401.png" id="11_7jx3p"]
+[ext_resource type="Texture2D" uid="uid://ca1ogvf7l41k0" path="res://assets/main_menu/template/Untitled168_20261022235715.png" id="13_7lji3"]
+[ext_resource type="Animation" uid="uid://by7t1i6pjhb4l" path="res://scene/main_menu/animations_draft/player_close.res" id="13_vskav"]
+[ext_resource type="Animation" uid="uid://b3s1kmrewpfkk" path="res://scene/main_menu/animations_draft/player_open.res" id="14_yx7ny"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5oa5"]
 texture = ExtResource("2_me3sh")
@@ -58,6 +62,32 @@ font_size = 24
 font = ExtResource("2_dcubs")
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_7ey8l"]
+font = ExtResource("2_dcubs")
+font_size = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ey8l"]
+texture = ExtResource("11_7jx3p")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a60st"]
+texture = ExtResource("11_7jx3p")
+texture_margin_left = 12.0
+texture_margin_top = 17.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7lji3"]
+texture = ExtResource("11_7jx3p")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1, 1, 1, 0.827451)
+
 [sub_resource type="Animation" id="Animation_t0xc4"]
 length = 0.001
 tracks/0/type = "value"
@@ -83,6 +113,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerPassive:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 2000)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/HBoxContainer2/PlayScene:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer/HBoxContainer2/Back:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_yb87i"]
@@ -121,19 +187,15 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_t0xc4"),
 &"back": SubResource("Animation_yb87i"),
-&"next": SubResource("Animation_ng5o7")
+&"next": SubResource("Animation_ng5o7"),
+&"player_close": ExtResource("13_vskav"),
+&"player_open": ExtResource("14_yx7ny")
 }
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ey8l"]
-texture = ExtResource("11_7jx3p")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a60st"]
-texture = ExtResource("11_7jx3p")
-texture_margin_top = 5.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7lji3"]
-texture = ExtResource("11_7jx3p")
-modulate_color = Color(1, 1, 1, 0.827451)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8vrlf"]
+texture = ExtResource("13_7lji3")
+texture_margin_left = 54.0
+texture_margin_right = 48.0
 
 [node name="WeaponChooser" type="Control" unique_id=729411658]
 layout_mode = 3
@@ -209,7 +271,7 @@ theme_override_constants/separation = 154
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins/MarginContainer/HBoxContainer" unique_id=1568180097]
 layout_mode = 2
-texture = ExtResource("4_yb87i")
+texture = ExtResource("5_7ey8l")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Coins/MarginContainer/HBoxContainer" unique_id=1710163791]
@@ -239,9 +301,8 @@ layout_mode = 2
 theme_override_constants/separation = 154
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps/MarginContainer/HBoxContainer" unique_id=437180563]
-modulate = Color(1, 0.19215687, 1, 1)
 layout_mode = 2
-texture = ExtResource("4_yb87i")
+texture = ExtResource("7_7ey8l")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer/Cash/Scraps/MarginContainer/HBoxContainer" unique_id=60947396]
@@ -319,6 +380,43 @@ text = "LOCKED"
 label_settings = SubResource("LabelSettings_qbdty")
 horizontal_alignment = 1
 
+[node name="PriceLabel" type="Label" parent="PanelContainer/Locked" unique_id=904479209]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -100.0
+offset_right = 94.5
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Price: ??"
+label_settings = SubResource("LabelSettings_7ey8l")
+horizontal_alignment = 1
+
+[node name="Buy" type="Button" parent="PanelContainer/Locked" unique_id=1573822520]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = -24.999847
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Buy?"
+
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=315785953]
 layout_mode = 0
 offset_left = -2000.0
@@ -365,6 +463,16 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
 text = "Back"
 
+[node name="Player" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=692276446]
+custom_minimum_size = Vector2(270, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Player"
+
 [node name="PlayScene" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1626002102]
 custom_minimum_size = Vector2(270, 45)
 layout_mode = 2
@@ -374,3 +482,91 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
 text = "Proceed"
+
+[node name="PlayerPassive" type="Control" parent="." unique_id=682202576]
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 1640.0
+offset_bottom = 1640.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerPassive" unique_id=953374573]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.5
+offset_top = -56.0
+offset_right = 51.5
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_8vrlf")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerPassive/PanelContainer" unique_id=364220758]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerPassive/PanelContainer/MarginContainer" unique_id=912740417]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=457239685]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade
+Speed
+3000 Coins"
+
+[node name="Button2" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=1305841732]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade
+FireRate
+3000 Coins"
+
+[node name="Button3" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=56817609]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade
+Health
+3000 Coins"
+
+[node name="Button4" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=376678619]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade
+Projectile
+3000 Coins"
+
+[node name="Button5" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=1286030105]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade
+Damage
+3000 Coins"

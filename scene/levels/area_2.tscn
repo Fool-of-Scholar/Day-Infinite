@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="10_a2"]
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="11_a2"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="12_a2"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="16_2ndb5"]
 [ext_resource type="Texture2D" uid="uid://c1m3o0sshd6k" path="res://assets/Environment/Area 2 Environment/dirt.png" id="e2_dirt"]
 [ext_resource type="Script" uid="uid://dsp2sxle1tsqd" path="res://scripts/Area2EnvironmentSpawner.cs" id="e2_env_spawner"]
 [ext_resource type="Texture2D" uid="uid://cey0yv30j1l7n" path="res://assets/Environment/Area 2 Environment/Grass.png" id="e2_grass"]
@@ -36,64 +37,11 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Animation" id="Animation_a2_upgr_reset"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hud/UpgradeMenu:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(848, 422)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hud/UpgradeMenu:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(216, 149)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hud/UpgradeMenu:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hud/UpgradeMenu:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_esvk1"]
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2upgr"]
-_data = {
-&"RESET": SubResource("Animation_a2_upgr_reset"),
-&"upgrade_in": ExtResource("11_a2"),
-&"upgrade_out": ExtResource("12_a2")
-}
+[sub_resource type="LabelSettings" id="LabelSettings_f6jx2"]
+font = ExtResource("16_2ndb5")
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_hud_reset"]
 length = 0.001
@@ -252,6 +200,118 @@ _data = {
 &"upgrade_out": ExtResource("12_a2")
 }
 
+[sub_resource type="Animation" id="Animation_upgr_reset"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/UpgradeMenu:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(848, 422)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/UpgradeMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(216, 149)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hud/UpgradeMenu:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hud/UpgradeMenu:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hud/Panel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hud/Panel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1wt8d"]
+resource_name = "StartA"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hud/Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hud/Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ndb5"]
+_data = {
+&"RESET": SubResource("Animation_upgr_reset"),
+&"StartA": SubResource("Animation_1wt8d"),
+&"upgrade_in": ExtResource("11_a2"),
+&"upgrade_out": ExtResource("12_a2")
+}
+
 [node name="Area2" type="Node2D" unique_id=10001]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=10002]
@@ -332,6 +392,33 @@ offset_bottom = 800.0
 [node name="DiedInterface" parent="Hud" unique_id=10083 instance=ExtResource("8_a2")]
 visible = false
 
+[node name="Panel" type="Panel" parent="Hud" unique_id=1984028724]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_esvk1")
+
+[node name="Label" type="Label" parent="Hud/Panel" unique_id=617364407]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -106.5
+offset_right = 275.0
+offset_bottom = 106.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Area 2
+---------
+Primal Forest (Bukid)"
+label_settings = SubResource("LabelSettings_f6jx2")
+horizontal_alignment = 1
+
 [node name="AudioStreamPlayer" parent="." unique_id=10090 instance=ExtResource("5_a2")]
 volume_db = -10.0
 
@@ -346,14 +433,15 @@ wait_time = 1200.0
 one_shot = true
 autostart = true
 
-[node name="UpgradePopUp" type="AnimationPlayer" parent="." unique_id=10130]
-unique_name_in_owner = true
-process_mode = 3
-libraries/ = SubResource("AnimationLibrary_a2upgr")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=10140]
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_hud")
+
+[node name="UpgradePopUp" type="AnimationPlayer" parent="." unique_id=1847514905]
+unique_name_in_owner = true
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_2ndb5")
+autoplay = &"StartA"
 
 [editable path="Hud/UpgradeMenu"]
 [editable path="Hud/PauseMenu"]

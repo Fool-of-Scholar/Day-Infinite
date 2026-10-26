@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4syih2uuwlct" path="res://weapon_new/force field/ForceField.cs" id="1_m6rh5"]
 [ext_resource type="Texture2D" uid="uid://bdwx40flgocmw" path="res://assets/forcefieldblue/forcefield.png" id="2_m6rh5"]
+[ext_resource type="AudioStream" uid="uid://ctw2rkviah3gu" path="res://assets/Sounds&Music/Force Field Sfx/ForceFieldShatter.wav" id="3_shatter"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hp4bs"]
 blend_mode = 1
@@ -25,3 +26,10 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_ap8p0")
 
 [node name="Timer" type="Timer" parent="." unique_id=1621608541]
+
+[node name="ShatterAudio" type="AudioStreamPlayer" parent="." unique_id=1847192848]
+stream = ExtResource("3_shatter")
+volume_db = 0.0
+bus = &"SFX"
+
+

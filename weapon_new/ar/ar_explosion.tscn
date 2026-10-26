@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bthquav8b1wew" path="res://assets/Free Smoke Fx Pixel 2/Free Smoke Fx  Pixel 05.png" id="1_ftjed"]
 [ext_resource type="Script" uid="uid://mfocpit80ws6" path="res://weapon_new/ar/ArExplosion.cs" id="2_f2a2h"]
+[ext_resource type="AudioStream" uid="uid://m1np31lqvqb6" path="res://assets/Sounds&Music/AR Sfx/AR Bullet Hit Export 1.wav" id="3_hit"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ap8p0"]
 particles_animation = true
@@ -30,3 +31,8 @@ process_material = SubResource("ParticleProcessMaterial_wy8fi")
 script = ExtResource("2_f2a2h")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1254092982]
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="." unique_id=1948201948]
+stream = ExtResource("3_hit")
+autoplay = true
+bus = &"SFX"

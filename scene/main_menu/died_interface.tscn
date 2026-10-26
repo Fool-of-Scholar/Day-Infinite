@@ -8,6 +8,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2pp6"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font = ExtResource("3_2grij")
+font_size = 64
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vivr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vrlf"]
@@ -114,11 +118,32 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_d2pp6")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=674042252]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=849444331]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1617732165]
+layout_mode = 2
+text = "Score: ??"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="Scraps" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1297251126]
+layout_mode = 2
+text = "Scraps: ??"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="Coins" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1049721881]
+layout_mode = 2
+text = "Coins: ??"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=674042252]
 layout_mode = 2
 theme_override_constants/separation = 256
 
-[node name="Retry" type="Button" parent="PanelContainer/HBoxContainer" unique_id=988986588]
+[node name="Retry" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=988986588]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("3_2grij")
@@ -130,7 +155,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_qbdty")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_auskg")
 text = "Retry"
 
-[node name="MainMenu" type="Button" parent="PanelContainer/HBoxContainer" unique_id=732653957]
+[node name="MainMenu" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=732653957]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.21884829, 0.7906203, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("3_2grij")

@@ -26,17 +26,22 @@ public partial class RocketBullet : Node2D
     private Area2D _explodeArea;
     private AnimationPlayer _animPlayer;
     private CollisionShape2D _explodeShape;
-
-    // Tracks enemies being pulled so we can apply force each frame
-    
+    private AudioStreamPlayer _shotAudio;
+    private AudioStreamPlayer _suckAudio;
+    private AudioStreamPlayer _explodeAudio;
 
     public override void _Ready()
     {
-        
         _shotArea = GetNode<Area2D>("Shot");
         _explodeArea = GetNode<Area2D>("Explode");
         _animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _explodeShape = _explodeArea.GetNode<CollisionShape2D>("CollisionShape2D");
+        _shotAudio = GetNodeOrNull<AudioStreamPlayer>("ShotAudio");
+        _suckAudio = GetNodeOrNull<AudioStreamPlayer>("SuckAudio");
+        _explodeAudio = GetNodeOrNull<AudioStreamPlayer>("ExplodeAudio");
+
+        _shotAudio?.Play();
+
 
         // Apply AOE size scaling from Stage 2
         if (AoeRadiusMultiplier != 1.0f && _explodeShape.Shape is CircleShape2D circle)
@@ -122,6 +127,7 @@ public partial class RocketBullet : Node2D
         else
         {
             // Normal behavior for Stages 1 & 2
+            _explodeAudio?.Play();
             _animPlayer.Play("explode");
             DealDamage();
             WaitAndFree();
@@ -131,12 +137,15 @@ public partial class RocketBullet : Node2D
     private async void StartSuck()
     {
         _isSucking = true;
+        _suckAudio?.Play();
         // Wait for the suck duration (the black hole keeps spinning during this time)
         await ToSignal(GetTree().CreateTimer(SuckDuration), SceneTreeTimer.SignalName.Timeout);
 
         _isSucking = false;
+        _suckAudio?.Stop();
 
-        // NOW we play the explosion animation
+        // NOW we play the explosion animation & audio
+        _explodeAudio?.Play();
         _animPlayer.Play("explode");
 
         // Deal damage and wait for the 0.1s animation to finish before destroying the node
@@ -166,6 +175,11 @@ public partial class RocketBullet : Node2D
     private async void WaitAndFree()
     {
         await ToSignal(_animPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        if (_explodeAudio != null && _explodeAudio.Playing)
+        {
+            _explodeAudio.Reparent(GetTree().CurrentScene);
+            _explodeAudio.Finished += () => _explodeAudio.QueueFree();
+        }
         QueueFree();
     }
 }

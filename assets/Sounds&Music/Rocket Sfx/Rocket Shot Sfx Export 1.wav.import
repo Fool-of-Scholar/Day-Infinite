@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://df6m32lswuhnj"
+path="res://.godot/imported/Rocket Shot Sfx Export 1.wav-90a550fba1ac6b79d1f48f6f6103517c.sample"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Rocket Sfx/Rocket Shot Sfx Export 1.wav"
+dest_files=["res://.godot/imported/Rocket Shot Sfx Export 1.wav-90a550fba1ac6b79d1f48f6f6103517c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -25,8 +25,8 @@ public partial class ARBullet : Area2D
 
     public override void _Ready()
     {
-        
-        // Continuous checking is handled in _PhysicsProcess
+        var shotAudio = GetNodeOrNull<AudioStreamPlayer>("ShotAudio");
+        shotAudio?.Play();
     }
 
     public override void _PhysicsProcess(double delta)

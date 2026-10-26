@@ -5,8 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bi737hgnlet38" path="res://scene/main_menu/button_sound.tscn" id="2_8cpcu"]
 [ext_resource type="Texture2D" uid="uid://b3sd7qiambl77" path="res://assets/Encylopedia/buttons.png" id="2_e5oa5"]
 [ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="2_h3ism"]
-[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="5_bimrv"]
-[ext_resource type="Texture2D" uid="uid://bxi4ytsacl4i7" path="res://assets/main_menu/area/received_1996949624323731.jpeg" id="6_8cpcu"]
+[ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="4_abq0a"]
+[ext_resource type="Texture2D" uid="uid://bxi4ytsacl4i7" path="res://assets/main_menu/area/Area1.jpeg" id="6_8cpcu"]
+[ext_resource type="Texture2D" uid="uid://co8qv12wj4461" path="res://assets/main_menu/logo/Untitled161_20261010180549.png" id="6_ubpkl"]
 [ext_resource type="Texture2D" uid="uid://83ihh5h2skvp" path="res://assets/main_menu/template/Untitled164_20261022234644.png" id="6_yvm0m"]
 [ext_resource type="Texture2D" uid="uid://bdn7owrorn5xq" path="res://assets/main_menu/template/Untitled165_20261022234636.png" id="9_jb214"]
 [ext_resource type="Texture2D" uid="uid://baiy1oft4fart" path="res://assets/main_menu/template/Untitled166_20261022235401.png" id="9_pv0ej"]
@@ -255,7 +256,7 @@ theme_override_constants/separation = 154
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer" unique_id=1073361046]
 layout_mode = 2
-texture = ExtResource("5_bimrv")
+texture = ExtResource("4_abq0a")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer" unique_id=1877345057]
@@ -287,7 +288,7 @@ theme_override_constants/separation = 154
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer" unique_id=372491966]
 modulate = Color(1, 0.19215687, 1, 1)
 layout_mode = 2
-texture = ExtResource("5_bimrv")
+texture = ExtResource("6_ubpkl")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer" unique_id=1376109473]

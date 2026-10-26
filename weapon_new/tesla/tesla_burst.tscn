@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://56xskjugjmct" path="res://assets/lightning/png sheets/light2.png" id="3_gl116"]
 [ext_resource type="Texture2D" uid="uid://cl4ipewuhodcv" path="res://assets/lightning/png sheets/light3.png" id="4_1denw"]
 [ext_resource type="PackedScene" uid="uid://jwda5rqffht5" path="res://weapon_new/tesla/tesla_explosion.tscn" id="5_gl116"]
+[ext_resource type="AudioStream" uid="uid://de4lnyk5x5wa3" path="res://assets/Sounds&Music/Tesla Sfx/Tesla Shot Export 1.wav" id="6_shot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwsj3"]
 size = Vector2(476.7485, 42)
@@ -25,3 +26,10 @@ texture = ExtResource("2_kwsj3")
 position = Vector2(242, 1)
 scale = Vector2(1.0089177, 1)
 shape = SubResource("RectangleShape2D_kwsj3")
+
+[node name="ShotAudio" type="AudioStreamPlayer" parent="." unique_id=1847192846]
+stream = ExtResource("6_shot")
+volume_db = 0.0
+bus = &"SFX"
+
+

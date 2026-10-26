@@ -9,7 +9,8 @@ public partial class Options : Button
 	HSlider _sfxSlider;
 	AudioStreamPlayer _buttonSounds;
 	int verify = 0;
-	private int _musicBusIndex;
+	public int _musicBusIndex;
+	public float _dbMusicVolume;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -29,7 +30,6 @@ public partial class Options : Button
 		_musicSlider.Value = Mathf.DbToLinear(_musicBusIndex);
 		_musicSlider.ValueChanged += SetMusicSlider;
 
-		
 	}
 
 	
@@ -45,6 +45,8 @@ public partial class Options : Button
 		AudioServer.SetBusMute(_musicBusIndex, false);
 		float dbVolume = Mathf.LinearToDb((float)value);
 		AudioServer.SetBusVolumeDb(_musicBusIndex, dbVolume);
+		_dbMusicVolume = Mathf.DbToLinear(dbVolume);
+		GD.Print(_dbMusicVolume);
 		}
 	}
 

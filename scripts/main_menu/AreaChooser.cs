@@ -3,6 +3,11 @@ using System;
 
 public partial class AreaChooser : Control
 {
+	Label _scrapsLabel;
+	Label _coinsLabel;
+	private SaveManager _saveManager;
+	private int _currentScraps;
+	private int _currentCoins;
 	Button _startGame;
 	Button _backWeapons;
 	Button _nextArea;
@@ -23,7 +28,7 @@ public partial class AreaChooser : Control
 	{
 		true, //stopper
 		true, //1
-		false,
+		true,
 		false,
 		false,
 		false,
@@ -33,7 +38,7 @@ public partial class AreaChooser : Control
 	private string[] _areaTitle = new string[] //22 letters per line max
 	{
 		"Urban Decayed City",
-		"???",
+		"Primal Forest (Bukid)",
 		"???",
 		"???",
 		"???",
@@ -41,26 +46,39 @@ public partial class AreaChooser : Control
 	};
 	private string[] _areaDetails = new string[]
 	{
-		"\nThis city, a once-thriving\nmetropolis capital now\novergrown with mutated\nflora, populatedby a swarm\nof mice. The city was\ndesigned to be an\norchid-filled environmental\ncity",
-		"???",
+		"\nThis city, a once-thriving\nmetropolis capital now\novergrown with mutated\nflora, populatedby a swarm\nof mice. The city was\ndesigned to be an\norchid-filled environmental\ncity.",
+		"\nThe mountains and forests in\nthe outskirt, once lush\nand filled with serenity,\nnow harbors corrupted apex\npredators out to kill\nanyone. Inside the thick\nmist is filled with domestic\nberserk dogs.",
 		"???",
 		"???",
 		"???",
 		"???",
 	};
+	private string[] _areaScene = new string[]
+	{
+		"res://scene/levels/area.tscn",
+		"res://scene/levels/area_2.tscn",
+		"",
+		"",
+		"",
+		""
+	};
 	private string[] _areaChooser = new string[]
 	{
-		"res://assets/Encylopedia/buttons.png",//stopper
-		"res://assets/main_menu/area/received_1996949624323731.jpeg",//1
-		"res://assets/Encylopedia/buttons.png",
+		"res://assets/main_menu/area/Stopper.jpg",//stopper
+		"res://assets/main_menu/area/Area1.jpeg",//1
+		"res://assets/main_menu/area/Area2.webp",
 		"res://assets/Encylopedia/weapons.png",
 		"res://assets/Encylopedia/buttons.png",
 		"res://assets/Encylopedia/weapons.png",
 		"res://assets/Encylopedia/buttons.png",//6
-		"res://assets/Encylopedia/weapons.png"	//stopper
+		"res://assets/main_menu/area/Stopper.jpg"	//stopper
 	};
 	public override void _Ready()
 	{
+		_scrapsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/Currency/Coins/MarginContainer/HBoxContainer/Label");
+		_coinsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/Currency/Scraps/MarginContainer/HBoxContainer/Label");
+		_saveManager = GetNode<SaveManager>("/root/SaveManager");
+
 		_areaTitleLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaTitle");
 		_areaDetailsLabel = GetNode<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaDetails");
 		_lockedManager = GetNode<Panel>("Locked");
@@ -86,14 +104,14 @@ public partial class AreaChooser : Control
 		_nextTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count + 1]);
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
 		TextureChanged();
+		TriggerLoad();
 	}
 
 
 	private void StartGame()
 	{
 		_buttonSounds.Play();
-		string scene = "res://scene/levels/area.tscn";
-		GetTree().ChangeSceneToFile(scene);
+		GetTree().ChangeSceneToFile(_areaScene[count - 1]);
 	}
 
 	private void BackToWeapons()
@@ -157,6 +175,26 @@ public partial class AreaChooser : Control
 		{
 			_lockedManager.Visible = true;
 			_startGame.Visible = false;
+		}
+	}
+
+	public void TriggerSave()
+	{
+		if (_saveManager != null)
+		{
+			_saveManager.SaveGame(_currentScraps, _currentCoins);
+			GD.Print("Scraps changed!");
+		}
+	}
+	public void TriggerLoad()
+	{
+		if (_saveManager != null)
+		{
+			SaveData loadedData = _saveManager.LoadGame();
+			_currentScraps = loadedData._scrapsTotal;
+			_currentCoins = loadedData._coinsTotal;
+			_scrapsLabel.Text = $"{_currentScraps}";
+			_coinsLabel.Text = $"{_currentCoins}";
 		}
 	}
 }

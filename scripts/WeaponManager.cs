@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public partial class WeaponManager : Node2D
 {
+    SaveManager _saveManager;
+    private int _weaponPickInt;
+    private PackedScene[] _weaponPick = new PackedScene[]
+    {
+        GD.Load<PackedScene>("res://weapon_new/ar/ar_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/mine/mine.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/force field/force_field.tscn"),
+    };
+
     [Export] public PackedScene GunVisualScene { get; set; } 
     
     // Default starting bullet (AR)
@@ -46,6 +57,10 @@ public partial class WeaponManager : Node2D
 
     public override void _Ready()
     {
+        _saveManager = GetNode<SaveManager>("/root/SaveManager");
+        TriggerLoad();
+        DefaultBulletScene = _weaponPick[_weaponPickInt - 1];
+
         _gunContainer = GetNodeOrNull<Node2D>("Gun");
         if (_gunContainer == null) {
             _gunContainer = new Node2D();
@@ -350,5 +365,14 @@ public partial class WeaponManager : Node2D
     {
         BonusDamage += 15; // Balanced: was +20 — more gradual damage scaling
         GD.Print($"Global Damage Upgraded! Bonus is now +{BonusDamage}");
+    }
+
+    public void TriggerLoad()
+    {
+        if (_saveManager != null)
+		{
+            SaveData loadedData = _saveManager.LoadGame();
+            _weaponPickInt = loadedData._weaponPick;
+        }
     }
 }
