@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdqew6sn3aieb" path="res://scripts/HUD.cs" id="1_mmka4"]
 [ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="2_5nt5s"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="3_4nxdm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvcfn"]
 bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
@@ -45,6 +46,12 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgw44"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yx4hk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ldol0"]
 
 [node name="Hud" type="CanvasLayer" unique_id=238226186]
 process_mode = 3
@@ -124,3 +131,28 @@ offset_right = -1.0
 offset_bottom = 22.0
 texture = ExtResource("2_5nt5s")
 expand_mode = 1
+
+[node name="Pause" type="Button" parent="." unique_id=1333274522]
+offset_right = 97.0
+offset_bottom = 85.0
+theme_override_colors/font_hover_color = Color(0.16862746, 0.92941177, 0, 1)
+theme_override_fonts/font = ExtResource("3_4nxdm")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pgw44")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yx4hk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ldol0")
+text = "Pause"
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="." unique_id=1159451274]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"upward"
+action_down = &"downward"
+visibility_mode = 1

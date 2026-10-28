@@ -82,11 +82,7 @@ public partial class PauseMenu : Control
 
     private void OnResumePressed()
     {
-        _buttonSounds.Play();
-        GetTree().Paused = false;
-        _pauseOpenAnimation?.Play("pause_out");
-        _hud._pauseButton.Visible = true;
-        _hud._joystick.Visible = true;
+        _hud.OnPauseMenu();
     }
 
     private void OnQuitPressed()
