@@ -50,9 +50,9 @@ public partial class Encyclopedia : Control
 
 	private void Back(StringName back)
 	{
-		string scene = "res://scene/main_menu/main_menu.tscn";
+		var _main = GD.Load<PackedScene>("res://scene/main_menu/main_menu.tscn");
 
-		GetTree().ChangeSceneToFile(scene);
+		GetTree().ChangeSceneToPacked(_main);
 		
 	}
 

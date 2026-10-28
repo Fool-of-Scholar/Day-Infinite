@@ -47,7 +47,16 @@ public partial class Enemy : CharacterBody2D
             if (TargetPlayer == null) return;
         }
 
-        Vector2 direction = (TargetPlayer.GlobalPosition - GlobalPosition).Normalized();
+        Vector2 toPlayer = TargetPlayer.GlobalPosition - GlobalPosition;
+
+        // Distance culling: Despawn regular enemies that are lost far off-screen (> 2400px)
+        if (!IsInGroup("boss") && toPlayer.LengthSquared() > 2400f * 2400f)
+        {
+            QueueFree();
+            return;
+        }
+
+        Vector2 direction = toPlayer.Normalized();
         Velocity = direction * MoveSpeed;
 
         // Sprite faces LEFT in the raw sprite sheet:
@@ -120,16 +129,13 @@ public partial class Enemy : CharacterBody2D
         GetTree().CurrentScene.AddChild(blood);
     }
 
-    protected async void FlashDamage()
+    private Tween _flashTween;
+    protected void FlashDamage()
     {
-        Color original = Modulate;
+        _flashTween?.Kill();
         Modulate = new Color(2.5f, 2.5f, 2.5f); // Bright hit flash
-        await ToSignal(GetTree().CreateTimer(0.07f), SceneTreeTimer.SignalName.Timeout);
-
-        if (IsInstanceValid(this) && CurrentHealth > 0)
-        {
-            Modulate = original;
-        }
+        _flashTween = CreateTween();
+        _flashTween.TweenProperty(this, "modulate", Colors.White, 0.07f);
     }
 
     protected virtual void Die()

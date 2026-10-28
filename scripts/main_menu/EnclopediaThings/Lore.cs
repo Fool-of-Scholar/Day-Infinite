@@ -10,10 +10,11 @@ public partial class Lore : PanelContainer
 
 	private string[] _DetailsFormat = new string[]
 	{
-		"The most common survivors of the city's collapse by these mass producing vermin. These low-tier rats are driven to produce more of their kind.",
-		"They are formed when a dozen or more scuttling rodents devours each other for supremacy. A twitching mass of flesh and bones.",
-		" Mutated vermin that nested too close, born early that supercharged their nervous systems into a fast, speedster that devours their pray.",
-		"The original one, her eggs began the infestation of the mice in the city. A hulking mountain-like rat that crowned itself ruler of the undercity ruins.",
+
+		"This city, a once-thriving metropolis capital now overgrown with mutated flora, populated by a swarm of mice. The city was designed to be a an orchid-filled environmental city",
+		"The mountains and forests in the outskirt, once lush and filled with serenity, now harbors corrupted apex predators out to kill anyone. Inside the thick mist is filled with domestic berserk dogs",
+		"???",
+		"???",
 		"???",
 		"???",
 		"???",
@@ -22,15 +23,16 @@ public partial class Lore : PanelContainer
 	};
 	private string[] _TitleFormat = new string[]
 	{
-		"Basic Mice: Scrap-Tail Vermin",
-		"Clustered Mice: The Wire-Ball Vermin",
-		"Fast Mice: The Squeakers",
-		"Boss Mice: Vermis Prime, The Core Queen",
-		"Dread Wolf-Hound",
-		"Sylvan Stalker (Entrapping Creature)",
-		"Spirit Kappa",
-		"The Blighted Crawler (Basic Creature)",
-		"Primal Warden (Boss)"
+		"Urban Decayed City",
+		"Primal Forest (Bukid)",
+		"???",
+		"???",
+		"???",
+		"???",
+		"???",
+		"???",
+		"???",
+		"???"
 	};
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

@@ -224,8 +224,12 @@ public partial class EnemySpawner2 : Node2D
 
     private void SpawnAtRing(PackedScene scene, int count, bool facesLeft)
     {
+        int currentCount = GetTree().GetNodesInGroup("enemies").Count;
+        if (currentCount >= 90) return;
+
         for (int i = 0; i < count; i++)
         {
+            if (currentCount + i >= 90) break;
             _spawnPath.ProgressRatio = _rng.Randf();
             Node2D enemy = scene.Instantiate<Node2D>();
             enemy.GlobalPosition = _spawnPath.GlobalPosition;

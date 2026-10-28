@@ -272,7 +272,7 @@ public partial class Boss2Enemy : Enemy
         TransitionTo(Boss2State.Dead);
     }
 
-    private async void PlayDeathSequence()
+    private void PlayDeathSequence()
     {
         Velocity = Vector2.Zero;
         Modulate = Colors.White;
@@ -280,22 +280,26 @@ public partial class Boss2Enemy : Enemy
         var col = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
         col?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-        // Brief flash before vanishing
-        for (int i = 0; i < 3; i++)
+        Tween deathTween = CreateTween();
+        if (deathTween == null)
         {
-            Modulate = new Color(2f, 2f, 2f);
-            await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
-            if (!IsInstanceValid(this)) return;
-            Modulate = Colors.White;
-            await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
-            if (!IsInstanceValid(this)) return;
+            PerformWorldCleanse();
+            QueueFree();
+            return;
         }
 
-        PerformWorldCleanse();
+        // Brief flash before vanishing using safe node-bound Tween
+        for (int i = 0; i < 3; i++)
+        {
+            deathTween.TweenProperty(this, "modulate", new Color(2f, 2f, 2f), 0.1f);
+            deathTween.TweenProperty(this, "modulate", Colors.White, 0.1f);
+        }
 
-        
-
-        QueueFree();
+        deathTween.TweenCallback(Callable.From(() =>
+        {
+            PerformWorldCleanse();
+            QueueFree();
+        }));
     }
 private void PerformWorldCleanse()
     {

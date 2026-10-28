@@ -3,45 +3,53 @@ using System;
 
 public partial class MainMenu : Control
 {
+	Button _cheat;
+	Label _scrapsLabel;
+	Label _coinsLabel;
+	private SaveManager _saveManager;
+	private int _currentScraps;
+	private int _currentCoins;
 	AnimationPlayer _animPlayer;
 	Button _btnPlay;
-	AudioStreamPlayer _buttonSounds;
 	private Label _totalScrapsLabel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
+		_cheat = GetNode<Button>("Options/PanelContainer/MarginContainer/VBoxContainer/Button");
+		_scrapsLabel = GetNode<Label>("Currency/MarginContainer/VBoxContainer/Coins/MarginContainer/HBoxContainer/Label");
+		_coinsLabel = GetNode<Label>("Currency/MarginContainer/VBoxContainer/Scraps/MarginContainer/HBoxContainer/Label");
+		_saveManager = GetNode<SaveManager>("/root/SaveManager");
 
-		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		_btnPlay = GetNode<Button>("VBoxContainer/BtnPlay");
-		_btnPlay.Pressed += OnPlayPressed;
-		_totalScrapsLabel = GetNode<Label>("MainMenu/PanelContainer/MarginContainer/VBoxContainer/TotalScrapsLabel");
-		// 1. Display current stored scraps immediately on load
-        if (GameManager.Instance != null)
-        {
-            _totalScrapsLabel.Text = $"Total Scraps: {GameManager.Instance.StoredScraps}";
-
-            // 2. Listen to changes if scraps are updated globally
-            GameManager.Instance.StoredScrapsChanged += OnStoredScrapsChanged;
-        }
-
-	}
-
-	private void OnPlayPressed()
-	{
-		QueueFree(); // Remove the current scene from the tree
-	}
-	private void OnStoredScrapsChanged(int newScrapValue)
-	{
-		_totalScrapsLabel.Text = $"Total Scraps: {newScrapValue}";
-	}
-
-  public override void _ExitTree()
-  {
-    if (GameManager.Instance != null)
+		_cheat.Pressed += () =>
 		{
-			GameManager.Instance.StoredScrapsChanged -= OnStoredScrapsChanged;
-		}
-  }
+			_currentScraps = 1000;
+			_currentCoins = 100000;
+			TriggerSave();
+		};
 
+		TriggerLoad();
+	}
+
+
+	public void TriggerSave()
+	{
+		if (_saveManager != null)
+		{
+			_saveManager.SaveGame(_currentScraps, _currentCoins);
+			GD.Print("Scraps changed!");
+		}
+	}
+	public void TriggerLoad()
+	{
+		if (_saveManager != null)
+		{
+			SaveData loadedData = _saveManager.LoadGame();
+			_currentScraps = loadedData._scrapsTotal;
+			_currentCoins = loadedData._coinsTotal;
+			_scrapsLabel.Text = $"{_currentScraps}";
+			_coinsLabel.Text = $"{_currentCoins}";
+		}
+	}
+
+	
 }

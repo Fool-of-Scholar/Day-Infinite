@@ -222,7 +222,7 @@ public partial class Boss1Enemy : Enemy
         _bloodSprite.Play();
     }
 
-    private async void PlayDeathSequence()
+    private void PlayDeathSequence()
     {
         Velocity = Vector2.Zero;
         Modulate = new Color(1f, 1f, 1f);
@@ -231,9 +231,17 @@ public partial class Boss1Enemy : Enemy
         if (_animSprite != null && _animSprite.SpriteFrames.HasAnimation("die"))
         {
             _animSprite.Play("die");
-            await ToSignal(_animSprite, AnimatedSprite2D.SignalName.AnimationFinished);
+            _animSprite.AnimationFinished += OnDieAnimFinished;
         }
+        else
+        {
+            PerformWorldCleanse();
+            QueueFree();
+        }
+    }
 
+    private void OnDieAnimFinished()
+    {
         PerformWorldCleanse();
         QueueFree();
     }

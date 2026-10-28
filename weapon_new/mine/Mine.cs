@@ -27,7 +27,7 @@ public partial class Mine : Area2D
     private AudioStreamPlayer _warningAudio;
     private AudioStreamPlayer _explodeAudio;
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         _areaexplosion = GetNode<Area2D>("AreaExplosion");
         _animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -37,14 +37,14 @@ public partial class Mine : Area2D
         BodyEntered += OnBodyEntered;
         AreaEntered += OnAreaEntered;
 
-        // NEW: 10-Second Despawn Timer
-        await ToSignal(GetTree().CreateTimer(12.0f), SceneTreeTimer.SignalName.Timeout);  // Balanced: was 10s
-        
-        // Only delete it if it's still alive and hasn't started exploding/sucking
-        if (!_hasExploded && IsInstanceValid(this))
+        // 12-Second Despawn Timer with safe node-bound check
+        GetTree().CreateTimer(12.0f).Timeout += () =>
         {
-            QueueFree();
-        }
+            if (!_hasExploded && IsInstanceValid(this))
+            {
+                QueueFree();
+            }
+        };
     }
 
     public override void _PhysicsProcess(double delta)
@@ -101,20 +101,21 @@ public partial class Mine : Area2D
         }
     }
 
-    private async void StartSuck(Enemy trigger)
+    private void StartSuck(Enemy trigger)
     {
         _isSucking = true;
         _warningAudio?.Play();
-
-        // Play the warning animation!
         _animPlayer.Play("warning");
-        
-        // Wait for the suck duration while _PhysicsProcess aggressively pulls them in
-        await ToSignal(GetTree().CreateTimer(SuckDuration), SceneTreeTimer.SignalName.Timeout);
 
-        _isSucking = false;
-        _warningAudio?.Stop();
-        Explode(trigger);
+        GetTree().CreateTimer(SuckDuration).Timeout += () =>
+        {
+            if (IsInstanceValid(this))
+            {
+                _isSucking = false;
+                _warningAudio?.Stop();
+                Explode(trigger);
+            }
+        };
     }
 
     private void Explode(Enemy triggerEnemy)
@@ -155,7 +156,7 @@ public partial class Mine : Area2D
             SpawnDuplicates();
         }
 
-        if (_explodeAudio != null && _explodeAudio.Playing)
+        if (_explodeAudio != null && _explodeAudio.Playing && _explodeAudio.GetParent() == this)
         {
             _explodeAudio.Reparent(GetTree().CurrentScene);
             _explodeAudio.Finished += () => _explodeAudio.QueueFree();

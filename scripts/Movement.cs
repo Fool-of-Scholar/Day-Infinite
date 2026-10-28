@@ -56,6 +56,7 @@ public partial class Movement : CharacterBody2D
     private Sprite2D _walkSprite;
 
     private Vector2 _lastFacingDirection = Vector2.Down;
+    private string _currentFacingSuffix = "down";
 
     public override void _Ready()
     {
@@ -171,11 +172,12 @@ public partial class Movement : CharacterBody2D
 
         // --- 1. Movement Input & Footsteps ---
         Vector2 inputVector = Input.GetVector("left", "right", "upward", "downward");
+        float deadzone = 0.15f;
 
-        if (inputVector != Vector2.Zero)
+        if (inputVector.Length() > deadzone)
         {
             Velocity = inputVector * Speed;
-            _lastFacingDirection = inputVector;
+            _lastFacingDirection = inputVector.Normalized();
 
             // Footstep audio timer logic
             _footstepTimer += (float)delta;
@@ -228,36 +230,57 @@ public partial class Movement : CharacterBody2D
 
     private void _UpdateAnimation()
     {
-        bool isMoving = Velocity != Vector2.Zero;
+        bool isMoving = Velocity.LengthSquared() > 1.0f;
         string animBase = isMoving ? "walk" : "idle";
 
         // 1. Toggle active sprite visibility
         _walkSprite.Visible = isMoving;
         _idleSprite.Visible = !isMoving;
 
-        // 2. Determine facing suffix and horizontal flip
-        string directionSuffix;
-        bool flipH = false;
+        // 2. Determine facing suffix with directional hysteresis
+        // Hysteresis prevents diagonal joystick wobble from flipping between side and up/down every frame
+        float absX = MathF.Abs(_lastFacingDirection.X);
+        float absY = MathF.Abs(_lastFacingDirection.Y);
 
-        if (MathF.Abs(_lastFacingDirection.X) >= MathF.Abs(_lastFacingDirection.Y))
+        if (_currentFacingSuffix == "side")
         {
-            directionSuffix = "side";
-            flipH = _lastFacingDirection.X < 0;
+            // Stay in side unless vertical clearly dominates
+            if (absY > absX * 1.35f)
+            {
+                _currentFacingSuffix = _lastFacingDirection.Y < 0 ? "up" : "down";
+            }
         }
         else
         {
-            directionSuffix = _lastFacingDirection.Y < 0 ? "up" : "down";
+            // In up/down: only switch to side if horizontal clearly dominates
+            if (absX > absY * 1.35f)
+            {
+                _currentFacingSuffix = "side";
+            }
+            else
+            {
+                _currentFacingSuffix = _lastFacingDirection.Y < 0 ? "up" : "down";
+            }
+        }
+
+        bool flipH = false;
+        if (_currentFacingSuffix == "side")
+        {
+            flipH = _lastFacingDirection.X < 0;
         }
 
         // 3. Apply flip to both sprites
         _idleSprite.FlipH = flipH;
         _walkSprite.FlipH = flipH;
 
-        // 4. Play matching animation safely
-        string animName = animBase + "_" + directionSuffix;
+        // 4. Play matching animation smoothly without restarting if already playing
+        string animName = animBase + "_" + _currentFacingSuffix;
         if (_animationPlayer.HasAnimation(animName))
         {
-            _animationPlayer.Play(animName);
+            if (_animationPlayer.CurrentAnimation != animName)
+            {
+                _animationPlayer.Play(animName);
+            }
         }
     }
 

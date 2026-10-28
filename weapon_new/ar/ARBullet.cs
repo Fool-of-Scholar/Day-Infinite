@@ -73,13 +73,13 @@ public partial class ARBullet : Area2D
             enemy.TakeDamage(Damage);
             SpawnHitEffect();
 
-            _pierceCount++;
-        }
+            // Scatter triggers only once when first hitting an enemy
+            if (CanScatter && !IsScatterBullet)
+            {
+                SpawnScatter();
+            }
 
-        // Scatter triggers EVERY frame while inside an enemy's hitbox
-        if (CanScatter && !IsScatterBullet)
-        {
-            SpawnScatter();
+            _pierceCount++;
         }
 
         // Destroy main bullet only once max pierce limit is reached

@@ -16,7 +16,10 @@ public partial class WorldGemSpawner : Node
     [Export] public float OffScreenMinRadius { get; set; } = 600.0f; // Ongoing off-screen minimum distance
     [Export] public float OffScreenMaxRadius { get; set; } = 1300.0f;// Ongoing off-screen maximum distance
 
+    [Export] public int MaxActiveGems { get; set; } = 150;
+
     private float _timer = 0.0f;
+    private float _cullTimer = 0.0f;
     private float _elapsedTime = 0.0f;
     private Node2D _player;
 
@@ -56,15 +59,34 @@ public partial class WorldGemSpawner : Node
         if (_player == null || !IsInstanceValid(_player))
         {
             FindPlayer();
-            return;
+            if (_player == null) return;
         }
 
         _elapsedTime += (float)delta;
         _timer += (float)delta;
+        _cullTimer += (float)delta;
+
+        // Clean up gems left behind far away (> 2000px) when exceeding cap
+        if (_cullTimer >= 2.0f)
+        {
+            _cullTimer = 0.0f;
+            var gems = GetTree().GetNodesInGroup("gems");
+            if (gems.Count > MaxActiveGems)
+            {
+                foreach (Node node in gems)
+                {
+                    if (node is Node2D gemNode && IsInstanceValid(gemNode))
+                    {
+                        if (gemNode.GlobalPosition.DistanceSquaredTo(_player.GlobalPosition) > 2000f * 2000f)
+                        {
+                            gemNode.QueueFree();
+                        }
+                    }
+                }
+            }
+        }
 
         // --- FASTER FREQUENCY SCALING ---
-        // Multiplier increased to 0.02f so the spawn rate tightens up noticeably 
-        // and reaches max frequency within the first couple of minutes of play.
         float scalingFactor = _elapsedTime * 0.02f; 
         float currentInterval = Mathf.Max(MinSpawnInterval, BaseSpawnInterval - scalingFactor);
 
@@ -72,8 +94,11 @@ public partial class WorldGemSpawner : Node
         {
             _timer = 0.0f;
             
-            // Step 2: All ongoing spawns happen strictly OFF-SCREEN
-            SpawnGemAtRange(OffScreenMinRadius, OffScreenMaxRadius);
+            // Only spawn if under the active gem budget
+            if (GetTree().GetNodesInGroup("gems").Count < MaxActiveGems)
+            {
+                SpawnGemAtRange(OffScreenMinRadius, OffScreenMaxRadius);
+            }
         }
     }
 

@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public partial class WeaponManager : Node2D
 {
+    SaveManager _saveManager;
+    private int _weaponPickInt;
+    private PackedScene[] _weaponPick = new PackedScene[]
+    {
+        GD.Load<PackedScene>("res://weapon_new/ar/ar_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/rocket/rocket_bullet.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/tesla/tesla_burst.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/mine/mine.tscn"),
+        GD.Load<PackedScene>("res://weapon_new/force field/force_field.tscn"),
+    };
+
     [Export] public PackedScene GunVisualScene { get; set; } 
     
     // Default starting bullet (AR)
@@ -20,6 +31,7 @@ public partial class WeaponManager : Node2D
         public int Stage = 1; // Tracks the upgrade level for this specific weapon
         public PackedScene BulletScene;
         public Timer FireTimer;
+        public float BaseFireRate = 1.0f;
     }
 
     public List<WeaponSlot> EquippedWeapons = new List<WeaponSlot>();
@@ -30,8 +42,8 @@ public partial class WeaponManager : Node2D
         { "AR", "res://weapon_new/ar/ar_bullet.tscn" },
         { "Mine", "res://weapon_new/mine/mine.tscn" },
         { "Rocket", "res://weapon_new/rocket/rocket_bullet.tscn" },
-        {"Tesla", "res://weapon_new/tesla/tesla_burst.tscn"},
-        { "ForceField", "res://weapon_new/force field/force_field.tscn" } // You can create this tonight!
+        { "Tesla", "res://weapon_new/tesla/tesla_burst.tscn" },
+        { "ForceField", "res://weapon_new/force field/force_field.tscn" }
     };
 
     // --- GLOBAL STAT TRACKERS ---
@@ -46,6 +58,18 @@ public partial class WeaponManager : Node2D
 
     public override void _Ready()
     {
+        _saveManager = GetNode<SaveManager>("/root/SaveManager");
+        TriggerLoad();
+
+        if (_weaponPickInt < 1 || _weaponPickInt > 5)
+        {
+            _weaponPickInt = 1;
+        }
+
+        string[] weaponIds = new string[] { "AR", "Rocket", "Tesla", "Mine", "ForceField" };
+        string startingWeaponId = weaponIds[_weaponPickInt - 1];
+        DefaultBulletScene = _weaponPick[_weaponPickInt - 1];
+
         _gunContainer = GetNodeOrNull<Node2D>("Gun");
         if (_gunContainer == null) {
             _gunContainer = new Node2D();
@@ -66,19 +90,8 @@ public partial class WeaponManager : Node2D
             _gunContainer.AddChild(visual);
         }
 
-        // --- Bullet TESTING ---
-        if (DefaultBulletScene != null)
-        {
-            EquipNewWeapon("AR", DefaultBulletScene);
-        }
-        else 
-        {
-            EquipNewWeapon("AR", GD.Load<PackedScene>(WeaponPaths["AR"]));
-        }
-
-        // --- INSTANTLY EQUIP FORCE FIELD ---
-        // Comment Bullet TESTING first before uncommenting this
-        // EquipNewWeapon("ForceField");
+        // Equip the selected starting weapon with its true ID
+        EquipNewWeapon(startingWeaponId, DefaultBulletScene);
     }
 
     // --- WEAPON INVENTORY LOGIC ---
@@ -131,6 +144,7 @@ public partial class WeaponManager : Node2D
         newSlot.FireTimer = t;
 
         float baseInterval = GetIntervalFromBullet(bulletScene);
+        newSlot.BaseFireRate = baseInterval;
         t.WaitTime = baseInterval * FireRateMultiplier;
         
         t.Timeout += () => FireWeapon(newSlot);
@@ -194,8 +208,8 @@ public partial class WeaponManager : Node2D
         if (slot.BulletScene == null) return;
         
         // Keep fire rate dynamically updated if the player got global FireRate upgrades
-        float expectedInterval = GetIntervalFromBullet(slot.BulletScene) * FireRateMultiplier;
-        if (Mathf.Abs(slot.FireTimer.WaitTime - expectedInterval) > 0.01f)
+        float expectedInterval = slot.BaseFireRate * FireRateMultiplier;
+        if (slot.FireTimer != null && Mathf.Abs(slot.FireTimer.WaitTime - expectedInterval) > 0.001f)
         {
             slot.FireTimer.WaitTime = expectedInterval;
         }
@@ -337,6 +351,13 @@ public partial class WeaponManager : Node2D
     public void UpgradeFireRate()
     {
         FireRateMultiplier *= 0.80f; // Balanced: reduces interval by 20% (was 30%) — less explosive per upgrade
+        foreach (var slot in EquippedWeapons)
+        {
+            if (slot.FireTimer != null)
+            {
+                slot.FireTimer.WaitTime = slot.BaseFireRate * FireRateMultiplier;
+            }
+        }
         GD.Print($"Global Fire Rate Upgraded! Multiplier: {FireRateMultiplier}");
     }
 
@@ -350,5 +371,14 @@ public partial class WeaponManager : Node2D
     {
         BonusDamage += 15; // Balanced: was +20 — more gradual damage scaling
         GD.Print($"Global Damage Upgraded! Bonus is now +{BonusDamage}");
+    }
+
+    public void TriggerLoad()
+    {
+        if (_saveManager != null)
+		{
+            SaveData loadedData = _saveManager.LoadGame();
+            _weaponPickInt = loadedData._weaponPick;
+        }
     }
 }

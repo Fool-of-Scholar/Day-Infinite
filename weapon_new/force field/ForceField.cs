@@ -41,9 +41,11 @@ public partial class ForceField : Area2D
     _cooldownTimer.OneShot = true;
     _cooldownTimer.Timeout += Reactivate;
 
-    if (RadiusMultiplier != 1.0f && _collider.Shape is CircleShape2D innerCircle)
+    if (RadiusMultiplier != 1.0f && _collider?.Shape is CircleShape2D innerCircle)
     {
-        innerCircle.Radius *= RadiusMultiplier;
+        var uniqueCircle = (CircleShape2D)innerCircle.Duplicate();
+        uniqueCircle.Radius *= RadiusMultiplier;
+        _collider.Shape = uniqueCircle;
     }
 
     BodyEntered += OnBodyEntered;
@@ -154,8 +156,8 @@ public override void _Process(double delta)
         _outerRing.AreaEntered += OnOuterRingAreaEntered;
         _outerRing.AreaExited += OnOuterRingAreaExited;
 
-        GetParent().AddChild(_outerRing);
-        _outerRing.GlobalPosition = GlobalPosition;
+        AddChild(_outerRing);
+        _outerRing.Position = Vector2.Zero;
     }
 
     private void OnOuterRingBodyEntered(Node2D body)

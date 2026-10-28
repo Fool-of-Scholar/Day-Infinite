@@ -59,8 +59,7 @@ public partial class TeslaBurst : Area2D
         // Fade out
         Tween fadeTween = CreateTween();
         fadeTween.TweenProperty(this, "modulate:a", 0.0f, 0.5f);
-        await ToSignal(fadeTween, Tween.SignalName.Finished);
-        QueueFree();
+        fadeTween.TweenCallback(Callable.From(QueueFree));
     }
 
     private void ChainLightning(Enemy from, int remainingHops, List<Enemy> alreadyHit)
@@ -111,7 +110,7 @@ public partial class TeslaBurst : Area2D
         }
     }
 
-    private async void SpawnChainEffect(Vector2 from, Vector2 to)
+    private void SpawnChainEffect(Vector2 from, Vector2 to)
     {
         // 1. Create a line dynamically
         Line2D arc = new Line2D();
@@ -133,10 +132,9 @@ public partial class TeslaBurst : Area2D
         arc.Width = 3.0f;
         GetTree().CurrentScene.AddChild(arc);
 
-        // 6. Fade it out quickly in 0.2 seconds
+        // 6. Fade it out quickly in 0.2 seconds and auto-free safely
         Tween fade = CreateTween();
         fade.TweenProperty(arc, "modulate:a", 0.0f, 0.2f);
-        await ToSignal(fade, Tween.SignalName.Finished);
-        arc.QueueFree();
+        fade.TweenCallback(Callable.From(arc.QueueFree));
     }
 }

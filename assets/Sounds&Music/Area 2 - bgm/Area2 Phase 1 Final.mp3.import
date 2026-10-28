@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bpwnl4nae1vpo"
+path="res://.godot/imported/Area2 Phase 1 Final.mp3-a7eb1779e00d0cbfd8aa763f5833c5da.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds&Music/Area 2 - bgm/Area2 Phase 1 Final.mp3"
+dest_files=["res://.godot/imported/Area2 Phase 1 Final.mp3-a7eb1779e00d0cbfd8aa763f5833c5da.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

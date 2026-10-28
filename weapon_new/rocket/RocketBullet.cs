@@ -43,10 +43,12 @@ public partial class RocketBullet : Node2D
         _shotAudio?.Play();
 
 
-        // Apply AOE size scaling from Stage 2
-        if (AoeRadiusMultiplier != 1.0f && _explodeShape.Shape is CircleShape2D circle)
+        // Apply AOE size scaling from Stage 2 with a unique duplicated shape
+        if (AoeRadiusMultiplier != 1.0f && _explodeShape?.Shape is CircleShape2D circle)
         {
-            circle.Radius *= AoeRadiusMultiplier;
+            var uniqueCircle = (CircleShape2D)circle.Duplicate();
+            uniqueCircle.Radius *= AoeRadiusMultiplier;
+            _explodeShape.Shape = uniqueCircle;
         }
 
         _animPlayer.Play("shot");
@@ -59,6 +61,11 @@ public partial class RocketBullet : Node2D
     {
         if (!_hasExploded)
         {
+            // Check for immediate point-blank overlap (e.g. enemy touching player when fired)
+            CheckDirectImpact();
+
+            if (_hasExploded) return;
+
             // Calculate how far we move this frame
             float moveStep = Speed * (float)delta; 
             
@@ -104,6 +111,29 @@ public partial class RocketBullet : Node2D
         }
     }
 
+    private void CheckDirectImpact()
+    {
+        if (_hasExploded) return;
+
+        foreach (Node2D body in _shotArea.GetOverlappingBodies())
+        {
+            if (body is Enemy)
+            {
+                TriggerExplosion();
+                return;
+            }
+        }
+
+        foreach (Area2D area in _shotArea.GetOverlappingAreas())
+        {
+            if (area.GetParent() is Enemy)
+            {
+                TriggerExplosion();
+                return;
+            }
+        }
+    }
+
     private void OnShotAreaEntered(Area2D area)
     {
         if (!_hasExploded && area.GetParent() is Enemy) TriggerExplosion();
@@ -134,31 +164,54 @@ public partial class RocketBullet : Node2D
         }
     }
 
-    private async void StartSuck()
+    private void StartSuck()
     {
         _isSucking = true;
         _suckAudio?.Play();
-        // Wait for the suck duration (the black hole keeps spinning during this time)
-        await ToSignal(GetTree().CreateTimer(SuckDuration), SceneTreeTimer.SignalName.Timeout);
 
-        _isSucking = false;
-        _suckAudio?.Stop();
+        GetTree().CreateTimer(SuckDuration).Timeout += () =>
+        {
+            if (IsInstanceValid(this))
+            {
+                _isSucking = false;
+                _suckAudio?.Stop();
 
-        // NOW we play the explosion animation & audio
-        _explodeAudio?.Play();
-        _animPlayer.Play("explode");
+                _explodeAudio?.Play();
+                _animPlayer.Play("explode");
 
-        // Deal damage and wait for the 0.1s animation to finish before destroying the node
-        DealDamage();
-        WaitAndFree();
+                DealDamage();
+                WaitAndFree();
+            }
+        };
     }
 
     private void DealDamage()
     {
+        HashSet<ulong> damaged = new HashSet<ulong>();
+
+        // 1. Instant distance calculation against active enemies.
+        // Guarantees point-blank / frame-0 hits register even if Area2D broadphase hasn't updated yet!
+        float radius = (_explodeShape?.Shape is CircleShape2D circle) ? circle.Radius : 220f;
+        float effectiveRadius = radius * GlobalScale.X;
+
+        var enemies = GetTree().GetNodesInGroup("enemies");
+        foreach (Node node in enemies)
+        {
+            if (node is Enemy enemy && IsInstanceValid(enemy))
+            {
+                if (GlobalPosition.DistanceTo(enemy.GlobalPosition) <= effectiveRadius)
+                {
+                    if (damaged.Add(enemy.GetInstanceId()))
+                    {
+                        enemy.TakeDamage(Damage);
+                    }
+                }
+            }
+        }
+
+        // 2. Also check Area2D overlaps for any non-standard or hurtbox children
         var overlappingBodies = _explodeArea.GetOverlappingBodies();
         var overlappingAreas = _explodeArea.GetOverlappingAreas();
-
-        HashSet<ulong> damaged = new HashSet<ulong>();
 
         foreach (Node2D body in overlappingBodies)
         {
@@ -172,14 +225,24 @@ public partial class RocketBullet : Node2D
         }
     }
 
-    private async void WaitAndFree()
+    private void WaitAndFree()
     {
-        await ToSignal(_animPlayer, AnimationPlayer.SignalName.AnimationFinished);
-        if (_explodeAudio != null && _explodeAudio.Playing)
+        void DoFree()
         {
-            _explodeAudio.Reparent(GetTree().CurrentScene);
-            _explodeAudio.Finished += () => _explodeAudio.QueueFree();
+            if (_explodeAudio != null && _explodeAudio.Playing && _explodeAudio.GetParent() == this)
+            {
+                _explodeAudio.Reparent(GetTree().CurrentScene);
+                _explodeAudio.Finished += () => _explodeAudio.QueueFree();
+            }
+            if (IsInstanceValid(this))
+            {
+                QueueFree();
+            }
         }
-        QueueFree();
+
+        _animPlayer.AnimationFinished += (anim) => DoFree();
+
+        // Safety fallback timer
+        GetTree().CreateTimer(0.35f).Timeout += () => DoFree();
     }
 }

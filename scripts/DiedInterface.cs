@@ -12,8 +12,8 @@ public partial class DiedInterface : Control
 	public override void _Ready()
 	{
 		_buttonSounds = GetNode<AudioStreamPlayer>("ButtonSound");
-		_btnRestart = GetNode<Button>("PanelContainer/HBoxContainer/Retry");
-		_mainMenu = GetNode<Button>("PanelContainer/HBoxContainer/MainMenu");
+		_btnRestart = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/Retry");
+		_mainMenu = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/MainMenu");
 		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		_btnRestart.Pressed += OnRestartPressed;
