@@ -3,6 +3,7 @@ using System;
 
 public partial class AreaChooser : Control
 {
+	private string _sceneString;
 	Label _scrapsLabel;
 	Label _coinsLabel;
 	private SaveManager _saveManager;
@@ -111,15 +112,19 @@ public partial class AreaChooser : Control
 	private void StartGame()
 	{
 		_buttonSounds.Play();
-		GetTree().ChangeSceneToFile(_areaScene[count - 1]);
+		_sceneString = _areaScene[count - 1];
+		TriggerSave(_sceneString);
+		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 	}
 
 	private void BackToWeapons()
 	{
 		_buttonSounds.Play();
 		_animPlayer.PlayBackwards("fromWeapons");
-
-		_animPlayer.AnimationFinished += (Back) => GetTree().ChangeSceneToFile("res://scene/main_menu/weapon_chooser.tscn");
+		_sceneString = "res://scene/main_menu/weapon_chooser.tscn";
+		TriggerSave(_sceneString);
+		_animPlayer.AnimationFinished += (Back) => CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
+		
 		
 	}
 
@@ -178,12 +183,13 @@ public partial class AreaChooser : Control
 		}
 	}
 
-	public void TriggerSave()
+	public void TriggerSave(string scene)
 	{
 		if (_saveManager != null)
 		{
 			_saveManager.SaveGame(_currentScraps, _currentCoins);
 			GD.Print("Scraps changed!");
+			_saveManager.SavedArea(scene);
 		}
 	}
 	public void TriggerLoad()
@@ -197,4 +203,16 @@ public partial class AreaChooser : Control
 			_coinsLabel.Text = $"{_currentCoins}";
 		}
 	}
+	private void ChangeSceneSafe(string path)
+    {
+        var _scene = GD.Load<PackedScene>(path);
+        if (_scene != null)
+        {
+            GetTree().ChangeSceneToPacked(_scene);
+        }
+        else
+        {
+            GD.PrintErr($"Failed to load: {path}");
+        }
+    }
 }

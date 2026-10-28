@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b84jsdqrnb43g"]
+
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="1_4xgk1"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1326209846]
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="." unique_id=889128708]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"upward"
+action_down = &"downward"
+visibility_mode = 1
+
+[node name="Button" type="Button" parent="." unique_id=892246379]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_4xgk1")
+theme_override_font_sizes/font_size = 48
+text = "Pause"

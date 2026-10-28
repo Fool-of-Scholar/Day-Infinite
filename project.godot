@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 AudioManager="*uid://cceouxtmkycir"
 SaveManager="*uid://2h78588pdw8e"
+InputManager="*uid://cq3pr13aiked2"
 
 [display]
 
@@ -92,3 +93,4 @@ pointing/emulate_touch_from_mouse=true
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true

@@ -387,6 +387,7 @@ BossScene = ExtResource("11_boss")
 
 [node name="UpgradeMenu" parent="Hud" unique_id=643145189 instance=ExtResource("5_upgr")]
 visible = false
+z_index = 2
 
 [node name="PauseMenu" parent="Hud" unique_id=2057780145 instance=ExtResource("6_paus")]
 z_index = 2
@@ -397,6 +398,7 @@ offset_bottom = 800.0
 visible = false
 
 [node name="Panel" type="Panel" parent="Hud" unique_id=945504019]
+z_as_relative = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -423,6 +425,27 @@ Urban Decayed City"
 label_settings = SubResource("LabelSettings_1vivr")
 horizontal_alignment = 1
 
+[node name="VirtualJoystick" type="VirtualJoystick" parent="Hud" unique_id=1738820516]
+z_index = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"upward"
+action_down = &"downward"
+visibility_mode = 1
+
+[node name="PauseButton" type="Button" parent="Hud" unique_id=1070408285]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("19_1wt8d")
+theme_override_font_sizes/font_size = 48
+text = "Pause"
+
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=1376239656]
 
 [node name="WorldGemSpawner" type="Node" parent="." unique_id=566826345]
@@ -444,12 +467,11 @@ autoplay = &"StartA"
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_hud")
 
-[node name="Area1Audio" type="Node" parent="." unique_id=2082456077 node_paths=PackedStringArray("MusicPlayer")]
+[node name="Area1Audio" type="Node" parent="." unique_id=2082456077]
 script = ExtResource("24_yv082")
 Phase1 = ExtResource("25_p1")
 Phase2 = ExtResource("26_p2")
 Phase3 = ExtResource("27_p3")
-MusicPlayer = NodePath("")
 
 [editable path="Hud/UpgradeMenu"]
 [editable path="Hud/PauseMenu"]

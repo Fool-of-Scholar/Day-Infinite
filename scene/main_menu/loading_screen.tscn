@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cjdg6lpw8w1cc"]
+
+[ext_resource type="Script" uid="uid://1rnyd7sid0td" path="res://scripts/main_menu/LoadingScreen.cs" id="1_5ce5q"]
+[ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="1_bir3n"]
+[ext_resource type="Texture2D" uid="uid://b5en7pyo033v" path="res://assets/main_menu/buttons.png" id="2_tjpps"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="3_tjpps"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vivr"]
+font = ExtResource("3_tjpps")
+font_size = 64
+
+[node name="Loading Screen" type="Control" unique_id=1118804353]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ce5q")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1530438909]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_bir3n")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=638852592]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("2_tjpps")
+
+[node name="Label" type="Label" parent="." unique_id=1539685959]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading.."
+label_settings = SubResource("LabelSettings_1vivr")

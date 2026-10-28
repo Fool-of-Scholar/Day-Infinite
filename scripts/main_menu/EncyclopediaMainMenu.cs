@@ -11,6 +11,7 @@ public partial class EncyclopediaMainMenu : Button
 		_buttonSounds = GetNode<AudioStreamPlayer>("../../../../ButtonSound");
 
 
+
 		this.Pressed += EnterAnim;
 	}
 
@@ -24,7 +25,8 @@ public partial class EncyclopediaMainMenu : Button
 
 	private void EnterEncyclopedia(StringName Play)
 	{
+		var _ency = GD.Load<PackedScene>("res://scene/main_menu/encyclopedia.tscn");
 		GD.Print("go to Encyclopedia");
-		GetTree().ChangeSceneToFile("res://scene/main_menu/encyclopedia.tscn");
+		GetTree().ChangeSceneToPacked(_ency);
 	}
 }
