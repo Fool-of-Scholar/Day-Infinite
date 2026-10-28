@@ -3,7 +3,6 @@ using System;
 
 public partial class PauseMenu : Control
 {  
-    HUD _hud;
     SaveManager _saveManager;
     private string _sceneString;
     private AnimationPlayer _pauseOpenAnimation;
@@ -17,7 +16,6 @@ public partial class PauseMenu : Control
     private int _sfxBusIndex;
     public override void _Ready()
     {
-        _hud = GetNode<HUD>("../../Hud");
         _saveManager = GetNode<SaveManager>("/root/SaveManager");
         // 1. Safe Parent Reference Check
         // This looks upward to find your Hud node, then down into its AnimationPlayer
@@ -85,8 +83,6 @@ public partial class PauseMenu : Control
         _buttonSounds.Play();
         GetTree().Paused = false;
         _pauseOpenAnimation?.Play("pause_out");
-        _hud._pauseButton.Visible = true;
-        _hud._joystick.Visible = true;
     }
 
     private void OnQuitPressed()

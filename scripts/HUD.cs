@@ -7,8 +7,6 @@ using System.Linq;
 public partial class HUD : CanvasLayer
 {
         //android
-    public VirtualJoystick _joystick;
-    public Button _pauseButton;
     EnemySpawner _enemySpawner;
 
     private int _weaponPickInt;
@@ -73,8 +71,6 @@ public partial class HUD : CanvasLayer
     public override void _Ready()
     {
         GD.Print("--- HUD SCRIPT INITIALIZING ---");
-        _joystick = GetNodeOrNull<VirtualJoystick>("VirtualJoystick");
-        _pauseButton = GetNodeOrNull<Button>("PauseButton");
 
         _levelLabelP = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Lvl");
         _healthLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Health2");
@@ -120,37 +116,6 @@ public partial class HUD : CanvasLayer
 
         if (_upgradeMenu != null) _upgradeMenu.Visible = false;
 
-
-        //Android
-        _pauseButton.Pressed += () =>
-        {
-            if (_isPaused == false && _openAnimation != null)
-            {
-                TriggerSave();
-                GetTree().Paused = true;
-                _isPaused = true;
-                _openAnimation.Play("pause_in");
-
-                    _levelLabelP.Text = $"Level: {_player.CurrentLevel}";
-                    _healthLabel.Text = $"Health: {_player.CurrentHealth}/{_player.MaxHealth}";
-                    _damageLabel.Text = $"Damage: {_statsUpgradeTimes[4]}";
-                    _firerateLabel.Text = $"Fire Rate: {_statsUpgradeTimes[1]}";
-                    _projectileLabel.Text = $"Projectile: {_statsUpgradeTimes[3]}";
-                    _speedLabel.Text = $"Speed: {_statsUpgradeTimes[2]}";
-
-                    _pauseButton.Visible = false;
-                    _joystick.Visible = false;
-            }
-            else if (_isPaused && _openAnimation != null)
-            {
-                
-                _isPaused = false;
-                _openAnimation.Play("pause_out");
-                GetTree().Paused = false; 
-            }
-
-
-        };
 
         // Use lowercase "player" or look for sibling "../Player"
     _player = (GetTree().GetFirstNodeInGroup("player") as Movement) 
