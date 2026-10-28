@@ -438,6 +438,13 @@ action_up = &"upward"
 action_down = &"downward"
 visibility_mode = 1
 
+[node name="PauseButton" type="Button" parent="Hud" unique_id=207483817]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("16_2ndb5")
+theme_override_font_sizes/font_size = 48
+text = "Pause"
+
 [node name="AudioStreamPlayer" parent="." unique_id=10090 instance=ExtResource("5_a2")]
 volume_db = -10.0
 
