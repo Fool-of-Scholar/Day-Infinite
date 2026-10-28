@@ -15,6 +15,10 @@
 [ext_resource type="Animation" uid="uid://citi36ru4bfbg" path="res://scene/main_menu/animations_draft/upgrade_in.res" id="11_a2"]
 [ext_resource type="Animation" uid="uid://b1juubog28320" path="res://scene/main_menu/animations_draft/upgrade_out.res" id="12_a2"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="16_2ndb5"]
+[ext_resource type="Script" uid="uid://wawf7mtctb26" path="res://scripts/AreaAudioStreamPlayer.cs" id="22_08bpy"]
+[ext_resource type="AudioStream" uid="uid://b0c2oyha4tlat" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 1 Final.mp3" id="23_n8ljb"]
+[ext_resource type="AudioStream" uid="uid://dc4ctr3iyxpop" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Music Phase 2 Final.mp3" id="24_p7xs5"]
+[ext_resource type="AudioStream" uid="uid://bbvkat4x0cpj1" path="res://assets/Sounds&Music/Area 1 Final Export/Area1 Boss Music FInal.mp3" id="25_06ro0"]
 [ext_resource type="Texture2D" uid="uid://c1m3o0sshd6k" path="res://assets/Environment/Area 2 Environment/dirt.png" id="e2_dirt"]
 [ext_resource type="Script" uid="uid://dsp2sxle1tsqd" path="res://scripts/Area2EnvironmentSpawner.cs" id="e2_env_spawner"]
 [ext_resource type="Texture2D" uid="uid://cey0yv30j1l7n" path="res://assets/Environment/Area 2 Environment/Grass.png" id="e2_grass"]
@@ -384,6 +388,7 @@ texture_scale = 30.47
 
 [node name="UpgradeMenu" parent="Hud" unique_id=10081 instance=ExtResource("6_a2")]
 visible = false
+z_index = 1
 
 [node name="PauseMenu" parent="Hud" unique_id=10082 instance=ExtResource("7_a2")]
 offset_top = 800.0
@@ -393,6 +398,7 @@ offset_bottom = 800.0
 visible = false
 
 [node name="Panel" type="Panel" parent="Hud" unique_id=1984028724]
+z_index = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -442,6 +448,12 @@ unique_name_in_owner = true
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_2ndb5")
 autoplay = &"StartA"
+
+[node name="Area1Audio" type="Node" parent="." unique_id=529110978]
+script = ExtResource("22_08bpy")
+Phase1 = ExtResource("23_n8ljb")
+Phase2 = ExtResource("24_p7xs5")
+Phase3 = ExtResource("25_06ro0")
 
 [editable path="Hud/UpgradeMenu"]
 [editable path="Hud/PauseMenu"]

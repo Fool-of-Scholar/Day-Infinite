@@ -49,6 +49,18 @@ public partial class SaveManager : Node
 		}
 	}
 
+	public void SavedArea(string area)
+	{
+		SaveData currentData = LoadGame();
+		currentData._areaChoosed = area;
+
+		Error error = ResourceSaver.Save(currentData, SavePath);
+		if (error == Error.Ok)
+		{
+			GD.Print("Game saved!");
+		}
+	}
+
 	public SaveData LoadGame()
 	{
 		if (!FileAccess.FileExists(SavePath))

@@ -8,4 +8,5 @@ public partial class SaveData : Resource
 	[Export] public Godot.Collections.Array<int> _statsRepeatUpgrades;
 	[Export] public int _coinsTotal;
 	[Export] public int _weaponPick;
+	[Export] public string _areaChoosed;
 }

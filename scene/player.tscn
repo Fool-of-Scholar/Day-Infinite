@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dacuxowwvrn48"]
 
-[ext_resource type="Script" uid="uid://gfacnone1jpb" path="res://scripts/movement.cs" id="1_hjaqi"]
+[ext_resource type="Script" uid="uid://gfacnone1jpb" path="res://scripts/Movement.cs" id="1_hjaqi"]
 [ext_resource type="PackedScene" uid="uid://tubmoxwhjavc" path="res://scene/player_death_vfx.tscn" id="2_g2vtq"]
 [ext_resource type="Texture2D" uid="uid://sb8185mrb67f" path="res://assets/Movement/Running 1.png" id="3_g2vtq"]
 [ext_resource type="Texture2D" uid="uid://bauvioqd2lypb" path="res://assets/Movement/Idle All SPriteSheet.png" id="3_hp4bs"]

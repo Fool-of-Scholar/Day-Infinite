@@ -5,6 +5,7 @@ using System.Linq;
 public partial class WeaponChooser : Control
 {
 	Button[] _statsButtons;
+	private string _sceneString;
 	private int[] _upgradeTimesStats = new int[]
 	{
 		0,
@@ -106,8 +107,8 @@ public partial class WeaponChooser : Control
 	private String _weaponStringPrev = "";
 	private String _weaponStringNext = "";
 
-	private string BackScene = "res://scene/main_menu/main_menu.tscn";
-	private string AreaChooserScene = "res://scene/main_menu/area_chooser.tscn";
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -220,20 +221,24 @@ public partial class WeaponChooser : Control
 	}
 
 	private void BottomButtons(StringName animName)
-	{
+	{	
 		if (animName == "back")
 		{
-		GetTree().ChangeSceneToFile(BackScene);
+			_sceneString = "res://scene/main_menu/main_menu.tscn";
+			TriggerSave();
+		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 		}
 		else if (animName == "next")
 		{
-			
-		GetTree().ChangeSceneToFile(AreaChooserScene);
+			_sceneString = "res://scene/main_menu/area_chooser.tscn";
+			TriggerSave();
+		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 		}
 		else
 		{
 			GD.Print("Open Stats");
 		}
+		
 	}
 
 	private void BackHome()
@@ -255,6 +260,7 @@ public partial class WeaponChooser : Control
 		{
 			_saveManager.SaveGameMenu(_currentScraps,new Godot.Collections.Array<bool>(_lockManagerWeapon), _currentCoins, new Godot.Collections.Array<int>(_upgradeTimesStats));
 			GD.Print("Scraps changed!");
+			_saveManager.SavedArea(_sceneString);
 		}
 	}
 	public void TriggerLoad()
@@ -351,4 +357,17 @@ public partial class WeaponChooser : Control
 					TriggerSave();
 				}
 	}
+
+	private void ChangeSceneSafe(string path)
+    {
+        var _scene = GD.Load<PackedScene>(path);
+        if (_scene != null)
+        {
+            GetTree().ChangeSceneToPacked(_scene);
+        }
+        else
+        {
+            GD.PrintErr($"Failed to load: {path}");
+        }
+    }
 }

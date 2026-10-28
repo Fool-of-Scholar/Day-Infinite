@@ -3,6 +3,9 @@ using System;
 
 public partial class PauseMenu : Control
 {  
+    HUD _hud;
+    SaveManager _saveManager;
+    private string _sceneString;
     private AnimationPlayer _pauseOpenAnimation;
     AnimationPlayer _animPlayer;
     OptionButton _languageOptions;
@@ -14,6 +17,8 @@ public partial class PauseMenu : Control
     private int _sfxBusIndex;
     public override void _Ready()
     {
+        _hud = GetNode<HUD>("../../Hud");
+        _saveManager = GetNode<SaveManager>("/root/SaveManager");
         // 1. Safe Parent Reference Check
         // This looks upward to find your Hud node, then down into its AnimationPlayer
         var hudNode = GetParent();
@@ -80,6 +85,8 @@ public partial class PauseMenu : Control
         _buttonSounds.Play();
         GetTree().Paused = false;
         _pauseOpenAnimation?.Play("pause_out");
+        _hud._pauseButton.Visible = true;
+        _hud._joystick.Visible = true;
     }
 
     private void OnQuitPressed()
@@ -87,7 +94,9 @@ public partial class PauseMenu : Control
         _buttonSounds.Play();
         GetTree().Paused = false; 
         _pauseOpenAnimation?.Play("pause_in");
-        GetTree().ChangeSceneToFile("res://scene/main_menu/another_main_menu.tscn");
+        _sceneString = "res://scene/main_menu/main_menu.tscn";
+        TriggerSave(_sceneString);
+        CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
     }
     
     private void OnSettingsPressed()
@@ -147,6 +156,29 @@ public partial class PauseMenu : Control
 		}
     }
 
+    private void ChangeSceneSafe(string path)
+    {
+        var _scene = GD.Load<PackedScene>(path);
+        if (_scene != null)
+        {
+            GetTree().ChangeSceneToPacked(_scene);
+        }
+        else
+        {
+            GD.PrintErr($"Failed to load: {path}");
+        }
+    }
+
+    public void TriggerSave(string scene)
+	{
+		if (_saveManager != null)
+		{
+			GD.Print("Scraps changed!");
+			_saveManager.SavedArea(scene);
+		}
+	}
+
+
 	//remove function
     protected override void Dispose(bool disposing)
     {
@@ -156,4 +188,5 @@ public partial class PauseMenu : Control
         }
         base.Dispose(disposing);
     }
+    
 }
