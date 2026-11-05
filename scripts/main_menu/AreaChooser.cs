@@ -23,6 +23,7 @@ public partial class AreaChooser : Control
 	Panel _lockedManager;
 	Label _areaDetailsLabel;
 	Label _areaTitleLabel;
+	CheckButton _infiniteToggle;
 
 	private int count = 1;
 	private bool[] _lockedManagerArea = new bool[]
@@ -102,33 +103,67 @@ public partial class AreaChooser : Control
 		_prevArea.Pressed += PrevArea;
 		_timer.Timeout += TextureChanged;
 
+		// Infinite Mode toggle — built dynamically, appended below AreaDetails
+		_infiniteToggle = new CheckButton();
+		_infiniteToggle.Text = "∞ Infinite Mode";
+		_infiniteToggle.SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter;
+		var existingDetails = GetNodeOrNull<Label>("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/AreaDetails");
+		if (existingDetails != null)
+		{
+			existingDetails.GetParent().AddChild(_infiniteToggle);
+		}
+		if (_saveManager != null)
+		{
+			_infiniteToggle.SetPressedNoSignal(_saveManager.LoadGame()._infiniteMode);
+		}
+		_infiniteToggle.Toggled += OnInfiniteToggled;
+
 		_mainTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count]);
 		_nextTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count + 1]);
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
 		TextureChanged();
 		TriggerLoad();
+		ScenePreloader.Instance?.StartPreloading();
+	}
+
+	private void OnInfiniteToggled(bool pressed)
+	{
+		_saveManager?.SaveInfiniteMode(pressed);
 	}
 
 
 	private void StartGame()
 	{
+		if (_startGame != null && _startGame.Disabled) return;
+		if (_startGame != null) _startGame.Disabled = true;
+		if (_backWeapons != null) _backWeapons.Disabled = true;
+
 		_buttonSounds.Play();
+		if (_infiniteToggle != null && _saveManager != null)
+		{
+			_saveManager.SaveInfiniteMode(_infiniteToggle.ButtonPressed);
+		}
 		int index = Mathf.Clamp(count - 1, 0, _areaScene.Length - 1);
 		_sceneString = _areaScene[index];
 		if (string.IsNullOrEmpty(_sceneString))
 		{
 			_sceneString = "res://scene/levels/area.tscn";
 		}
+		LoadingScreen.NextScenePath = _sceneString;
 		TriggerSave(_sceneString);
 		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 	}
 
 	private void BackToWeapons()
 	{
+		if (_backWeapons != null && _backWeapons.Disabled) return;
+		if (_startGame != null) _startGame.Disabled = true;
+		if (_backWeapons != null) _backWeapons.Disabled = true;
+
 		_buttonSounds.Play();
 		_animPlayer.PlayBackwards("fromWeapons");
 		_sceneString = "res://scene/main_menu/weapon_chooser.tscn";
-		TriggerSave(_sceneString);
+		LoadingScreen.NextScenePath = _sceneString;
 		_animPlayer.AnimationFinished += (Back) => CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 	}
 

@@ -25,31 +25,32 @@ public partial class DiedInterface : Control
 	{
 		_buttonSounds.Play();
 		GetTree().Paused = false; // Unpause the game before restarting
-		GetTree().ReloadCurrentScene();
+		string currentScenePath = GetTree().CurrentScene?.SceneFilePath;
+		if (string.IsNullOrEmpty(currentScenePath))
+		{
+			currentScenePath = "res://scene/levels/area.tscn";
+		}
+		LoadingScreen.NextScenePath = currentScenePath;
+		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 	}
+
+	private void ChangeSceneSafe(string path)
+	{
+		GetTree().ChangeSceneToFile(path);
+	}
+
 	private void OnMainMenuPressed(StringName backmain)
 	{
 		GD.Print("Animation Finished");
+		GetTree().Paused = false;
 		GetTree().ChangeSceneToFile("res://scene/main_menu/main_menu.tscn");
 	}
-	private async void OnGiveUpPressed()
-    {
-			_buttonSounds.Play();
-        // 2. IMPORTANT: Unpause the tree, otherwise AnimatedSprite2D cannot advance frames!
-        GetTree().Paused = false;
-        // 3. Find the player
-        Movement player = (GetTree().GetFirstNodeInGroup("player") as Movement)
-                        ?? GetTree().CurrentScene.GetNodeOrNull<Movement>("Player");
-        if (player != null)
-        {
-            // Trigger the death VFX on the player
-            player.PlayDeathVfxOnly();
-        }
-        // 4. Wait for the death animation to complete (18 frames at 22 fps ~= 0.85s)
-        await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
-        // 5. Game is over -> send to Main Menu
-				AnimationButton();
-    }
+	private void OnGiveUpPressed()
+	{
+		_buttonSounds?.Play();
+		GetTree().Paused = false;
+		AnimationButton();
+	}
 
 	private void AnimationButton()
 	{

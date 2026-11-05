@@ -23,7 +23,7 @@ public partial class WeaponManager : Node2D
     // --- UPGRADE LIMITS ---
     public int TotalUpgradePointsUsed = 0;
     public const int MaxUpgradePoints = 8;   // Balanced: was 5 — allows richer build depth over 10 min
-    public const int MaxWeapons = 3;
+    public const int MaxWeapons = 4; // Balanced: enables 4 weapon slots for Mania achievement
     
     public class WeaponSlot 
     {

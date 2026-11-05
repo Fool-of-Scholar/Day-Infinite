@@ -27,7 +27,7 @@ public partial class Play : Button
 	private void openWorld(StringName Play)
 	{
 		_sceneString = "res://scene/main_menu/weapon_chooser.tscn";
-		TriggerSave(_sceneString);
+		LoadingScreen.NextScenePath = _sceneString;
 		CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
 	}
 

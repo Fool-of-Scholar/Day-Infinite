@@ -72,10 +72,19 @@ public partial class PauseMenu : Control
     private void OnRetryPressed()
     {
         _buttonSounds.Play();
-		GD.Print("Retry button pressed. Reloading current scene...");
-        GetTree().Paused = false; 
-        _pauseOpenAnimation?.Play("pause_in");
-        GetTree().ReloadCurrentScene();
+        GD.Print("Retry button pressed. Reloading scene cleanly via loading screen...");
+        (GetParent() as HUD)?.SaveRunResults();
+        GetTree().Paused = false;
+        (GetParent() as HUD)?.ResumeGame();
+
+        string currentScenePath = GetTree().CurrentScene?.SceneFilePath;
+        if (string.IsNullOrEmpty(currentScenePath))
+        {
+            currentScenePath = "res://scene/levels/area.tscn";
+        }
+        LoadingScreen.NextScenePath = currentScenePath;
+        TriggerSave(currentScenePath);
+        CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
     }
 
     private void OnResumePressed()
@@ -83,16 +92,17 @@ public partial class PauseMenu : Control
         _buttonSounds.Play();
         GetTree().Paused = false;
         _pauseOpenAnimation?.Play("pause_out");
+        (GetParent() as HUD)?.ResumeGame();
     }
 
     private void OnQuitPressed()
     {
-        _buttonSounds.Play();
+        _buttonSounds?.Play();
+        (GetParent() as HUD)?.SaveRunResults();
         GetTree().Paused = false; 
-        _pauseOpenAnimation?.Play("pause_in");
+        (GetParent() as HUD)?.ResumeGame();
         _sceneString = "res://scene/main_menu/main_menu.tscn";
-        TriggerSave(_sceneString);
-        CallDeferred(nameof(ChangeSceneSafe), "res://scene/main_menu/loading_screen.tscn");
+        CallDeferred(nameof(ChangeSceneSafe), _sceneString);
     }
     
     private void OnSettingsPressed()

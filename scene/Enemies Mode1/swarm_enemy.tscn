@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://csug2r5a6rex2"]
 
 [ext_resource type="Script" uid="uid://bxbr0ee430ul5" path="res://scripts/Enemy.cs" id="1_60x1c"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="2_jn5xm"]
 [ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_3f3k1"]
 [ext_resource type="Texture2D" uid="uid://syy3jwlisu1w" path="res://assets/Enemies/Basic_Mice_Gray_Run.png" id="3_60x1c"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="3_qarmj"]
@@ -64,6 +65,7 @@ animations = [{
 scale = Vector2(0.7, 0.7)
 motion_mode = 1
 script = ExtResource("1_60x1c")
+GemScene = ExtResource("2_jn5xm")
 BloodScene = ExtResource("3_qarmj")
 DamageNumberScene = ExtResource("3_3f3k1")
 ScrapScene = ExtResource("4_3f3k1")

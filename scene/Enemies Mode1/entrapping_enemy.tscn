@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bprweiebafuv1" path="res://scripts/EntrappingEnemy.cs" id="1_et"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_et"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="2_vh422"]
 [ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_et"]
 [ext_resource type="Texture2D" uid="uid://bnpmnlwm2u4lq" path="res://assets/Enemies/Area 2 Enemy/Some creature SpriteSheet.png" id="4_et"]
 [ext_resource type="PackedScene" uid="uid://buuf51insnvsj" path="res://scene/scrap_item.tscn" id="5_et"]
@@ -66,6 +67,7 @@ radius = 14.0
 [node name="Enemy" type="CharacterBody2D" unique_id=5001 groups=["enemies"]]
 motion_mode = 1
 script = ExtResource("1_et")
+GemScene = ExtResource("2_vh422")
 BloodScene = ExtResource("2_et")
 DamageNumberScene = ExtResource("3_et")
 ScrapScene = ExtResource("5_et")

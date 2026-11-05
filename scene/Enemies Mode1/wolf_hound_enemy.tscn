@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://2wolf001"]
 
 [ext_resource type="Script" uid="uid://diooos3wmi4sk" path="res://scripts/WolfHoundEnemy.cs" id="1_wlf"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="2_nu5hl"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_wlf"]
 [ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_wlf"]
 [ext_resource type="Texture2D" uid="uid://nu3qysnp2st" path="res://assets/Enemies/Area 2 Enemy/Wolf 2 SpriteSheet .png" id="4_wlf"]
@@ -66,6 +67,7 @@ radius = 13.0
 [node name="Enemy" type="CharacterBody2D" unique_id=7001 groups=["enemies"]]
 motion_mode = 1
 script = ExtResource("1_wlf")
+GemScene = ExtResource("2_nu5hl")
 BloodScene = ExtResource("2_wlf")
 DamageNumberScene = ExtResource("3_wlf")
 ScrapScene = ExtResource("5_wlf")

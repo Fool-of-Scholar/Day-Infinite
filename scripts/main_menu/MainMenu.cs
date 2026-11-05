@@ -28,6 +28,7 @@ public partial class MainMenu : Control
 		};
 
 		TriggerLoad();
+		ScenePreloader.Instance?.StartPreloading();
 	}
 
 

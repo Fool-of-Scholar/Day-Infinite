@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://2basic001"]
 
 [ext_resource type="Script" uid="uid://bog43ofb05pyp" path="res://scripts/Area2BasicEnemy.cs" id="1_a2b"]
+[ext_resource type="PackedScene" uid="uid://urxicx2ccyak" path="res://scene/experience_gem.tscn" id="2_7qbqb"]
 [ext_resource type="PackedScene" uid="uid://brnrxwtx1yay" path="res://scene/blood_scene.tscn" id="2_a2b"]
 [ext_resource type="PackedScene" path="res://scene/damage_number.tscn" id="3_a2b"]
 [ext_resource type="Texture2D" uid="uid://d0jekfmqxtw2a" path="res://assets/Enemies/Area 2 Enemy/Creature SpriteSheet .png" id="4_a2b"]
@@ -67,6 +68,7 @@ radius = 20.0
 scale = Vector2(0.8, 0.8)
 motion_mode = 1
 script = ExtResource("1_a2b")
+GemScene = ExtResource("2_7qbqb")
 BloodScene = ExtResource("2_a2b")
 DamageNumberScene = ExtResource("3_a2b")
 ScrapScene = ExtResource("5_a2b")

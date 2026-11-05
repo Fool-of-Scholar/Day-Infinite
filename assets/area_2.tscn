@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://rea2level01"]
+[gd_scene format=3 uid="uid://b135ixwtwdemx"]
 
 [ext_resource type="Texture2D" uid="uid://bww330g124w0e" path="res://assets/Tilemap/Grass TileSet.png" id="1_2j7s5"]
 [ext_resource type="Script" uid="uid://dsp2sxle1tsqd" path="res://scripts/Area2EnvironmentSpawner.cs" id="2_xhtjy"]

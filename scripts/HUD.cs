@@ -1,13 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 public partial class HUD : CanvasLayer
 {
-        //android
-    EnemySpawner _enemySpawner;
+    private EnemySpawner _enemySpawner;
 
     private int _weaponPickInt;
     private PackedScene[] _weaponPick = new PackedScene[]
@@ -19,38 +17,34 @@ public partial class HUD : CanvasLayer
         GD.Load<PackedScene>("res://weapon_new/force field/force_field.tscn"),
     };
 
-    private int[] _statsUpgradeTimes = new int[]
-    {
-        0,
-        0,
-        0,
-        0,
-        0
-    };
-    //paused label
-    Label _levelLabelP;
-    Label _healthLabel;
-    Label _damageLabel;
-    Label _firerateLabel;
-    Label _projectileLabel;
-    Label _speedLabel;
+    private int[] _statsUpgradeTimes = new int[6] { 0, 0, 0, 0, 0, 0 };
+    private int _equippedPassive = 0;
+
+    // Paused labels
+    private Label _levelLabelP;
+    private Label _healthLabel;
+    private Label _damageLabel;
+    private Label _firerateLabel;
+    private Label _projectileLabel;
+    private Label _speedLabel;
 
     private SaveManager _saveManager;
     private WeaponManager _wCollect;
     private int _localScrap;
     private bool _isPaused = false;
-    private int coins;
-    private int score;
+    private int coins = 0;
+    private int score = 0;
 
     private Label ScorePoints;
     private Label ScrapsPoints;
     private Label CoinsPoints;
+    private Label TimePoints;
 
     private ProgressBar _xpBar;
     private ProgressBar _healthBar;
     private Label _levelLabel;
     private Label _TimeLabel;
-    private Label _scrapLabel; // NEW: Added scrap label
+    private Label _scrapLabel;
     public Timer _Timer;
 
     private AnimationPlayer _openAnimation;
@@ -58,41 +52,59 @@ public partial class HUD : CanvasLayer
 
     private Control _upgradeMenu;
     private Control _diedInterface;
+    private Button _pauseButton;
+    private Button _dashButton;
+    private VirtualJoystick _joystick;
     private Button _leftButton;
     private Button _midButton;
     private Button _rightButton;
     private UpgradeType _leftUpgrade;
     private UpgradeType _midUpgrade;  
     private UpgradeType _rightUpgrade;
-    private int MinimumLevel = 3;  // Balanced: first weapon choice at level 3 (was 5 — too long to wait)
+    private int MinimumLevel = 3;
     private readonly Random _random = new Random();
 
     private Movement _player;
+
+    // Coin & Run Balance Tracking
+    private float _survivalTime = 0.0f;
+    private float _coinMinuteTimer = 0.0f;
+    private int _lastProcessedScrap = 0;
+    private int _scrapCoinCounter = 0;
+    private bool _runSaved = false;
+    private bool _isInfiniteMode = false;
+
+    // Achievement Toast UI
+    private PanelContainer _toastContainer;
+    private Label _toastLabel;
+    private float _toastTimer = 0.0f;
 
     public override void _Ready()
     {
         GD.Print("--- HUD SCRIPT INITIALIZING ---");
 
-        _levelLabelP = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Lvl");
-        _healthLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Health2");
-        _damageLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Damage");
-        _firerateLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Fire Rate");
-        _projectileLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Projectile");
-        _speedLabel = GetNode<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Weapons");
+        _levelLabelP = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Lvl");
+        _healthLabel = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/Health2");
+        _damageLabel = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Damage");
+        _firerateLabel = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Fire Rate");
+        _projectileLabel = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Projectile");
+        _speedLabel = GetNodeOrNull<Label>("PauseMenu/Stats/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Weapons");
 
-        ScrapsPoints = GetNode<Label>("DiedInterface/PanelContainer/VBoxContainer/Scraps");
-        ScorePoints = GetNode<Label>("DiedInterface/PanelContainer/VBoxContainer/Label");
-        CoinsPoints = GetNode<Label>("DiedInterface/PanelContainer/VBoxContainer/Coins");
+        ScrapsPoints = GetNodeOrNull<Label>("DiedInterface/PanelContainer/VBoxContainer/Scraps");
+        ScorePoints = GetNodeOrNull<Label>("DiedInterface/PanelContainer/VBoxContainer/Label");
+        CoinsPoints = GetNodeOrNull<Label>("DiedInterface/PanelContainer/VBoxContainer/Coins");
+        TimePoints = GetNodeOrNull<Label>("DiedInterface/PanelContainer/VBoxContainer/Time");
 
-            _saveManager = GetNode<SaveManager>("/root/SaveManager");
-        _wCollect = GetNode<WeaponManager>("Player/WeaponManager");
+        _saveManager = GetNodeOrNull<SaveManager>("/root/SaveManager");
+        _wCollect = GetNodeOrNull<WeaponManager>("../Player/WeaponManager") 
+                 ?? (GetTree().GetFirstNodeInGroup("player") as Node)?.GetNodeOrNull<WeaponManager>("WeaponManager");
 
         // 1. Basic Controls
         _xpBar = GetNodeOrNull<ProgressBar>("Control/XpBar");
         _healthBar = GetNodeOrNull<ProgressBar>("Control/HealthBar");
         _levelLabel = GetNodeOrNull<Label>("Control/LevelLabel");
         _TimeLabel = GetNodeOrNull<Label>("Control/Time");
-        _scrapLabel = GetNodeOrNull<Label>("Control/ScrapLabel"); // Ensure you have this node in your scene
+        _scrapLabel = GetNodeOrNull<Label>("Control/ScrapLabel");
         
         // 2. Parents/Siblings
         _Timer = GetNodeOrNull<Timer>("../Timer");
@@ -101,7 +113,7 @@ public partial class HUD : CanvasLayer
         _upgradeMenu = GetNodeOrNull<Control>("UpgradeMenu");
         _diedInterface = GetNodeOrNull<Control>("DiedInterface");
 
-        // 3. Buttons (Checking multiple fallback methods automatically)
+        // 3. Buttons & Joystick
         _leftButton = GetNodeOrNull<Button>("%BtnLeft") ?? 
                     GetNodeOrNull<Button>("UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer/BtnLeft");
                     
@@ -111,115 +123,310 @@ public partial class HUD : CanvasLayer
         _rightButton = GetNodeOrNull<Button>("%BtnRight") ?? 
                     GetNodeOrNull<Button>("UpgradeMenu/PanelContainer/MarginContainer/HBoxContainer/BtnRight");
 
-        // 4. Connect Events safely
+        _pauseButton = GetNodeOrNull<Button>("Control/PauseButton");
+        if (_pauseButton != null) _pauseButton.Pressed += TogglePause;
+
+        _dashButton = GetNodeOrNull<Button>("Control/DashButton");
+        if (_dashButton != null) _dashButton.ButtonDown += OnDashButtonPressed;
+
+        _joystick = GetNodeOrNull<VirtualJoystick>("Control/VirtualJoystick");
+        bool isAndroid = OS.GetName() == "Android" || OS.HasFeature("android");
+        if (!isAndroid && _joystick != null)
+        {
+            _joystick.Visible = false;
+            _joystick.SetProcess(false);
+            _joystick.SetProcessInput(false);
+        }
+
         if (_leftButton != null) _leftButton.Pressed += OnLeftSelected;
         if (_midButton != null) _midButton.Pressed += OnMiddleSelected;
         if (_rightButton != null) _rightButton.Pressed += OnRightSelected;
 
         if (_upgradeMenu != null) _upgradeMenu.Visible = false;
 
+        _player = (GetTree().GetFirstNodeInGroup("player") as Movement) 
+                ?? GetNodeOrNull<Movement>("../Player");
 
-        // Use lowercase "player" or look for sibling "../Player"
-    _player = (GetTree().GetFirstNodeInGroup("player") as Movement) 
-            ?? GetNodeOrNull<Movement>("../Player");
-
-    if (_player != null)
-    {
-        Initialize(_player);
-        UpdateHealth(_player.CurrentHealth, _player.MaxHealth);
-        UpdateXp(_player.CurrentXp, _player.XpToNextLevel, _player.CurrentLevel);
-        UpdateScrap(_player.CurrentScraps);
-    }
-
-    TriggerLoad();
-    
-    if (_wCollect != null && _weaponPickInt >= 1 && _weaponPickInt <= _weaponPick.Length)
-    {
-        _wCollect.DefaultBulletScene = _weaponPick[_weaponPickInt - 1];
-    }
-
-
-        for(int i = 0; i < _statsUpgradeTimes.Length; i++)
+        if (_player != null)
         {
-            GD.Print("Checking Stats");
-            for(int j = 0; j < _statsUpgradeTimes[i]; j++)
-            {
-                GD.Print("Pairing Stats");
-                switch (i)
-                    {
-                        case 0:
-                            _player.UpgradeHealth(30); 
-                            GD.Print("Upgrade Health");
-                            break;
-                        case 1:
-                            _player.UpgradeSpeed(25);   
-                            GD.Print("Upgrade Speed");
-                            break;
-                        case 2:
-                            _wCollect.UpgradeDamage();
-                            GD.Print("Upgrade Damage");
-                            break;
-                        case 3:
-                            _wCollect.UpgradeFireRate();
-                            GD.Print("Upgrade FireRate");
-                            break;
-                        case 4:
-                            _wCollect.UpgradeProjectile();
-                            GD.Print("Upgrade Projectile");
-                            break;
-                    }
-            }
+            Initialize(_player);
+            UpdateHealth(_player.CurrentHealth, _player.MaxHealth);
+            UpdateXp(_player.CurrentXp, _player.XpToNextLevel, _player.CurrentLevel);
+            UpdateScrap(_player.CurrentScraps);
         }
+
+        TriggerLoad();
+        
+        if (_wCollect != null && _weaponPickInt >= 1 && _weaponPickInt <= _weaponPick.Length)
+        {
+            _wCollect.DefaultBulletScene = _weaponPick[_weaponPickInt - 1];
+        }
+
+        // Apply ONLY the single equipped upgrade chosen in the menu
+        ApplyEquippedPassive();
+
+        // Apply infinite mode
+        if (_isInfiniteMode)
+        {
+            _Timer?.Stop();
+            if (_TimeLabel != null) _TimeLabel.Text = "∞";
+        }
+
+        CreateAchievementToastNode();
         
         GD.Print("--- HUD INITIALIZATION COMPLETE ---");
     }
 
-    public override void _Process(double delta)
+    private void ApplyEquippedPassive()
     {
-        if (_Timer != null && _TimeLabel != null)
+        int level = (_statsUpgradeTimes != null && _equippedPassive >= 0 && _equippedPassive < _statsUpgradeTimes.Length)
+            ? Mathf.Clamp(_statsUpgradeTimes[_equippedPassive], 0, 5)
+            : 0;
+
+        string[] passiveNames = { "Speed", "Fire Rate", "Health", "Projectile", "Damage", "Dash" };
+        string traitName = _equippedPassive >= 0 && _equippedPassive < passiveNames.Length ? passiveNames[_equippedPassive] : "None";
+        GD.Print($"[HUD] Equipping trait: {traitName} (Level {level}/5)");
+
+        if (level <= 0) return;
+
+        switch (_equippedPassive)
         {
-            float timeLeft = (float)_Timer.TimeLeft;
-            int minutes = Mathf.FloorToInt(timeLeft / 60);
-            int seconds = Mathf.FloorToInt(timeLeft % 60);
-            _TimeLabel.Text = $"{minutes:D2}:{seconds:D2}";
-            if (seconds >= 58)
-            {
-                coins += minutes;
-                score += seconds;
-                
-            }
-            
+            case 0: // Speed (+15 per level)
+                _player?.UpgradeSpeed(level * 15);
+                break;
+            case 1: // Fire Rate (reduces interval by ~10% per level)
+                if (_wCollect != null)
+                {
+                    for (int j = 0; j < level; j++) _wCollect.UpgradeFireRate();
+                }
+                break;
+            case 2: // Health (+25 max health per level)
+                _player?.UpgradeHealth(level * 25);
+                break;
+            case 3: // Projectile (+1 extra bullet every 2 levels)
+                if (_wCollect != null)
+                {
+                    int extra = (level + 1) / 2;
+                    for (int j = 0; j < extra; j++) _wCollect.UpgradeProjectile();
+                }
+                break;
+            case 4: // Damage (+8 bonus damage per level)
+                if (_wCollect != null)
+                {
+                    _wCollect.BonusDamage += (level * 8);
+                }
+                break;
+            case 5: // Dash
+                _player?.ApplyDashUpgrade(level);
+                break;
         }
     }
 
-    // NEW: The game manager or player should call this and pass the player reference
+    public override void _Process(double delta)
+    {
+        float dt = (float)delta;
+        _survivalTime += dt;
+
+        // Balanced Coin Accrual: 15 coins per full minute survived
+        _coinMinuteTimer += dt;
+        if (_coinMinuteTimer >= 60.0f)
+        {
+            _coinMinuteTimer -= 60.0f;
+            coins += 15;
+            GD.Print($"[HUD] Survival bonus: +15 coins! Total run coins: {coins}");
+        }
+
+        // Timer Display
+        if (_isInfiniteMode)
+        {
+            if (_TimeLabel != null && _TimeLabel.Text != "∞")
+            {
+                _TimeLabel.Text = "∞";
+            }
+        }
+        else if (_Timer != null && _TimeLabel != null)
+        {
+            float timeLeft = Mathf.Max(0f, (float)_Timer.TimeLeft);
+            int minutes = Mathf.FloorToInt(timeLeft / 60);
+            int seconds = Mathf.FloorToInt(timeLeft % 60);
+            _TimeLabel.Text = $"{minutes:D2}:{seconds:D2}";
+        }
+
+        score = (int)_survivalTime * 10 + _localScrap * 5;
+
+        // Check Achievements
+        CheckAchievements();
+
+        // Dash Button Cooldown Visuals
+        if (_dashButton != null && _player != null)
+        {
+            if (_player.DashCooldownRemaining > 0.05f)
+            {
+                _dashButton.Text = $"{_player.DashCooldownRemaining:F1}";
+                _dashButton.Modulate = new Color(0.55f, 0.55f, 0.55f, 0.65f);
+            }
+            else
+            {
+                _dashButton.Text = "DASH";
+                _dashButton.Modulate = new Color(1f, 1f, 1f, 1f);
+            }
+        }
+
+        // Achievement Toast Timer
+        if (_toastTimer > 0f)
+        {
+            _toastTimer -= dt;
+            if (_toastTimer <= 0f && _toastContainer != null)
+            {
+                _toastContainer.Visible = false;
+            }
+        }
+    }
+
+    private void CheckAchievements()
+    {
+        // 1. Mania: Equip 4 weapons
+        if (_wCollect != null && _wCollect.EquippedWeapons != null && _wCollect.EquippedWeapons.Count >= 4)
+        {
+            CheckAndUnlockAchievement(3, "Mania", "Equipped 4 weapons in one run!");
+        }
+
+        // 2. Area Survival & No Damage Achievements
+        string scenePath = GetTree().CurrentScene?.SceneFilePath ?? "";
+        bool isArea2 = scenePath.Contains("area_2.tscn");
+        bool isArea1 = !isArea2;
+
+        if (isArea1 && _survivalTime >= 600.0f) // 10 minutes in Area 1
+        {
+            CheckAndUnlockAchievement(0, "Escaped", "Survived 10 minutes in Area 1!");
+            if (_player != null && !_player.HasTakenDamageThisRun)
+            {
+                CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
+            }
+        }
+        else if (isArea2 && _survivalTime >= 1200.0f) // 20 minutes in Area 2
+        {
+            CheckAndUnlockAchievement(1, "Lost in Wilderness", "Survived 20 minutes in Area 2!");
+            if (_player != null && !_player.HasTakenDamageThisRun)
+            {
+                CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
+            }
+        }
+    }
+
+    public void CheckAndUnlockAchievement(int index, string title, string description)
+    {
+        if (_saveManager != null && _saveManager.UnlockAchievement(index))
+        {
+            ShowAchievementToast(title, description);
+        }
+    }
+
+    private void CreateAchievementToastNode()
+    {
+        _toastContainer = new PanelContainer();
+        _toastContainer.ZIndex = 20;
+        _toastContainer.Visible = false;
+        _toastContainer.CustomMinimumSize = new Vector2(400, 70);
+        _toastContainer.AnchorsPreset = (int)Control.LayoutPreset.CenterTop;
+        _toastContainer.AnchorLeft = 0.5f;
+        _toastContainer.AnchorRight = 0.5f;
+        _toastContainer.OffsetLeft = -200f;
+        _toastContainer.OffsetRight = 200f;
+        _toastContainer.OffsetTop = 20f;
+        _toastContainer.OffsetBottom = 90f;
+
+        var style = new StyleBoxFlat();
+        style.BgColor = new Color(0.08f, 0.12f, 0.18f, 0.95f);
+        style.BorderWidthLeft = 3;
+        style.BorderWidthTop = 3;
+        style.BorderWidthRight = 3;
+        style.BorderWidthBottom = 3;
+        style.BorderColor = new Color(1.0f, 0.85f, 0.2f, 1.0f); // Radiant gold glow
+        style.CornerRadiusTopLeft = 12;
+        style.CornerRadiusTopRight = 12;
+        style.CornerRadiusBottomRight = 12;
+        style.CornerRadiusBottomLeft = 12;
+        style.ShadowColor = new Color(1.0f, 0.8f, 0.1f, 0.6f);
+        style.ShadowSize = 14;
+        _toastContainer.AddThemeStyleboxOverride("panel", style);
+
+        _toastLabel = new Label();
+        _toastLabel.HorizontalAlignment = HorizontalAlignment.Center;
+        _toastLabel.VerticalAlignment = VerticalAlignment.Center;
+        _toastLabel.AutowrapMode = TextServer.AutowrapMode.Word;
+        _toastLabel.Text = "ACHIEVEMENT UNLOCKED!";
+        _toastLabel.Modulate = new Color(1.0f, 0.95f, 0.4f, 1.0f);
+
+        _toastContainer.AddChild(_toastLabel);
+        AddChild(_toastContainer);
+    }
+
+    public void ShowAchievementToast(string title, string description)
+    {
+        if (_toastContainer != null && _toastLabel != null)
+        {
+            _toastLabel.Text = $"★ ACHIEVEMENT UNLOCKED! ★\n{title}: {description}";
+            _toastContainer.Visible = true;
+            _toastTimer = 4.0f;
+        }
+        GD.Print($"[HUD] Toast: Achievement Unlocked: {title} - {description}");
+    }
+
+    private void OnDashButtonPressed()
+    {
+        _player?.TriggerDash();
+    }
+
     public void Initialize(Movement player)
     {
         _player = player;
 
-        // Automatically connect all player signals to the HUD
         _player.HealthChanged += UpdateHealth;
         _player.XpChanged += UpdateXp;
         _player.ScrapChanged += UpdateScrap;
-        _player.LeveledUp += OpenUpgradeMenu; // Automatically open menu when player levels up!
-        _player.PlayerDied += OnPlayerDied;   // Show death screen when player dies
+        _player.LeveledUp += OpenUpgradeMenu;
+        _player.PlayerDied += OnPlayerDied;
     }
 
     private void OnPlayerDied()
     {
-        TriggerSave();
-        // Play the drop-in animation for the death screen
+        SaveRunResults();
+
         if (_openAnimation != null)
         {
             _openAnimation.Play("died");
         }
 
-        // Make DiedInterface visible so it catches input when the animation finishes
         if (_diedInterface != null)
         {
             _diedInterface.Visible = true;
-            CoinsPoints.Text = $"Coins: {coins}";
-            ScorePoints.Text = $"Score: {score}";
+            if (CoinsPoints != null) CoinsPoints.Text = $"Coins: {coins}";
+            if (ScorePoints != null) ScorePoints.Text = $"Score: {score}";
+            if (ScrapsPoints != null) ScrapsPoints.Text = $"Scraps: {_localScrap}";
+
+            int minutes = Mathf.FloorToInt(_survivalTime / 60);
+            int seconds = Mathf.FloorToInt(_survivalTime % 60);
+            string timeStr = $"{minutes:D2}:{seconds:D2}";
+            if (TimePoints != null)
+            {
+                TimePoints.Text = $"Time Survived: {timeStr}";
+            }
+            else
+            {
+                // Fallback dynamically create label if not in scene tree
+                var vbox = _diedInterface.GetNodeOrNull<VBoxContainer>("PanelContainer/VBoxContainer");
+                if (vbox != null)
+                {
+                    TimePoints = new Label();
+                    TimePoints.Name = "Time";
+                    TimePoints.HorizontalAlignment = HorizontalAlignment.Center;
+                    if (ScorePoints != null) TimePoints.LabelSettings = ScorePoints.LabelSettings;
+                    TimePoints.Text = $"Time Survived: {timeStr}";
+                    vbox.AddChild(TimePoints);
+                    vbox.MoveChild(TimePoints, 1);
+                }
+            }
         }
     }
 
@@ -227,30 +434,47 @@ public partial class HUD : CanvasLayer
     {
         if (@event.IsActionPressed("escape"))
         {
-            if (_isPaused == false && _openAnimation != null)
-            {
-                TriggerSave();
-                GetTree().Paused = true;
-                _isPaused = true;
-                _openAnimation.Play("pause_in");
-
-                    _levelLabelP.Text = $"Level: {_player.CurrentLevel}";
-                    _healthLabel.Text = $"Health: {_player.CurrentHealth}/{_player.MaxHealth}";
-                    _damageLabel.Text = $"Damage: {_statsUpgradeTimes[4]}";
-                    _firerateLabel.Text = $"Fire Rate: {_statsUpgradeTimes[1]}";
-                    _projectileLabel.Text = $"Projectile: {_statsUpgradeTimes[3]}";
-                    _speedLabel.Text = $"Speed: {_statsUpgradeTimes[2]}";
-            }
-            else if (_isPaused && _openAnimation != null)
-            {
-                _isPaused = false;
-                _openAnimation.Play("pause_out");
-                GetTree().Paused = false; 
-            }
+            TogglePause();
         }
     }
 
-    // Added FireRate and Projectile to match your WeaponManager!
+    public void TogglePause()
+    {
+        if (!_isPaused && _openAnimation != null)
+        {
+            GetTree().Paused = true;
+            _isPaused = true;
+            _openAnimation.Play("pause_in");
+
+            string[] passiveNames = { "Speed", "Fire Rate", "Health", "Projectile", "Damage", "Dash" };
+            int activeLvl = (_statsUpgradeTimes != null && _equippedPassive >= 0 && _equippedPassive < _statsUpgradeTimes.Length) 
+                ? _statsUpgradeTimes[_equippedPassive] 
+                : 0;
+            string traitText = $"{passiveNames[_equippedPassive]} Lvl {activeLvl}/5";
+
+            if (_levelLabelP != null && _player != null) _levelLabelP.Text = $"Level: {_player.CurrentLevel}";
+            if (_healthLabel != null && _player != null) _healthLabel.Text = $"Health: {_player.CurrentHealth}/{_player.MaxHealth}";
+            if (_damageLabel != null && _wCollect != null) _damageLabel.Text = $"Dmg Bonus: +{_wCollect.BonusDamage}";
+            if (_firerateLabel != null && _wCollect != null) _firerateLabel.Text = $"FireRate: {_wCollect.FireRateMultiplier:F2}x";
+            if (_projectileLabel != null && _wCollect != null) _projectileLabel.Text = $"Proj: {_wCollect.ProjectileCount}";
+            if (_speedLabel != null) _speedLabel.Text = $"Trait: {traitText}";
+        }
+        else if (_isPaused && _openAnimation != null)
+        {
+            ResumeGame();
+        }
+    }
+
+    public void ResumeGame()
+    {
+        if (_isPaused && _openAnimation != null)
+        {
+            _isPaused = false;
+            _openAnimation.Play("pause_out");
+            GetTree().Paused = false;
+        }
+    }
+
     public enum UpgradeType
     {
         Speed,
@@ -259,11 +483,9 @@ public partial class HUD : CanvasLayer
         FireRate, 
         Projectile,
         
-        // Menu Navigation
         MenuAddNewWeapon,
         MenuUpgradeWeapon,
 
-        // Weapons
         WeaponAR,
         WeaponMine,
         WeaponRocket,
@@ -293,6 +515,12 @@ public partial class HUD : CanvasLayer
 
     public void OpenUpgradeMenu() 
     {
+        var bannerPanel = GetNodeOrNull<Control>("Panel") ?? GetNodeOrNull<Control>("../Hud/Panel");
+        if (bannerPanel != null)
+        {
+            bannerPanel.Visible = false;
+        }
+
         if (_upgradeAnimation != null && _upgradeAnimation.HasAnimation("upgrade_in"))
         {
             _upgradeAnimation.Play("upgrade_in");
@@ -302,7 +530,6 @@ public partial class HUD : CanvasLayer
             _upgradeMenu.Visible = true;
         }
         
-        // Make sure buttons are visible in case they were hidden by the sub-menu previously
         if (_leftButton != null) _leftButton.Visible = true;
         if (_midButton != null) _midButton.Visible = true;
         if (_rightButton != null) _rightButton.Visible = true;
@@ -315,13 +542,12 @@ public partial class HUD : CanvasLayer
 
             if (canAdd && canUpgrade)
             {
-                // Show the 2-choice menu
                 _leftUpgrade = UpgradeType.MenuAddNewWeapon;
                 _midUpgrade = UpgradeType.MenuUpgradeWeapon;
                 
                 _leftButton.Text = FormatUpgradeName(_leftUpgrade);
                 _midButton.Text = FormatUpgradeName(_midUpgrade);
-                _rightButton.Visible = false; // Hide 3rd button for this step
+                _rightButton.Visible = false;
             }
             else if (canAdd)
             {
@@ -333,7 +559,6 @@ public partial class HUD : CanvasLayer
             }
             else
             {
-                // Fully maxed out on weapons/upgrades! Give minor stats instead
                 SetButtonsToMinorStats();
             }
         }
@@ -356,11 +581,11 @@ public partial class HUD : CanvasLayer
         if (_rightButton != null) _rightButton.Visible = true;
 
         WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
-        List<UpgradeType> possible = new List<UpgradeType> { UpgradeType.WeaponAR, 
-        UpgradeType.WeaponMine, UpgradeType.WeaponRocket, UpgradeType.WeaponForceField, 
-        UpgradeType.WeaponTesla};
+        List<UpgradeType> possible = new List<UpgradeType> { 
+            UpgradeType.WeaponAR, UpgradeType.WeaponMine, UpgradeType.WeaponRocket, 
+            UpgradeType.WeaponForceField, UpgradeType.WeaponTesla 
+        };
         
-        // Remove weapons we already have equipped
         if (weapon != null)
         {
             foreach (var w in weapon.EquippedWeapons)
@@ -373,7 +598,6 @@ public partial class HUD : CanvasLayer
             }
         }
 
-        // Pick up to 3 random unequipped weapons
         List<UpgradeType> choices = new List<UpgradeType>();
         for (int i = 0; i < 3; i++)
         {
@@ -393,7 +617,6 @@ public partial class HUD : CanvasLayer
         WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
         List<UpgradeType> choices = new List<UpgradeType>();
 
-        // Only show options for weapons we currently have equipped
         if (weapon != null)
         {
             foreach (var w in weapon.EquippedWeapons)
@@ -444,7 +667,6 @@ public partial class HUD : CanvasLayer
         for (int i = 0; i < count; i++)
         {
             if (pool.Count == 0) break;
-            
             int randomIndex = _random.Next(pool.Count);
             selected.Add(pool[randomIndex]);
             pool.RemoveAt(randomIndex); 
@@ -453,26 +675,23 @@ public partial class HUD : CanvasLayer
         return selected;
     }
 
-    // Returns true if the menu should close, false if we are just navigating a sub-menu
     private bool ApplyUpgrade(UpgradeType upgrade)
     {
         if (_player == null) return true;
 
         WeaponManager weapon = _player.GetNodeOrNull<WeaponManager>("WeaponManager");
 
-        // Sub-menu navigation checks
         if (upgrade == UpgradeType.MenuAddNewWeapon)
         {
             OpenSubMenuAddWeapon();
-            return false; // Keep menu open
+            return false;
         }
         if (upgrade == UpgradeType.MenuUpgradeWeapon)
         {
             OpenSubMenuUpgradeWeapon();
-            return false; // Keep menu open
+            return false;
         }
 
-        // Weapon Selection Logic (either Adding or Upgrading)
         if (upgrade == UpgradeType.WeaponAR || upgrade == UpgradeType.WeaponMine || 
             upgrade == UpgradeType.WeaponRocket || upgrade == UpgradeType.WeaponForceField || upgrade == UpgradeType.WeaponTesla)
         {
@@ -485,7 +704,6 @@ public partial class HUD : CanvasLayer
                 if (upgrade == UpgradeType.WeaponTesla) id = "Tesla";
                 if (upgrade == UpgradeType.WeaponForceField) id = "ForceField";
 
-                // Check if they already have it
                 bool hasWeapon = false;
                 foreach(var w in weapon.EquippedWeapons)
                 {
@@ -502,31 +720,31 @@ public partial class HUD : CanvasLayer
                 }
             }
             
-            MinimumLevel += 4; // Balanced: was +5 — more frequent weapon/upgrade decisions during 10 min
+            MinimumLevel += 4;
             return true; 
         }
 
-        // Minor upgrades
+        // In-run Level-up Stat Upgrades
         switch (upgrade)
         {
             case UpgradeType.Health:
-                _player.UpgradeHealth(30);  _statsUpgradeTimes[2] += 1; // Balanced: was +25
+                _player.UpgradeHealth(30);
                 break;
             case UpgradeType.Speed:
-                _player.UpgradeSpeed(25);  _statsUpgradeTimes[0] += 1; // Balanced: was +35 (too large per step)
+                _player.UpgradeSpeed(25);
                 break;
             case UpgradeType.Damage:
-                if (weapon != null) weapon.UpgradeDamage(); _statsUpgradeTimes[4] += 1;
+                if (weapon != null) weapon.UpgradeDamage();
                 break;
             case UpgradeType.FireRate:
-                if (weapon != null) weapon.UpgradeFireRate(); _statsUpgradeTimes[1] += 1;
+                if (weapon != null) weapon.UpgradeFireRate();
                 break;
             case UpgradeType.Projectile:
-                if (weapon != null) weapon.UpgradeProjectile(); _statsUpgradeTimes[3] += 1;
+                if (weapon != null) weapon.UpgradeProjectile();
                 break;
         }
 
-        return true; // Close menu after stat upgrade
+        return true;
     }
 
     public void CloseUpgradeMenu()
@@ -540,7 +758,6 @@ public partial class HUD : CanvasLayer
             _upgradeMenu.Visible = false;
         }
         GetTree().Paused = false; 
-        GD.Print("Upgrade menu closed, game resumed.");
     }
 
     public void OnLeftSelected()
@@ -558,15 +775,8 @@ public partial class HUD : CanvasLayer
         if (ApplyUpgrade(_rightUpgrade)) CloseUpgradeMenu();
     }
 
-    // --- UI Update Callbacks ---
-
     public void UpdateHealth(int currentHealth, int maxHealth)
     {
-        if (_healthBar.Value == 0)
-        {
-            
-        }
-        
         if (_healthBar == null) return;
         _healthBar.MaxValue = maxHealth;
         _healthBar.Value = currentHealth;
@@ -580,34 +790,59 @@ public partial class HUD : CanvasLayer
         _levelLabel.Text = $"LV. {currentLevel}"; 
     }
 
-    // NEW: Updates the Scrap UI
     public void UpdateScrap(int currentScraps)
     {
         if (_scrapLabel != null)
         {
             _scrapLabel.Text = $"Scrap: {currentScraps}";
-            
-            _localScrap = currentScraps;
+        }
+        _localScrap = currentScraps;
+        if (ScrapsPoints != null)
+        {
             ScrapsPoints.Text = $"Scrap: {currentScraps}";
+        }
+
+        // Balanced Scraps-to-Coin conversion: 1 coin per 2 scraps picked up
+        int diff = currentScraps - _lastProcessedScrap;
+        if (diff > 0)
+        {
+            _scrapCoinCounter += diff;
+            while (_scrapCoinCounter >= 2)
+            {
+                _scrapCoinCounter -= 2;
+                coins += 1;
+            }
+            _lastProcessedScrap = currentScraps;
         }
     }
 
-    public void TriggerSave()
+    public void SaveRunResults()
     {
+        if (_runSaved) return;
+        _runSaved = true;
+
+        // Check No Damage achievement on end of run if survived at least 3 minutes
+        if (_survivalTime >= 180.0f && _player != null && !_player.HasTakenDamageThisRun)
+        {
+            CheckAndUnlockAchievement(2, "No Damage", "Survived run without taking damage!");
+        }
+
         if (_saveManager != null)
         {
             _saveManager.SaveGame(_localScrap, coins);
-            GD.Print("Scraps saved!");
+            GD.Print($"[HUD] Run results saved: +{_localScrap} scraps, +{coins} coins.");
         }
     }
 
     public void TriggerLoad()
     {
         if (_saveManager != null)
-		{
+        {
             SaveData loadedData = _saveManager.LoadGame();
-		    _statsUpgradeTimes = loadedData._statsRepeatUpgrades.ToArray();
+            _statsUpgradeTimes = loadedData._statsRepeatUpgrades.ToArray();
+            _equippedPassive = loadedData._equippedPassive;
             _weaponPickInt = loadedData._weaponPick;
+            _isInfiniteMode = loadedData._infiniteMode;
         }
     }
 }

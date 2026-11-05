@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bt4od5jegmk8m" path="res://scripts/main_menu/Options.cs" id="3_ywaph"]
 [ext_resource type="Script" uid="uid://dcv5ldob4l2pv" path="res://scripts/main_menu/Exit.cs" id="4_spnib"]
 [ext_resource type="Script" uid="uid://bt6kplcn12kxs" path="res://scripts/main_menu/EncyclopediaMainMenu.cs" id="4_vny3a"]
+[ext_resource type="Script" path="res://scripts/main_menu/CharactersButton.cs" id="5_chars"]
 [ext_resource type="Texture2D" uid="uid://d0exy378nujcg" path="res://assets/main_menu/main_menu_background.jpg" id="6_ywaph"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="7_spnib"]
 [ext_resource type="Texture2D" uid="uid://bdn7owrorn5xq" path="res://assets/main_menu/template/Untitled165_20261022234636.png" id="8_bj3ug"]
@@ -306,6 +307,20 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
 text = "Play"
 script = ExtResource("2_e8klu")
+
+[node name="Characters" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1059653402]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.17007646, 0.9281621, 1.92523e-06, 1)
+theme_override_fonts/font = ExtResource("2_spnib")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vny3a")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_spnib")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ywaph")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1vqx8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_1vqx8")
+text = "Characters"
+script = ExtResource("5_chars")
 
 [node name="Encyclopedia" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1059653401]
 layout_mode = 2

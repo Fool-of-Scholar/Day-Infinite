@@ -3,43 +3,38 @@ using System;
 
 public partial class OpeningScreen : Control
 {
-
-	Timer timer;
-	[Export] public string nextPath = "res://scene/main_menu/another_main_menu.tscn";
+	private Timer _timer;
+	[Export] public string NextPath = "res://scene/main_menu/another_main_menu.tscn";
 	private bool _canClick = false;
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
-		timer = GetNode<Timer>("Timer");
-		timer.OneShot = true;
+		_timer = GetNode<Timer>("Timer");
+		_timer.OneShot = true;
+		_timer.Timeout += OnTimerTimeout;
+		_timer.Start();
 
-		timer.Timeout += OnTimerTimeout;
-		
-		timer.Start();
+		// Start background preloading of Area 1 and Area 2 immediately while opening animation plays
+		ScenePreloader.Instance?.StartPreloading();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _Input(InputEvent @event)
 	{
-	}
+		if (!_canClick) return;
 
-  public override void _Input(InputEvent @event)
-  {
-    if (_canClick && @event is InputEventMouseButton mouseEvent)
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
-			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
-			{
-				TransitionToNextScene();
-			}
+			TransitionToNextScene();
 		}
-		if (@event is InputEventKey keyEvent)
+		else if (@event is InputEventScreenTouch touch && touch.Pressed)
 		{
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.Space)
-			{
-				TransitionToNextScene();
-			}
+			TransitionToNextScene();
 		}
-  }
+		else if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+		{
+			TransitionToNextScene();
+		}
+	}
 
 	private void OnTimerTimeout()
 	{
@@ -48,6 +43,7 @@ public partial class OpeningScreen : Control
 
 	private void TransitionToNextScene()
 	{
-		GetTree().ChangeSceneToFile(nextPath);
+		_canClick = false;
+		GetTree().ChangeSceneToFile(NextPath);
 	}
 }

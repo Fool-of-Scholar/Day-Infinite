@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://character_chooser"]
+
+[ext_resource type="Script" path="res://scripts/main_menu/CharacterChooser.cs" id="1_cchsr"]
+[ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_cchsr"]
+[ext_resource type="Texture2D" uid="uid://04q6y480up6v" path="res://assets/main_menu/Template.jpg" id="3_cchsr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cchsr"]
+texture = ExtResource("3_cchsr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cchsr"]
+bg_color = Color(0.025, 0.025, 0.025, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 24
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 4
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.05, 0.05, 0.08, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.6, 1.0, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cchsr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("2_cchsr")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_name"]
+font = ExtResource("2_cchsr")
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_desc"]
+font = ExtResource("2_cchsr")
+font_size = 14
+
+[node name="CharacterChooser" type="Control" unique_id=1]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cchsr")
+
+[node name="BG" type="TextureRect" parent="." unique_id=2]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cchsr")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=3]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -260.0
+offset_right = 300.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=4]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=5]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=6]
+layout_mode = 2
+text = "Character Select"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=7]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="PrevBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=8]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_cchsr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cchsr")
+text = "<"
+
+[node name="Preview" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=9]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(160, 160)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NextBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=10]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_cchsr")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cchsr")
+text = ">"
+
+[node name="CharName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=11]
+layout_mode = 2
+text = "Null Beta"
+label_settings = SubResource("LabelSettings_name")
+horizontal_alignment = 1
+
+[node name="CharDesc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=12]
+layout_mode = 2
+size_flags_vertical = 3
+text = ""
+label_settings = SubResource("LabelSettings_desc")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=13]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 24
+
+[node name="BackBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=14]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cchsr")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_cchsr")
+custom_minimum_size = Vector2(100, 48)
+text = "Back"
+
+[node name="SelectBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=15]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cchsr")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_cchsr")
+custom_minimum_size = Vector2(140, 48)
+text = "Select [E]"
+

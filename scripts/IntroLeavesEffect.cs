@@ -27,16 +27,28 @@ public partial class IntroLeavesEffect : CanvasLayer
         {
             _isEnding = true;
 
-            // Stop generating new particles
+            // Stop generating new particles safely without tearing down GPU buffers
             if (_particles != null)
             {
                 _particles.Emitting = false;
             }
 
-            // Smoothly fade out the remaining leaves, then clean up
+            // Smoothly fade out the remaining leaves and disable processing
             Tween tween = CreateTween();
-            tween.TweenProperty(this, "modulate:a", 0f, FadeOutDuration);
-            tween.TweenCallback(Callable.From(QueueFree));
+            if (tween != null)
+            {
+                tween.TweenProperty(this, "modulate:a", 0f, FadeOutDuration);
+                tween.TweenCallback(Callable.From(() =>
+                {
+                    Visible = false;
+                    SetProcess(false);
+                }));
+            }
+            else
+            {
+                Visible = false;
+                SetProcess(false);
+            }
         }
     }
 }

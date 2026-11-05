@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://ds510m4m214gj" path="res://assets/main_menu/template/Untitled167_20261023000156.png" id="7_4ck44"]
 [ext_resource type="Texture2D" uid="uid://cpjkt68ogd51v" path="res://assets/main_menu/template/Untitled171_20261023000548.png" id="7_qw32v"]
 [ext_resource type="Script" uid="uid://b6tquikyqy4ni" path="res://scripts/main_menu/EnclopediaThings/Upgrades.cs" id="10_vt5nq"]
+[ext_resource type="Texture2D" uid="uid://bwlhrhbrohmji" path="res://assets/Environment/Area 1 Environment/StreetLight.png" id="ach_esc"]
+[ext_resource type="Texture2D" uid="uid://bk2leudpw3ief" path="res://assets/Environment/Area 2 Environment/Bush.png" id="ach_wild"]
+[ext_resource type="Texture2D" uid="uid://do271fx3ixqd" path="res://assets/forcefieldblue/preview.png" id="ach_nodmg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vivr"]
 texture = ExtResource("2_jirmc")
@@ -429,6 +432,34 @@ _data = {
 &"back": SubResource("Animation_hqqxl"),
 &"next": SubResource("Animation_4ck44")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_achieve_glow"]
+bg_color = Color(0.1, 0.15, 0.22, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1.0, 0.85, 0.25, 1.0)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(1.0, 0.8, 0.15, 0.7)
+shadow_size = 14
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_achieve_locked"]
+bg_color = Color(0.07, 0.08, 0.11, 0.7)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.32, 0.4, 0.5)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+anti_aliasing = true
 
 [node name="Encyclopedia" type="Control" unique_id=100114723]
 layout_mode = 3
@@ -924,6 +955,255 @@ label_settings = SubResource("LabelSettings_4ck44")
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Achievements" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=167561999]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme = SubResource("Theme_8vrlf")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hqqxl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements" unique_id=167562000]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/VBoxContainer" unique_id=167562001]
+layout_mode = 2
+theme_override_constants/separation = 60
+theme_override_styles/separator = SubResource("StyleBoxEmpty_1vivr")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/VBoxContainer" unique_id=167562002]
+layout_mode = 2
+text = "Achievements"
+label_settings = SubResource("LabelSettings_v5gy4")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements" unique_id=167562003]
+custom_minimum_size = Vector2(1100, 330)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, -0.11)
+offset_transform_visual_only = false
+theme = SubResource("Theme_qw32v")
+horizontal_scroll_mode = 0
+
+[node name="FirstSet" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer" unique_id=167562004]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 22
+
+[node name="Card0" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet" unique_id=167562005]
+custom_minimum_size = Vector2(250, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_achieve_locked")
+
+[node name="Margin" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0" unique_id=167562006]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0/Margin" unique_id=167562007]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0/Margin/VBox" unique_id=167562008]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("ach_esc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0/Margin/VBox" unique_id=167562009]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 24
+text = "Escaped"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0/Margin/VBox" unique_id=167562010]
+custom_minimum_size = Vector2(220, 52)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "Survive 10 minutes in Area 1."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card0/Margin/VBox" unique_id=167562011]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+text = "🔒 LOCKED"
+horizontal_alignment = 1
+
+[node name="Card1" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet" unique_id=167562012]
+custom_minimum_size = Vector2(250, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_achieve_locked")
+
+[node name="Margin" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1" unique_id=167562013]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1/Margin" unique_id=167562014]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1/Margin/VBox" unique_id=167562015]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("ach_wild")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1/Margin/VBox" unique_id=167562016]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 24
+text = "Lost in Wilderness"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1/Margin/VBox" unique_id=167562017]
+custom_minimum_size = Vector2(220, 52)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "Survive 20 minutes in Area 2."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card1/Margin/VBox" unique_id=167562018]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+text = "🔒 LOCKED"
+horizontal_alignment = 1
+
+[node name="Card2" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet" unique_id=167562019]
+custom_minimum_size = Vector2(250, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_achieve_locked")
+
+[node name="Margin" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2" unique_id=167562020]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2/Margin" unique_id=167562021]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2/Margin/VBox" unique_id=167562022]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("ach_nodmg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2/Margin/VBox" unique_id=167562023]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 24
+text = "No Damage"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2/Margin/VBox" unique_id=167562024]
+custom_minimum_size = Vector2(220, 52)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "Complete a run without taking damage."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card2/Margin/VBox" unique_id=167562025]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+text = "🔒 LOCKED"
+horizontal_alignment = 1
+
+[node name="Card3" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet" unique_id=167562026]
+custom_minimum_size = Vector2(250, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_achieve_locked")
+
+[node name="Margin" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3" unique_id=167562027]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3/Margin" unique_id=167562028]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3/Margin/VBox" unique_id=167562029]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_taakq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3/Margin/VBox" unique_id=167562030]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 24
+text = "Mania"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3/Margin/VBox" unique_id=167562031]
+custom_minimum_size = Vector2(220, 52)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "Equip 4 weapons in a single run."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Achievements/ScrollContainer/FirstSet/Card3/Margin/VBox" unique_id=167562032]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+text = "🔒 LOCKED"
+horizontal_alignment = 1
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=999907881]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
@@ -931,7 +1211,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(0, 0.1)
-theme_override_constants/separation = 128
+theme_override_constants/separation = 36
 
 [node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=703577834]
 layout_mode = 2
@@ -984,6 +1264,19 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
 text = "Lore"
+
+[node name="Achievements" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2104966299]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.19596916, 0.7199732, 1.347661e-06, 1)
+theme_override_fonts/font = ExtResource("2_0giq3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_qw32v")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jirmc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7748y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2f10u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hqqxl")
+text = "Achievements"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1197867362]
 libraries/ = SubResource("AnimationLibrary_4ck44")

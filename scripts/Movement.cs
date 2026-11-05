@@ -9,6 +9,8 @@ public partial class Movement : CharacterBody2D
     [Signal] public delegate void LeveledUpEventHandler();
     [Signal] public delegate void ScrapChangedEventHandler(int currentScraps);
     [Signal] public delegate void PlayerDiedEventHandler();
+    [Signal] public delegate void DashCooldownChangedEventHandler(float remaining, float total);
+    [Signal] public delegate void DashedEventHandler();
 
     // --- Character Health ---
     [Export] public int MaxHealth { get; set; } = 150;   // Balanced: more buffer for early mistakes
@@ -40,6 +42,23 @@ public partial class Movement : CharacterBody2D
     // --- Movement Settings ---
     [Export] public int Speed { get; set; } = 120;   // Balanced: was 60, survivor genre needs responsive movement
 
+    // --- Dash Settings ---
+    [ExportGroup("Dash Settings")]
+    [Export] public float DashSpeed { get; set; } = 360f;
+    [Export] public float DashDuration { get; set; } = 0.22f;
+    [Export] public float DashCooldown { get; set; } = 5.0f; // Balanced: 5.0s base cooldown
+    [Export] private AudioStreamPlayer sfxDash;
+
+    private bool _isDashing = false;
+    private float _dashTimer = 0.0f;
+    private float _dashCooldownTimer = 0.0f;
+    private Vector2 _dashDirection = Vector2.Down;
+
+    public bool IsDashing => _isDashing;
+    public float DashCooldownRemaining => _dashCooldownTimer;
+    public float DashCooldownTotal => DashCooldown;
+    public bool HasTakenDamageThisRun { get; private set; } = false;
+
     // --- Progression & Leveling Fields ---
     public int CurrentLevel { get; private set; } = 1;
     public int CurrentXp { get; private set; } = 0;
@@ -68,6 +87,7 @@ public partial class Movement : CharacterBody2D
         _walkSprite = GetNode<Sprite2D>("Walk");
         sfxwalk = GetNodeOrNull<AudioStreamPlayer>("sfxwalk");
         sfxKeyHold = GetNodeOrNull<AudioStreamPlayer>("sfxKeyHold");
+        sfxDash = GetNodeOrNull<AudioStreamPlayer>("sfxDash");
 
         // Cache pickup detection areas & hurtbox
         _magnetArea = GetNode<Area2D>("MagnetArea");
@@ -81,10 +101,49 @@ public partial class Movement : CharacterBody2D
         _hurtbox.AreaEntered += OnHurtboxEntered;
         _invulnerabilityTimer.Timeout += OnInvulnerabilityEnded;
 
+        // --- Character Selection ---
+        ApplySelectedCharacter();
+
         // Broadcast the Initial State
         EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
         EmitSignal(SignalName.XpChanged, CurrentXp, XpToNextLevel, CurrentLevel);
         EmitSignal(SignalName.ScrapChanged, CurrentScraps);
+    }
+
+    private void ApplySelectedCharacter()
+    {
+        SaveManager sm = GetNodeOrNull<SaveManager>("/root/SaveManager");
+        int charIdx = sm?.LoadGame()?._selectedCharacter ?? 0;
+
+        if (charIdx == 1) // DMO
+        {
+            // Swap to DMO textures
+            var dmoIdle = GD.Load<Texture2D>("res://assets/new/south-east idle (1).png");
+            var dmoWalk = GD.Load<Texture2D>("res://assets/new/Sprinting SS.png");
+
+            if (dmoIdle != null)
+            {
+                _idleSprite.Texture = dmoIdle;
+                _idleSprite.Hframes = 4;
+                _idleSprite.Vframes = 1;
+                _idleSprite.Frame = 0;
+            }
+            if (dmoWalk != null)
+            {
+                _walkSprite.Texture = dmoWalk;
+                _walkSprite.Hframes = 8;
+                _walkSprite.Vframes = 1;
+                _walkSprite.Frame = 0;
+            }
+
+            // Scale DMO down so it matches Null Beta's visual size (~0.5x since 64px vs ~32px)
+            Scale = new Vector2(0.5f, 0.5f);
+            GD.Print("[Movement] DMO character applied — scaled to 0.5x");
+        }
+        else
+        {
+            GD.Print("[Movement] Null Beta character (default)");
+        }
     }
 
     private void OnHurtboxEntered(Area2D area)
@@ -99,6 +158,7 @@ public partial class Movement : CharacterBody2D
     {
         if (_isInvulnerable || _isDead) return;
 
+        HasTakenDamageThisRun = true;
         CurrentHealth -= damage;
         EmitSignal(SignalName.HealthChanged, CurrentHealth, MaxHealth);
 
@@ -146,14 +206,50 @@ public partial class Movement : CharacterBody2D
             Node2D vfx = DeathVfxScene.Instantiate<Node2D>();
             vfx.GlobalPosition = GlobalPosition;
             GetTree().CurrentScene.AddChild(vfx);
+            // Auto-free after explosion animation duration
+            GetTree().CreateTimer(1.5f).Timeout += () => { if (IsInstanceValid(vfx)) vfx.QueueFree(); };
         }
 
-        // --- 3. Signal HUD to show the death screen ---
-        EmitSignal(SignalName.PlayerDied);
+        // --- 3. Wait for dramatic death explosion to fully play in view ---
+        await ToSignal(GetTree().CreateTimer(0.85f), SceneTreeTimer.SignalName.Timeout);
 
-        // --- 4. Wait for death animation then pause ---
-        await ToSignal(GetTree().CreateTimer(0.8f), SceneTreeTimer.SignalName.Timeout);
+        // --- 4. Signal HUD to show the death screen & pause ---
+        EmitSignal(SignalName.PlayerDied);
         GetTree().Paused = true;
+    }
+
+    public bool TriggerDash()
+    {
+        if (_isDashing || _dashCooldownTimer > 0f || _isDead) return false;
+
+        Vector2 inputVector = Input.GetVector("left", "right", "upward", "downward");
+        if (inputVector.Length() > 0.15f)
+        {
+            _dashDirection = inputVector.Normalized();
+            _lastFacingDirection = _dashDirection;
+        }
+        else if (_lastFacingDirection.LengthSquared() > 0.01f)
+        {
+            _dashDirection = _lastFacingDirection.Normalized();
+        }
+        else
+        {
+            _dashDirection = Vector2.Down;
+        }
+
+        _isDashing = true;
+        _dashTimer = DashDuration;
+        _dashCooldownTimer = DashCooldown;
+        _isInvulnerable = true;
+
+        if (sfxDash != null && !sfxDash.Playing)
+        {
+            sfxDash.Play();
+        }
+
+        EmitSignal(SignalName.Dashed);
+        EmitSignal(SignalName.DashCooldownChanged, _dashCooldownTimer, DashCooldown);
+        return true;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -168,6 +264,40 @@ public partial class Movement : CharacterBody2D
                     TakeDamage(10);
                 } 
             }
+        }
+
+        // --- Dash Cooldown Tracking ---
+        if (_dashCooldownTimer > 0f)
+        {
+            _dashCooldownTimer -= (float)delta;
+            if (_dashCooldownTimer < 0f) _dashCooldownTimer = 0f;
+            EmitSignal(SignalName.DashCooldownChanged, _dashCooldownTimer, DashCooldown);
+        }
+
+        // --- Dash Trigger Input ---
+        if (Input.IsActionJustPressed("dash") || Input.IsKeyPressed(Key.Space))
+        {
+            TriggerDash();
+        }
+
+        // --- Active Dash Processing ---
+        if (_isDashing)
+        {
+            _dashTimer -= (float)delta;
+            Velocity = _dashDirection * DashSpeed;
+
+            if (_dashTimer <= 0f)
+            {
+                _isDashing = false;
+                if (_invulnerabilityTimer.IsStopped())
+                {
+                    _isInvulnerable = false;
+                }
+            }
+
+            _UpdateAnimation();
+            MoveAndSlide();
+            return;
         }
 
         // --- 1. Movement Input & Footsteps ---
@@ -230,14 +360,7 @@ public partial class Movement : CharacterBody2D
 
     private void _UpdateAnimation()
     {
-        bool isMoving = Velocity.LengthSquared() > 1.0f;
-        string animBase = isMoving ? "walk" : "idle";
-
-        // 1. Toggle active sprite visibility
-        _walkSprite.Visible = isMoving;
-        _idleSprite.Visible = !isMoving;
-
-        // 2. Determine facing suffix with directional hysteresis
+        // 1. Determine facing suffix with directional hysteresis
         // Hysteresis prevents diagonal joystick wobble from flipping between side and up/down every frame
         float absX = MathF.Abs(_lastFacingDirection.X);
         float absY = MathF.Abs(_lastFacingDirection.Y);
@@ -269,11 +392,33 @@ public partial class Movement : CharacterBody2D
             flipH = _lastFacingDirection.X < 0;
         }
 
-        // 3. Apply flip to both sprites
+        // Apply flip to both sprites
         _idleSprite.FlipH = flipH;
         _walkSprite.FlipH = flipH;
 
-        // 4. Play matching animation smoothly without restarting if already playing
+        // 2. Dash takes priority
+        if (_isDashing)
+        {
+            string dashAnim = "dash_" + _currentFacingSuffix;
+            if (_animationPlayer.HasAnimation(dashAnim))
+            {
+                if (_animationPlayer.CurrentAnimation != dashAnim)
+                {
+                    _animationPlayer.Play(dashAnim);
+                }
+            }
+            return;
+        }
+
+        // 3. Normal Walk vs Idle
+        bool isMoving = Velocity.LengthSquared() > 1.0f;
+        string animBase = isMoving ? "walk" : "idle";
+
+        // Toggle active sprite visibility
+        _walkSprite.Visible = isMoving;
+        _idleSprite.Visible = !isMoving;
+
+        // Play matching animation smoothly without restarting if already playing
         string animName = animBase + "_" + _currentFacingSuffix;
         if (_animationPlayer.HasAnimation(animName))
         {
@@ -389,6 +534,15 @@ public partial class Movement : CharacterBody2D
         GD.Print($"Upgrade Health -- {MaxHealth} --");
     }
 
+    public void ApplyDashUpgrade(int level)
+    {
+        if (level <= 0) return;
+        // Level 1: 4.4s, Level 2: 3.8s, Level 3: 3.2s, Level 4: 2.6s, Level 5: 2.0s
+        DashCooldown = Mathf.Max(2.0f, 5.0f - (level * 0.6f));
+        DashSpeed = 360f + (level * 25f);
+        GD.Print($"[Passive] Dash Upgraded to Level {level}: Cooldown {DashCooldown:F1}s, Speed {DashSpeed}");
+    }
+
     public void PlayDeathVfxOnly()
     {
     // 1. Stop movement and input
@@ -405,6 +559,7 @@ public partial class Movement : CharacterBody2D
             Node2D vfx = DeathVfxScene.Instantiate<Node2D>();
             vfx.GlobalPosition = GlobalPosition;
             GetTree().CurrentScene.AddChild(vfx);
+            GetTree().CreateTimer(1.5f).Timeout += () => { if (IsInstanceValid(vfx)) vfx.QueueFree(); };
         }
     }
 

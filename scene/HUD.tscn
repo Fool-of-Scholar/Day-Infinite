@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdqew6sn3aieb" path="res://scripts/HUD.cs" id="1_mmka4"]
 [ext_resource type="Texture2D" uid="uid://c52g6ea4pq6eu" path="res://assets/Item/Blue Metal Scrap.png" id="2_5nt5s"]
+[ext_resource type="PackedScene" uid="uid://djoy001stick" path="res://scene/virtual_joystick.tscn" id="3_joy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvcfn"]
 bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
@@ -45,6 +46,71 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
+bg_color = Color(0.1, 0.12, 0.16, 0.65)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.75, 0.95, 0.7)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_pressed"]
+bg_color = Color(0.2, 0.45, 0.7, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.9, 1.0, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dash_normal"]
+bg_color = Color(0.1, 0.14, 0.2, 0.65)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35, 0.75, 0.95, 0.75)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dash_pressed"]
+bg_color = Color(0.2, 0.55, 0.85, 0.85)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.95, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dash_disabled"]
+bg_color = Color(0.08, 0.1, 0.12, 0.4)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.4, 0.45, 0.4)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+anti_aliasing = true
 
 [node name="Hud" type="CanvasLayer" unique_id=238226186]
 process_mode = 3
@@ -124,3 +190,64 @@ offset_right = -1.0
 offset_bottom = 22.0
 texture = ExtResource("2_5nt5s")
 expand_mode = 1
+
+[node name="PauseButton" type="Button" parent="Control" unique_id=987112001]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 14.0
+offset_right = -24.0
+offset_bottom = 62.0
+grow_horizontal = 0
+mouse_filter = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_colors/font_pressed_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.4, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_pause_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pause_pressed")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pause_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pause_normal")
+text = "| |"
+
+[node name="VirtualJoystick" parent="Control" unique_id=987112002 instance=ExtResource("3_joy")]
+layout_mode = 1
+anchors_preset = 9
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DashButton" type="Button" parent="Control" unique_id=987112003]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -125.0
+offset_right = -45.0
+offset_bottom = -45.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 0
+action_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_colors/font_pressed_color = Color(0.85, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_dash_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dash_pressed")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dash_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_dash_disabled")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dash_normal")
+text = "DASH"

@@ -127,6 +127,12 @@ text = "Score: ??"
 label_settings = SubResource("LabelSettings_1vivr")
 horizontal_alignment = 1
 
+[node name="Time" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1617732166]
+layout_mode = 2
+text = "Time Survived: 00:00"
+label_settings = SubResource("LabelSettings_1vivr")
+horizontal_alignment = 1
+
 [node name="Scraps" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1297251126]
 layout_mode = 2
 text = "Scraps: ??"
