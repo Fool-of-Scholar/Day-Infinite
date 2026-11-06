@@ -255,7 +255,7 @@ public partial class HUD : CanvasLayer
         score = (int)_survivalTime * 10 + _localScrap * 5;
 
         // Check Achievements
-        CheckAchievements();
+        // CheckAchievements();
 
         // Dash Button Cooldown Visuals
         if (_dashButton != null && _player != null)
@@ -283,44 +283,44 @@ public partial class HUD : CanvasLayer
         }
     }
 
-    private void CheckAchievements()
-    {
-        // 1. Mania: Equip 4 weapons
-        if (_wCollect != null && _wCollect.EquippedWeapons != null && _wCollect.EquippedWeapons.Count >= 4)
-        {
-            CheckAndUnlockAchievement(3, "Mania", "Equipped 4 weapons in one run!");
-        }
+    // private void CheckAchievements()
+    // {
+    //     // 1. Mania: Equip 4 weapons
+    //     if (_wCollect != null && _wCollect.EquippedWeapons != null && _wCollect.EquippedWeapons.Count >= 4)
+    //     {
+    //         CheckAndUnlockAchievement(3, "Mania", "Equipped 4 weapons in one run!");
+    //     }
 
-        // 2. Area Survival & No Damage Achievements
-        string scenePath = GetTree().CurrentScene?.SceneFilePath ?? "";
-        bool isArea2 = scenePath.Contains("area_2.tscn");
-        bool isArea1 = !isArea2;
+    //     // 2. Area Survival & No Damage Achievements
+    //     string scenePath = GetTree().CurrentScene?.SceneFilePath ?? "";
+    //     bool isArea2 = scenePath.Contains("area_2.tscn");
+    //     bool isArea1 = !isArea2;
 
-        if (isArea1 && _survivalTime >= 600.0f) // 10 minutes in Area 1
-        {
-            CheckAndUnlockAchievement(0, "Escaped", "Survived 10 minutes in Area 1!");
-            if (_player != null && !_player.HasTakenDamageThisRun)
-            {
-                CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
-            }
-        }
-        else if (isArea2 && _survivalTime >= 1200.0f) // 20 minutes in Area 2
-        {
-            CheckAndUnlockAchievement(1, "Lost in Wilderness", "Survived 20 minutes in Area 2!");
-            if (_player != null && !_player.HasTakenDamageThisRun)
-            {
-                CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
-            }
-        }
-    }
+    //     if (isArea1 && _survivalTime >= 600.0f) // 10 minutes in Area 1
+    //     {
+    //         CheckAndUnlockAchievement(0, "Escaped", "Survived 10 minutes in Area 1!");
+    //         if (_player != null && !_player.HasTakenDamageThisRun)
+    //         {
+    //             CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
+    //         }
+    //     }
+    //     else if (isArea2 && _survivalTime >= 1200.0f) // 20 minutes in Area 2
+    //     {
+    //         CheckAndUnlockAchievement(1, "Lost in Wilderness", "Survived 20 minutes in Area 2!");
+    //         if (_player != null && !_player.HasTakenDamageThisRun)
+    //         {
+    //             CheckAndUnlockAchievement(2, "No Damage", "Completed run without taking damage!");
+    //         }
+    //     }
+    // }
 
-    public void CheckAndUnlockAchievement(int index, string title, string description)
-    {
-        if (_saveManager != null && _saveManager.UnlockAchievement(index))
-        {
-            ShowAchievementToast(title, description);
-        }
-    }
+    // public void CheckAndUnlockAchievement(int index, string title, string description)
+    // {
+    //     if (_saveManager != null && _saveManager.UnlockAchievement(index))
+    //     {
+    //         ShowAchievementToast(title, description);
+    //     }
+    // }
 
     private void CreateAchievementToastNode()
     {
@@ -821,11 +821,11 @@ public partial class HUD : CanvasLayer
         if (_runSaved) return;
         _runSaved = true;
 
-        // Check No Damage achievement on end of run if survived at least 3 minutes
-        if (_survivalTime >= 180.0f && _player != null && !_player.HasTakenDamageThisRun)
-        {
-            CheckAndUnlockAchievement(2, "No Damage", "Survived run without taking damage!");
-        }
+        // // Check No Damage achievement on end of run if survived at least 3 minutes
+        // if (_survivalTime >= 180.0f && _player != null && !_player.HasTakenDamageThisRun)
+        // {
+        //     CheckAndUnlockAchievement(2, "No Damage", "Survived run without taking damage!");
+        // }
 
         if (_saveManager != null)
         {

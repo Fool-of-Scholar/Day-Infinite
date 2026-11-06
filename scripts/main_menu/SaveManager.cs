@@ -84,26 +84,26 @@ public partial class SaveManager : Node
 		GD.Print($"[SaveManager] Infinite mode saved: {enabled}");
 	}
 
-	public bool UnlockAchievement(int index)
-	{
-		if (index < 0 || index >= 4) return false;
-		SaveData currentData = LoadGame();
-		if (currentData._achievements != null && currentData._achievements.Count > index && currentData._achievements[index])
-		{
-			return false; // Already unlocked
-		}
+	// public bool UnlockAchievement(int index)
+	// {
+	// 	if (index < 0 || index >= 4) return false;
+	// 	SaveData currentData = LoadGame();
+	// 	if (currentData._achievements != null && currentData._achievements.Count > index && currentData._achievements[index])
+	// 	{
+	// 		return false; // Already unlocked
+	// 	}
 
-		while (currentData._achievements == null || currentData._achievements.Count < 4)
-		{
-			if (currentData._achievements == null) currentData._achievements = new Godot.Collections.Array<bool>();
-			currentData._achievements.Add(false);
-		}
+	// 	while (currentData._achievements == null || currentData._achievements.Count < 4)
+	// 	{
+	// 		if (currentData._achievements == null) currentData._achievements = new Godot.Collections.Array<bool>();
+	// 		currentData._achievements.Add(false);
+	// 	}
 
-		currentData._achievements[index] = true;
-		ResourceSaver.Save(currentData, SavePath);
-		GD.Print($"[SaveManager] Achievement #{index} unlocked and saved!");
-		return true;
-	}
+	// 	currentData._achievements[index] = true;
+	// 	ResourceSaver.Save(currentData, SavePath);
+	// 	GD.Print($"[SaveManager] Achievement #{index} unlocked and saved!");
+	// 	return true;
+	// }
 
 	public SaveData LoadGame()
 	{
