@@ -4,7 +4,12 @@ using System.Linq;
 
 public partial class WeaponChooser : Control
 {
+<<<<<<< Updated upstream
 	Button[] _statsButtons;
+=======
+	private int _currentStatsIndex = 0;
+	private int downButton = 0;
+>>>>>>> Stashed changes
 	private string _sceneString;
 	private int[] _upgradeTimesStats = new int[]
 	{
@@ -158,18 +163,117 @@ public partial class WeaponChooser : Control
 		TriggerLoad();
 	}
 
+<<<<<<< Updated upstream
   public override void _Input(InputEvent @event)
   {
     if (@event is InputEventKey keyEvent)
 		{
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.D || keyEvent.Keycode == Key.Right)
+=======
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("left"))
+		{
+			if(_isStatsPanelOpen == true)
+>>>>>>> Stashed changes
 			{
-				NextWeaponFunc();
+				_currentStatsIndex--;
+				if (_currentStatsIndex <= 5 && _currentStatsIndex >= 0)
+				{
+					ToggleUpdateStats(_currentStatsIndex);
+				}
 			}
+<<<<<<< Updated upstream
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.A || keyEvent.Keycode == Key.Left)
+=======
+			else
+>>>>>>> Stashed changes
 			{
-				PrevWeaponFunc();
+			PrevWeaponFunc();
 			}
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("right"))
+		{
+			
+			if(_isStatsPanelOpen == true)
+			{
+				_currentStatsIndex++;
+				if (_currentStatsIndex <= 5 && _currentStatsIndex >= 0)
+				{
+					ToggleUpdateStats(_currentStatsIndex);
+				}
+			}
+			else
+			{
+			NextWeaponFunc();
+			}
+			GetViewport().SetInputAsHandled();
+		}
+			
+		else if (@event.IsActionPressed("downward"))
+		{
+			if (downButton == 0)
+			{
+				_playerStats.GrabFocus();
+				downButton = 1;
+			}
+			else if (downButton == 1)
+			{
+				_proceedArea.GrabFocus();
+				downButton = 2;
+			}
+			else if (downButton == 2)
+			{
+				_back.GrabFocus();
+				downButton = 0;
+			}
+			GetViewport().SetInputAsHandled();
+;		}
+		else if (@event.IsActionPressed("upward"))
+		{
+			if (downButton == 0)
+			{
+				_back.GrabFocus();
+				downButton = 2;
+			}
+			else if (downButton == 1)
+			{
+				_playerStats.GrabFocus();
+				downButton = 0;
+				GD.Print("Upward pressed, downButton set to 1");
+			}
+			else
+			{
+				_proceedArea.GrabFocus();
+				downButton = 1;
+				GD.Print("Upward pressed, downButton reset to 0");
+			}
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("enter"))
+		{
+			switch(downButton)
+			{	
+				default:
+					BackHome();
+					break;
+				case 0:
+					ToggleStatsPanel();
+					break;
+				case 1:
+					ProceedAnim();
+					break;
+			}
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("back"))
+		{
+			if (_isStatsPanelOpen)
+			{
+				ToggleStatsPanel();
+			}
+			GetViewport().SetInputAsHandled();
 		}
   }
 
@@ -359,6 +463,7 @@ public partial class WeaponChooser : Control
 	}
 
 	private void ChangeSceneSafe(string path)
+<<<<<<< Updated upstream
     {
         var _scene = GD.Load<PackedScene>(path);
         if (_scene != null)
@@ -370,4 +475,46 @@ public partial class WeaponChooser : Control
             GD.PrintErr($"Failed to load: {path}");
         }
     }
+=======
+	{
+		var scene = GD.Load<PackedScene>(path);
+		if (scene != null)
+		{
+			GetTree().ChangeSceneToPacked(scene);
+		}
+		else
+		{
+			GD.PrintErr($"Failed to load: {path}");
+		}
+	}
+	private void ToggleUpdateStats(int index)
+	{
+		switch (index)
+		{
+			default:
+				ToggleStatsPanel();
+				break;
+			case 0:
+				_passiveButtons[index].GrabFocus();
+				break;
+			case 1:
+				_passiveButtons[index].GrabFocus();
+				break;
+			case 2:
+				_passiveButtons[index].GrabFocus();
+				break;
+			case 3:
+				_passiveButtons[index].GrabFocus();
+				break;
+			case 4:
+				_passiveButtons[index].GrabFocus();
+				break;
+			case 5:
+				_passiveButtons[index].GrabFocus();
+				break;
+
+				
+		}
+	}
+>>>>>>> Stashed changes
 }

@@ -232,6 +232,7 @@ theme_override_constants/separation = 46
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(-1, 1.065)
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_bb7kh")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gfavx")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7jx3p")
@@ -352,6 +353,7 @@ horizontal_alignment = 1
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_scale = Vector2(1, 1.065)
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_bb7kh")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gfavx")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7jx3p")
@@ -521,7 +523,18 @@ theme_override_constants/margin_bottom = 36
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerPassive/PanelContainer/MarginContainer" unique_id=912740417]
 layout_mode = 2
 
+<<<<<<< Updated upstream
 [node name="Button" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=457239685]
+=======
+[node name="OptionsGrid" type="GridContainer" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=912740418]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="BtnSpeed" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/OptionsGrid" unique_id=457239685]
+custom_minimum_size = Vector2(160, 60)
+>>>>>>> Stashed changes
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dcubs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
@@ -567,6 +580,84 @@ theme_override_fonts/font = ExtResource("2_dcubs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
 theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+<<<<<<< Updated upstream
 text = "Upgrade
 Damage
 3000 Coins"
+=======
+text = "Damage
+0/5"
+
+[node name="BtnDash" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/OptionsGrid" unique_id=1286030106]
+custom_minimum_size = Vector2(160, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Dash
+0/5"
+
+[node name="RightInfo" type="VBoxContainer" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer" unique_id=912740419]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="PassiveTitle" type="Label" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo" unique_id=912740420]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 26
+text = "Speed Boost"
+
+[node name="PassiveLevel" type="Label" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo" unique_id=912740421]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 20
+text = "Level: 0/5 [NOT EQUIPPED]"
+
+[node name="PassiveDesc" type="Label" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo" unique_id=912740422]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 18
+text = "Increases player movement speed."
+autowrap_mode = 3
+
+[node name="ActionButtons" type="HBoxContainer" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo" unique_id=912740423]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="EquipButton" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo/ActionButtons" unique_id=912740424]
+custom_minimum_size = Vector2(160, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Equip [E]"
+
+[node name="UpgradeButton" type="Button" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo/ActionButtons" unique_id=912740425]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ey8l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a60st")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7lji3")
+text = "Upgrade (40 Coins)"
+
+[node name="Notice" type="Label" parent="PlayerPassive/PanelContainer/MarginContainer/HBoxContainer/RightInfo" unique_id=912740426]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_fonts/font = ExtResource("2_dcubs")
+theme_override_font_sizes/font_size = 14
+text = "* You can only equip 1 upgrade to use during gameplay."
+>>>>>>> Stashed changes

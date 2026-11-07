@@ -17,7 +17,7 @@ public partial class Play : Button
 		this.Pressed += openWorldAnim;
 	}
 
-	private void openWorldAnim()
+	public void openWorldAnim()
 	{
 		_buttonSounds.Play();
 		_animPlayer.Play("Play");

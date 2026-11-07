@@ -16,7 +16,7 @@ public partial class Exit : Button
 	{
 	}
 
-	private void exitGame()
+	public void exitGame()
 	{
 		_buttonSounds.Play();
 

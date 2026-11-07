@@ -3,6 +3,7 @@ using System;
 
 public partial class AreaChooser : Control
 {
+	private int downButton = 0;
 	private string _sceneString;
 	Label _scrapsLabel;
 	Label _coinsLabel;
@@ -106,6 +107,64 @@ public partial class AreaChooser : Control
 		_prevTextureArea.Texture = GD.Load<Texture2D>(_areaChooser[count - 1]);
 		TextureChanged();
 		TriggerLoad();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("left"))
+		{
+			PrevArea();
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("right"))
+		{
+			
+			NextArea();
+			GetViewport().SetInputAsHandled();
+		}
+			
+		else if (@event.IsActionPressed("downward"))
+		{
+			if (downButton == 0)
+			{
+				_backWeapons.GrabFocus();
+				downButton = 1;
+			}
+			else if (downButton == 1)
+			{
+				_startGame.GrabFocus();
+				downButton = 2;
+			}
+			GetViewport().SetInputAsHandled();
+;		}
+		else if (@event.IsActionPressed("upward"))
+		{
+			if (downButton == 0)
+			{
+				_backWeapons.GrabFocus();
+				downButton = 2;
+			}
+			else if (downButton == 1)
+			{
+				_startGame.GrabFocus();
+				downButton = 0;
+				GD.Print("Upward pressed, downButton set to 1");
+			}
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("enter"))
+		{
+			switch(downButton)
+			{	
+				default:
+					StartGame();
+					break;
+				case 0:
+					BackToWeapons();
+					break;
+			}
+			GetViewport().SetInputAsHandled();
+		}
 	}
 
 

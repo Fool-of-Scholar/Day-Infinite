@@ -60,7 +60,7 @@ public partial class Options : Button
     base.Dispose(disposing);
   }
 
-	private void openOptions()
+	public void openOptions()
 	{
 		_buttonSounds.Play();
 

@@ -15,7 +15,7 @@ public partial class EncyclopediaMainMenu : Button
 		this.Pressed += EnterAnim;
 	}
 
-	private void EnterAnim()
+	public void EnterAnim()
 	{
 		_buttonSounds.Play();
 

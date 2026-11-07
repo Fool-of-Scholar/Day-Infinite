@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cow6rt0afqsob"]
 
+[ext_resource type="Script" uid="uid://hs5sghtgpude" path="res://scripts/main_menu/EnclopediaThings/UpgradeMenu.cs" id="1_1nvce"]
 [ext_resource type="Texture2D" uid="uid://ca1ogvf7l41k0" path="res://assets/main_menu/template/Untitled168_20261022235715.png" id="1_wdtbs"]
 [ext_resource type="FontFile" uid="uid://csnu580oiw2vm" path="res://assets/main_menu/fonts/8-bit-limit/8bitlim.ttf" id="2_pbi36"]
 [ext_resource type="Texture2D" uid="uid://bxps7kxfb8qnv" path="res://assets/main_menu/template/Untitled169_20261023000041.png" id="2_s5pla"]
@@ -53,6 +54,7 @@ offset_right = 424.0
 offset_bottom = 211.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1nvce")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1410433093]
 layout_mode = 1
